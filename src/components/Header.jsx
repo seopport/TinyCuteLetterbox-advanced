@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import headerImg from 'assets/header_background.jpeg'
 import headerTitle from 'assets/header_title.png'
-import "assets/fonts/index.css"
+import "shared/index.css"
 
 const HeaderImage = styled.div`
     width: 710px;
@@ -17,7 +17,7 @@ const TopOfImage = styled.div`
     width: 710px;
     height: 260px;
     position: absolute;
-    background-color: #557b91;
+    background-color: #65788A;
     top: 0;
     opacity: 0.73;
 `
@@ -47,10 +47,9 @@ function Header() {
         <div>
             <HeaderImage>
                 <TopOfImage />
-                <Title src={headerTitle} alt='sdfsd'></Title>
+                <Title src={headerTitle} alt='Title-image'></Title>
                 <LetterBoxSpan>LetterBox</LetterBoxSpan>
             </HeaderImage>
-            Header
         </div>
     )
 }

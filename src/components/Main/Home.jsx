@@ -4,7 +4,6 @@ import LetterSendingBox from "components/Main/LetterSendingBox";
 import LetterBoxSelector from "components/Main/LetterBoxSelecter";
 import LetterSummaryView from "components/Main/LetterSummaryView";
 import EmptyLetterBoxMessage from "components/Main/EmptyLetterBoxMessage";
-import ResetStyles from 'components/ResetStyles';
 
 function Home() {
     return <Layout >
