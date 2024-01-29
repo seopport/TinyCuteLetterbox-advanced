@@ -19,6 +19,7 @@ function LetterSendingBox() {
         align-items: center;
         font-family: "NPSfont-regular";
         position: relative;
+        margin-bottom: 20px;
 
     `
     const SendLetterText = styled.span`
@@ -62,6 +63,7 @@ function LetterSendingBox() {
         border-radius: 5px;
         line-height: 100%;
         color: white;
+        font-family: "UhBeeSe_hyun";
         &:hover {
             cursor: pointer;
         }
