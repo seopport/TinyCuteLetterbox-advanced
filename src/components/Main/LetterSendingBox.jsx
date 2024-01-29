@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import color from 'shared/color'
 import "shared/index.css"
+import meltingChiikawa from "assets/melting_chiikawa.png"
 
 
 function LetterSendingBox() {
@@ -17,6 +18,7 @@ function LetterSendingBox() {
         flex-direction: column;
         align-items: center;
         font-family: "NPSfont-regular";
+        position: relative;
 
     `
     const SendLetterText = styled.span`
@@ -69,10 +71,19 @@ function LetterSendingBox() {
         }
     `
 
+    const ChiikawaOnBox = styled.img`
+        width: 73px;
+        height: 48px;
+        position: absolute;
+        top: -37px;
+        right: 20px;
+    `
+
     return (
         <>
             <SendLetterText>편지 보내기</SendLetterText>
             <StLetterSendingBox>
+                <ChiikawaOnBox src={meltingChiikawa}></ChiikawaOnBox>
                 <div style={{ alignSelf: "flex-start", position: "relative" }}>
                     <span style={{ position: "absolute", bottom: "3px" }}>Dear.</span> <SelectBox>
                         <option>치이카와</option>
