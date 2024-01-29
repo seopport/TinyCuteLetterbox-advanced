@@ -1,8 +1,15 @@
 import React from 'react'
+import "shared/index.css"
+import styled from 'styled-components'
+
+const Message = styled.span`
+    font-family: "NPSfont-regular";
+    color: #4c8297
+`
 
 function EmptyLetterBoxMessage() {
     return (
-        <div>EmptyLetterBoxMessage</div>
+        <Message>남겨진 편지가 없습니다. 첫 번째 편지를 작성해보세요.</Message>
     )
 }
 

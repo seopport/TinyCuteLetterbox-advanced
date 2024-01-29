@@ -16,8 +16,7 @@ function LetterBoxSelecter() {
     padding: 10px;
     border-radius: 7px;
     justify-content: space-between;
-        margin-bottom: 20px;
-
+    margin-bottom: 20px;
     `
 
     const SelectCharacter = styled.button`
@@ -34,7 +33,7 @@ function LetterBoxSelecter() {
             cursor: pointer;
         }
 
-        &:active {
+        &:active { /* 추후 onClick으로 구현 필요 */
             background-color: ${colors.aquaBlue};
             color: white;
         }
