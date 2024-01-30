@@ -4,10 +4,7 @@ import color from 'shared/color'
 import "shared/index.css"
 import meltingChiikawa from "assets/melting_chiikawa.png"
 
-
-function LetterSendingBox() {
-
-    const StLetterSendingBox = styled.div`
+const StLetterSendingBox = styled.div`
         background-color: white;
         width: 475px;
         min-height: 215px;
@@ -20,22 +17,22 @@ function LetterSendingBox() {
         font-family: "NPSfont-regular";
         position: relative;
         margin-bottom: 20px;
-
     `
-    const SendLetterText = styled.span`
+
+const SendLetterText = styled.span`
         font-size: 20px;
         color: #064B73;
         margin: 20px;
         font-family: "UhBeeSe_hyun";
     `
 
-    const SelectBox = styled.select`
+const SelectBox = styled.select`
         height: 25px;
         width: 80px;
         margin-left: 50px;
     `
 
-    const WriteLetterBox = styled.textarea`
+const WriteLetterBox = styled.textarea`
         width: 100%;
         height: 100px;
         margin: 7px;
@@ -45,7 +42,8 @@ function LetterSendingBox() {
         border: 1px solid rgba(147, 147, 147, 1);
         font-size: 14px;
     `
-    const WriterInput = styled.input`
+
+const WriterInput = styled.input`
         border: none;
         border-bottom: 1px solid black;
         outline: none;
@@ -53,7 +51,7 @@ function LetterSendingBox() {
         padding: 2px;
     `
 
-    const SendLetterButton = styled.button`
+const SendLetterButton = styled.button`
         margin-top: 10px;
         width: 70px;
         height: 30px;
@@ -72,13 +70,15 @@ function LetterSendingBox() {
         }
     `
 
-    const ChiikawaOnBox = styled.img`
+export const ChiikawaOnBox = styled.img`
         width: 73px;
         height: 48px;
         position: absolute;
         top: -37px;
         right: 20px;
     `
+
+function LetterSendingBox() {
 
     return (
         <>
