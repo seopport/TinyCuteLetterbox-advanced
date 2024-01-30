@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const Message = styled.span`
     font-family: "NPSfont-regular";
-    color: #4c8297
+    color: #2d6277
 `
 
 function EmptyLetterBoxMessage() {
