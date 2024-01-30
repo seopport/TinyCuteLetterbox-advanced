@@ -76,18 +76,9 @@ function LetterSummaryView() {
                     <Summary>맥도날드 감자튀김은 짭짤하고 고소하고 맥도날드 감자튀김은 짭짤하고 고...</Summary>
 
                 </p>
-                <ViewDetails>상세보기</ViewDetails>
+                <ViewDetails onClick={() => navigate('/details')}>상세보기</ViewDetails>
             </LetterSummaryBox>
-            <LetterSummaryBox>
-                <ProfileImg src={profileImg}></ProfileImg>
-                <Line></Line>
-                <div>
-                    <span style={{ fontSize: "15px" }}>닉네임</span>
-                    <Summary>맥도날드 감자튀김은 짭짤하고 고소하고 맥도날드 감자튀김은 짭짤하고 고...</Summary>
 
-                </div>
-                <ViewDetails >상세보기</ViewDetails>
-            </LetterSummaryBox>
         </>
     )
 }

@@ -4,6 +4,7 @@ import colors from 'shared/color'
 import profileImg from 'assets/default_profile_bear.png';
 import sleepyMomonga from "assets/sleepy_momonga.png"
 import flowerChiikawa from "assets/chiikawa_w_flower.png"
+import { useNavigate } from 'react-router-dom';
 
 const StLetterSendingBox = styled.div`
     box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.10);
@@ -22,7 +23,7 @@ const StLetterSendingBox = styled.div`
 
 const ProfileImg = styled.img`
     width: 45px;
-    margin-right: 5px;
+    margin-right: 7px;
 `
 
 const ProfileBox = styled.div`
@@ -115,18 +116,20 @@ const DeleteButton = styled.button`
 
 
 function LetterDetailView() {
+    const navigate = useNavigate();
+
     return (
         <>
-            <BackButton>돌아가기</BackButton>
+            <BackButton onClick={() => { navigate('/') }}>돌아가기</BackButton>
             <StLetterSendingBox>
                 <ProfileBox >
                     <ProfileImg src={profileImg} />
-                    <span style={{ lineHeight: "normal" }}>닉네임</span>
+                    <span style={{ lineHeight: "normal" }}>갈비찜</span>
                 </ProfileBox>
                 <FlowerChiikawa src={flowerChiikawa}></FlowerChiikawa>
                 <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
                 <LetterContent>
-                    <p style={{ marginBottom: "10px" }}>Dear. dkdkdk</p>
+                    <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. dkdkdk</p>
                     <p>야 만나서 반갑다 친구야</p>
                 </LetterContent>
                 <ButtonsWrap >
