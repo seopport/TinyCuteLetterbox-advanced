@@ -5,9 +5,10 @@ import profileImg from 'assets/default_profile_bear.png';
 import sleepyMomonga from "assets/sleepy_momonga.png"
 
 const StLetterSendingBox = styled.div`
+    box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.10);
     background-color: white;
     width: 475px;
-    min-height: 235px;
+    min-height: 240px;
     border-radius: 11px;
     border: 1px solid ${colors.bordeGreyishBlue};
     display: flex;
@@ -15,9 +16,10 @@ const StLetterSendingBox = styled.div`
     align-items: center;
     font-family: "NPSfont-regular";
     position: relative;
-    margin: 80px;
+    margin: 60px;
     padding: 10px 20px 10px 20px;
-    `
+`
+
 const ProfileImg = styled.img`
     width: 45px;
     margin-right: 5px;
@@ -38,13 +40,15 @@ const WriteLetterBox = styled.div`
     border: 1px solid ${colors.bordeGreyishBlue};
     background-color: ${colors.skyBlue};
     font-size: 14px;
-    `
+`
+
 const MomongaOnBox = styled.img`
     width: 70px;
     position: absolute;
     top: -57px;
     right: 20px;
     `
+
 const BackButton = styled.button`
     margin: 10px;
     align-self: flex-end;
@@ -63,6 +67,43 @@ const BackButton = styled.button`
         }
     `
 
+const ButtonsWrap = styled.div`
+    align-self: flex-end;
+    margin: 3px 3px 0 0;
+
+`
+
+const ModifyButton = styled.button`
+    align-self: flex-end;
+    font-family: "NPSfont-regular";
+    width: 52px;
+    height: 26px;
+    background-color: ${colors.skyBlue};
+    border: 1px solid ${colors.bordeGreyishBlue};
+    color: #4D86A6;
+    border-radius: 7px;
+    line-height: normal;
+    margin-right: 6px;
+        
+    &:hover {
+            cursor: pointer;
+        }
+    `
+
+const DeleteButton = styled.button`
+    align-self: flex-end;
+    font-family: "NPSfont-regular";
+    width: 52px;
+    height: 26px;
+    background-color: #FFE8E8;
+    border: 1px solid #DFADAD;
+    color: #b96b6b;
+    border-radius: 7px;
+       
+    &:hover {
+            cursor: pointer;
+        }
+    `
 
 
 function LetterDetailView() {
@@ -79,6 +120,10 @@ function LetterDetailView() {
                     <p style={{ marginBottom: "10px" }}>Dear. dkdkdk</p>
                     <p>야 만나서 반갑다 친구야</p>
                 </WriteLetterBox>
+                <ButtonsWrap >
+                    <ModifyButton>수정</ModifyButton>
+                    <DeleteButton>삭제</DeleteButton>
+                </ButtonsWrap>
             </StLetterSendingBox >
         </>
     )
