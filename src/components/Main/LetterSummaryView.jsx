@@ -2,8 +2,9 @@ import React from 'react'
 import styled from 'styled-components';
 import profileImg from 'assets/default_profile_bear2.png';
 import colors from 'shared/color';
-// import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import "shared/index.css"
+import { useNavigate } from 'react-router-dom';
+
 
 const LetterSummaryBox = styled.div`
         width: 68%;
@@ -54,6 +55,7 @@ const ViewDetails = styled.div`
     right: 15px;
     font-family: "NPSfont-regular";
     font-size: 13px;
+    color: grey;
 
     &:hover {
         cursor: pointer;
@@ -62,7 +64,7 @@ const ViewDetails = styled.div`
 
 
 function LetterSummaryView() {
-
+    const navigate = useNavigate();
 
     return (
         <>
@@ -79,12 +81,12 @@ function LetterSummaryView() {
             <LetterSummaryBox>
                 <ProfileImg src={profileImg}></ProfileImg>
                 <Line></Line>
-                <p>
+                <div>
                     <span style={{ fontSize: "15px" }}>닉네임</span>
                     <Summary>맥도날드 감자튀김은 짭짤하고 고소하고 맥도날드 감자튀김은 짭짤하고 고...</Summary>
 
-                </p>
-                <ViewDetails>상세보기</ViewDetails>
+                </div>
+                <ViewDetails >상세보기</ViewDetails>
             </LetterSummaryBox>
         </>
     )

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import colors from 'shared/color'
 import profileImg from 'assets/default_profile_bear.png';
 import sleepyMomonga from "assets/sleepy_momonga.png"
+import flowerChiikawa from "assets/chiikawa_w_flower.png"
 
 const StLetterSendingBox = styled.div`
     box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.10);
@@ -14,9 +15,8 @@ const StLetterSendingBox = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: "NPSfont-regular";
     position: relative;
-    margin: 60px;
+    margin: 40px;
     padding: 10px 20px 10px 20px;
 `
 
@@ -29,9 +29,11 @@ const ProfileBox = styled.div`
     display: flex;
     align-items: center;
     align-self: flex-start;
+        font-family: "NPSfont-regular";
+
 `
 
-const WriteLetterBox = styled.div`
+const LetterContent = styled.div`
     width: 100%;
     height: 130px;
     margin: 7px;
@@ -43,10 +45,16 @@ const WriteLetterBox = styled.div`
 `
 
 const MomongaOnBox = styled.img`
+    width: 60px;
+    position: absolute;
+    top: -48px;
+    right: 20px;
+    `
+const FlowerChiikawa = styled.img`
     width: 70px;
     position: absolute;
-    top: -57px;
-    right: 20px;
+    top: -63px;
+    left: 20px;
     `
 
 const BackButton = styled.button`
@@ -115,11 +123,12 @@ function LetterDetailView() {
                     <ProfileImg src={profileImg} />
                     <span style={{ lineHeight: "normal" }}>닉네임</span>
                 </ProfileBox>
+                <FlowerChiikawa src={flowerChiikawa}></FlowerChiikawa>
                 <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
-                <WriteLetterBox>
+                <LetterContent>
                     <p style={{ marginBottom: "10px" }}>Dear. dkdkdk</p>
                     <p>야 만나서 반갑다 친구야</p>
-                </WriteLetterBox>
+                </LetterContent>
                 <ButtonsWrap >
                     <ModifyButton>수정</ModifyButton>
                     <DeleteButton>삭제</DeleteButton>

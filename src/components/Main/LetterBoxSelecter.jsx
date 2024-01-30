@@ -3,10 +3,7 @@ import styled from 'styled-components'
 import colors from 'shared/color'
 import "shared/index.css"
 
-
-
-function LetterBoxSelecter() {
-    const SelectorBox = styled.div`
+const SelectorBox = styled.div`
     width: 57%;
     height: 47px;
     background-color: white;
@@ -19,7 +16,7 @@ function LetterBoxSelecter() {
     margin-bottom: 20px;
     `
 
-    const SelectCharacter = styled.button`
+const SelectCharacter = styled.button`
         font-family: "UhBeeSe_hyun";
         padding: 10px;
         width: 88px;
@@ -39,6 +36,9 @@ function LetterBoxSelecter() {
         }
     `
 
+
+
+function LetterBoxSelecter() {
     return (
         <>
             <SelectorBox>

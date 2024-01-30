@@ -5,7 +5,7 @@ import ResetStyles from './ResetStyles';
 
 const LayoutWrap = styled.div`
     width: 710px;
-    min-height: 960px;
+    min-height: 961px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,6 +15,7 @@ const LayoutWrap = styled.div`
 const MainWrap = styled.div`
     display: flex;
     justify-content: center;
+    background-color: #eef9fd;;
 `
 
 function Layout({ children }) {
