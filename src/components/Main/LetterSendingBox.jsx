@@ -72,7 +72,6 @@ const SendLetterButton = styled.button`
 
 export const ChiikawaOnBox = styled.img`
         width: 73px;
-        height: 48px;
         position: absolute;
         top: -37px;
         right: 20px;

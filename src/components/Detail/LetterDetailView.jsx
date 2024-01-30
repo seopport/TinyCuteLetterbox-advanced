@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import colors from 'shared/color'
 import profileImg from 'assets/default_profile_bear.png';
 import { ChiikawaOnBox } from 'components/Main/LetterSendingBox';
-import meltingChiikawa from "assets/melting_chiikawa.png"
+import sleepyMomonga from "assets/sleepy_momonga.png"
 
 const StLetterSendingBox = styled.div`
         background-color: white;
@@ -16,7 +16,7 @@ const StLetterSendingBox = styled.div`
         align-items: center;
         font-family: "NPSfont-regular";
         position: relative;
-        margin: 40px;
+        margin: 80px;
         padding: 10px 20px 10px 20px;
     `
 const ProfileImg = styled.img`
@@ -40,6 +40,12 @@ const WriteLetterBox = styled.div`
         background-color: ${colors.skyBlue};
         font-size: 14px;
     `
+const MomongaOnBox = styled.img`
+        width: 70px;
+        position: absolute;
+        top: -57px;
+        right: 20px;
+    `
 
 
 function LetterDetailView() {
@@ -49,7 +55,7 @@ function LetterDetailView() {
                 <ProfileImg src={profileImg} />
                 <span style={{ lineHeight: "normal" }}>닉네임</span>
             </ProfileBox>
-            <ChiikawaOnBox src={meltingChiikawa}></ChiikawaOnBox>
+            <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
             <WriteLetterBox>
                 <p style={{ marginBottom: "10px" }}>Dear. dkdkdk</p>
                 <p>야 만나서 반갑다 친구야</p>
