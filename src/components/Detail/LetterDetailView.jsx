@@ -5,6 +5,7 @@ import profileImg from 'assets/default_profile_bear.png';
 import sleepyMomonga from "assets/sleepy_momonga.png"
 import flowerChiikawa from "assets/chiikawa_w_flower.png"
 import { useNavigate } from 'react-router-dom';
+import { Date } from 'components/Main/LetterSummaryView';
 
 const StLetterSendingBox = styled.div`
     box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.10);
@@ -113,7 +114,12 @@ const DeleteButton = styled.button`
             cursor: pointer;
         }
     `
-
+const DateTime = styled(Date)`
+    position: absolute;
+    font-size: 14px;
+    right: 30px;
+    top: 38px;
+`
 
 function LetterDetailView() {
     const navigate = useNavigate();
@@ -122,6 +128,7 @@ function LetterDetailView() {
         <>
             <BackButton onClick={() => { navigate('/') }}>돌아가기</BackButton>
             <StLetterSendingBox>
+                <DateTime>2024/01/30 15:27</DateTime>
                 <ProfileBox >
                     <ProfileImg src={profileImg} />
                     <span style={{ lineHeight: "normal" }}>갈비찜</span>
@@ -129,7 +136,7 @@ function LetterDetailView() {
                 <FlowerChiikawa src={flowerChiikawa}></FlowerChiikawa>
                 <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
                 <LetterContent>
-                    <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. dkdkdk</p>
+                    <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. 모몽가</p>
                     <p>야 만나서 반갑다 친구야</p>
                 </LetterContent>
                 <ButtonsWrap >

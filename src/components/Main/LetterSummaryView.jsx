@@ -16,7 +16,7 @@ const LetterSummaryBox = styled.div`
         justify-content: center;
         align-items: center;
         margin-bottom: 17px;
-            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
         border: 1px solid ${colors.bordeGreyishBlue};
         position: relative;
         
@@ -61,7 +61,13 @@ const ViewDetails = styled.div`
         cursor: pointer;
     }
 `
-
+export const Date = styled.span`
+    margin-left: 5px;
+    width: fit-content;
+    font-size: 12px;
+    line-height: normal;
+    color: grey;
+`
 
 function LetterSummaryView() {
     const navigate = useNavigate();
@@ -71,11 +77,14 @@ function LetterSummaryView() {
             <LetterSummaryBox>
                 <ProfileImg src={profileImg}></ProfileImg>
                 <Line></Line>
-                <p>
-                    <span style={{ fontSize: "15px" }}>닉네임</span>
+                <div>
+                    <div style={{ display: "flex" }}>
+                        <span style={{ fontSize: "15px" }}>닉네임</span>
+                        <Date>2024/01/30</Date>
+                    </div>
                     <Summary>맥도날드 감자튀김은 짭짤하고 고소하고 맥도날드 감자튀김은 짭짤하고 고...</Summary>
 
-                </p>
+                </div>
                 <ViewDetails onClick={() => navigate('/details')}>상세보기</ViewDetails>
             </LetterSummaryBox>
 
