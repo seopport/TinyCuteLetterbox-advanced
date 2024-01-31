@@ -71,7 +71,7 @@ export const Date = styled.span`
     color: grey;
 `
 
-function LetterSummaryView({ selectedCharacter, savedLetters, setSavedLetters }) {
+function LetterSummaryView({ selectedCharacter, savedLetters }) {
     const navigate = useNavigate();
 
     console.log(selectedCharacter)
@@ -87,7 +87,7 @@ function LetterSummaryView({ selectedCharacter, savedLetters, setSavedLetters })
                             <Line></Line>
                             <div>
                                 <div style={{ display: "flex" }}>
-                                    <span style={{ fontSize: "15px" }}>{item.nickname}{item.writedTo}</span>
+                                    <span style={{ fontSize: "15px" }}>{item.nickname}</span>
                                     <Date>{item.createdAt.slice(0, 10)}</Date>
                                 </div>
                                 <Summary>{item.content}</Summary>

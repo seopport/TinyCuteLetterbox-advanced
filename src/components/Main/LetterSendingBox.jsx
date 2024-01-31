@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import color from 'shared/color'
 import "shared/index.css"
 import meltingChiikawa from "assets/melting_chiikawa.png"
+import profileImge from "assets/default_profile_bear.png"
+import uuid from 'react-uuid'
 
 const StLetterSendingBox = styled.div`
         background-color: white;
@@ -77,7 +79,14 @@ export const ChiikawaOnBox = styled.img`
         right: 20px;
     `
 
-function LetterSendingBox() {
+function LetterSendingBox({ savedLetters, setSavedLetters }) {
+
+    const year = new Date().getFullYear();
+    let month = new Date().getMonth() + 1;
+    month = month < 10 ? "0" + month : month;
+    const day = new Date().getDate();
+
+    const createdAt = [year, month, day].join('-')
 
     const letterContentValue = useRef();
     const writerValue = useRef();
@@ -85,23 +94,65 @@ function LetterSendingBox() {
     //옵션으로 선택한 캐릭터
     const [selectedCharacter, setSelectedCharacter] = useState("chiikawa");
 
-    const handleLetterContent = () => {
-
-    };
-
     const handleSendButtonClick = () => {
         const letterContent = letterContentValue.current.value; //편지 작성 내용
         const sendTo = selectedCharacter; //보낼 캐릭터
         const writer = writerValue.current.value; //작성자
-        console.log(letterContent)
-        console.log(sendTo)
-        console.log(writer)
+
+        if (letterContent.trim() === '') {
+            alert('편지 내용을 입력해주세요.');
+            return;
+        }
+
+        if (writer.trim() === '') {
+            alert('작성자를 입력해주세요.')
+            return;
+        }
+        const newLetter = {
+            createdAt,
+            nickname: writer,
+            avatar: profileImge,
+            content: letterContent,
+            writedTo: sendTo,
+            id: uuid()
+
+        }
+        setSavedLetters([...savedLetters, newLetter])
+
+        let koreanName = '';
+
+        switch (sendTo) {
+            case "chiikawa":
+                koreanName = "치이카와";
+                break;
+            case "hachiware":
+                koreanName = "하치와레";
+                break;
+            case "usagi":
+                koreanName = "우사기";
+                break;
+            case "momonga":
+                koreanName = "모몽가";
+                break;
+            default:
+                koreanName = "치이카와";
+        }
+        alert(`💌 ${koreanName}에게 편지를 보냈습니다.`)
+
 
     }
+
+    // "createdAt": "2023-11-03T02:07:09.423Z",
+    // "nickname": "Dr. Clint Christiansen",
+    //     "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg",
+    //         "content": "치이카와 Vitae recusandae tenetur debitis impedit ut dolorem atque reprehenderit magnam. Cum dolor magnam commodi qui perferendis. Vel temporibus soluta. Eum delectus blanditiis. Neque dicta non quod ex. Maiores aspernatur fuga reprehenderit a magni eaque fuga voluptatum hic.",
+    //             "writedTo": "치이카와",
+    //                 "id": "1"
 
     const handleSelector = (e) => {
         setSelectedCharacter(e.currentTarget.value)
     }
+
 
     return (
         <>
@@ -117,12 +168,12 @@ function LetterSendingBox() {
                         <option value={"momonga"}>모몽가</option>
                     </SelectBox>
                 </div>
-                <WriteLetterBox maxLength={100} placeholder='최대 100자까지 입력할 수 있습니다.' spellCheck={false} ref={letterContentValue} onChange={handleLetterContent} />
+                <WriteLetterBox maxLength={100} placeholder='최대 100자까지 입력할 수 있습니다.' spellCheck={false} ref={letterContentValue} />
                 <div style={{ alignSelf: "flex-end" }}>
                     <span style={{ fontSize: "14px" }} >작성자</span>
                     <WriterInput maxLength={10} ref={writerValue} />
                 </div>
-                <SendLetterButton onClick={handleSendButtonClick}>보내기</SendLetterButton>
+                <SendLetterButton type="submit" onClick={handleSendButtonClick}>보내기</SendLetterButton>
             </StLetterSendingBox>
 
         </>
