@@ -71,29 +71,32 @@ export const Date = styled.span`
     color: grey;
 `
 
-function LetterSummaryView({ selectedCharacter }) {
+function LetterSummaryView({ selectedCharacter, savedLetters, setSavedLetters }) {
     const navigate = useNavigate();
 
     console.log(selectedCharacter)
 
-    const [lodedData, setLodedData] = useState([]);
-
-    useEffect(() => {
-        const loadData = async () => {
-            try {
-                const res = await fetch('http://localhost:4000/data');
-                const data = await res.json();
-                setLodedData(data)
-            } catch (error) {
-                console.log(error)
-            }
-
-        }
-        loadData();
-    }, [])
-
     return (
         <>
+            {savedLetters
+                .filter((item) => item.writedTo === selectedCharacter)
+                .map((item) => {
+                    return (
+                        <LetterSummaryBox key={uuid()}>
+                            <ProfileImg src={profileImg}></ProfileImg>
+                            <Line></Line>
+                            <div>
+                                <div style={{ display: "flex" }}>
+                                    <span style={{ fontSize: "15px" }}>{item.nickname}{item.writedTo}</span>
+                                    <Date>{item.createdAt.slice(0, 10)}</Date>
+                                </div>
+                                <Summary>{item.content}</Summary>
+
+                            </div>
+                            <ViewDetails onClick={() => navigate('/details')}>상세보기</ViewDetails>
+                        </LetterSummaryBox>
+                    )
+                })}
             {/* <LetterSummaryBox>
                 <ProfileImg src={profileImg}></ProfileImg>
                 <Line></Line>
@@ -107,23 +110,7 @@ function LetterSummaryView({ selectedCharacter }) {
                 </div>
                 <ViewDetails onClick={() => navigate('/details')}>상세보기</ViewDetails>
             </LetterSummaryBox> */}
-            {lodedData.filter((item) => item.writedTo === selectedCharacter).map((item) => {
-                return (
-                    <LetterSummaryBox key={uuid()}>
-                        <ProfileImg src={profileImg}></ProfileImg>
-                        <Line></Line>
-                        <div>
-                            <div style={{ display: "flex" }}>
-                                <span style={{ fontSize: "15px" }}>{item.nickname}{item.writedTo}</span>
-                                <Date>{item.createdAt.slice(0, 10)}</Date>
-                            </div>
-                            <Summary>{item.content}</Summary>
 
-                        </div>
-                        <ViewDetails onClick={() => navigate('/details')}>상세보기</ViewDetails>
-                    </LetterSummaryBox>
-                )
-            })}
         </>
     )
 }

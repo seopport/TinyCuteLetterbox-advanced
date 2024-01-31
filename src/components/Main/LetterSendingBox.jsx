@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import color from 'shared/color'
 import "shared/index.css"
@@ -79,25 +79,50 @@ export const ChiikawaOnBox = styled.img`
 
 function LetterSendingBox() {
 
+    const letterContentValue = useRef();
+    const writerValue = useRef();
+
+    //옵션으로 선택한 캐릭터
+    const [selectedCharacter, setSelectedCharacter] = useState("chiikawa");
+
+    const handleLetterContent = () => {
+
+    };
+
+    const handleSendButtonClick = () => {
+        const letterContent = letterContentValue.current.value; //편지 작성 내용
+        const sendTo = selectedCharacter; //보낼 캐릭터
+        const writer = writerValue.current.value; //작성자
+        console.log(letterContent)
+        console.log(sendTo)
+        console.log(writer)
+
+    }
+
+    const handleSelector = (e) => {
+        setSelectedCharacter(e.currentTarget.value)
+    }
+
     return (
         <>
+            {/* form태그 써보기 */}
             <SendLetterText>편지 보내기</SendLetterText>
             <StLetterSendingBox>
                 <ChiikawaOnBox src={meltingChiikawa}></ChiikawaOnBox>
                 <div style={{ alignSelf: "flex-start", position: "relative" }}>
-                    <span style={{ position: "absolute", bottom: "3px" }}>Dear.</span> <SelectBox>
-                        <option>치이카와</option>
-                        <option>하치와레</option>
-                        <option>우사기</option>
-                        <option>모몽가</option>
+                    <span style={{ position: "absolute", bottom: "3px" }}>Dear.</span> <SelectBox onChange={handleSelector}>
+                        <option value={"chiikawa"}>치이카와</option>
+                        <option value={"hachiware"}>하치와레</option>
+                        <option value={"usagi"}>우사기</option>
+                        <option value={"momonga"}>모몽가</option>
                     </SelectBox>
                 </div>
-                <WriteLetterBox maxLength={100} placeholder='최대 100자까지 입력할 수 있습니다.' spellCheck={false} />
+                <WriteLetterBox maxLength={100} placeholder='최대 100자까지 입력할 수 있습니다.' spellCheck={false} ref={letterContentValue} onChange={handleLetterContent} />
                 <div style={{ alignSelf: "flex-end" }}>
                     <span style={{ fontSize: "14px" }} >작성자</span>
-                    <WriterInput maxLength={10} />
+                    <WriterInput maxLength={10} ref={writerValue} />
                 </div>
-                <SendLetterButton>보내기</SendLetterButton>
+                <SendLetterButton onClick={handleSendButtonClick}>보내기</SendLetterButton>
             </StLetterSendingBox>
 
         </>
