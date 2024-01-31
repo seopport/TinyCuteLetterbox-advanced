@@ -36,7 +36,12 @@ const Router = () => {
         />
         <Route
           path="details/:id"
-          element={<LetterDetailPage savedLetters={savedLetters} />}
+          element={
+            <LetterDetailPage
+              savedLetters={savedLetters}
+              setSavedLetters={setSavedLetters}
+            />
+          }
         />
       </Routes>
     </BrowserRouter>

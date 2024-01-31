@@ -125,13 +125,30 @@ const DateTime = styled(Date)`
 `
 //#endregion
 
-function LetterDetailView({ savedLetters }) {
+function LetterDetailView({ savedLetters, setSavedLetters }) {
     const navigate = useNavigate();
 
     const param = useParams();
     console.log(param)
 
     console.log(savedLetters)
+
+    const handleModifyButtonClick = () => {
+
+    }
+
+    const handleDeleteButtonClick = (id) => {
+        if (window.confirm("삭제하시겠습니까?")) {
+            setSavedLetters((prev) => {
+                const newSavedLetters = prev.filter((item) => {
+                    return item.id !== id
+                });
+                return newSavedLetters;
+            })
+
+            navigate('/')
+        } return;
+    };
 
     return (
         <>
@@ -153,8 +170,8 @@ function LetterDetailView({ savedLetters }) {
                                 <p>{item.content}</p>
                             </LetterContent>
                             <ButtonsWrap >
-                                <ModifyButton>수정</ModifyButton>
-                                <DeleteButton>삭제</DeleteButton>
+                                <ModifyButton onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
+                                <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
                             </ButtonsWrap>
                         </StLetterSendingBox >
                     )
