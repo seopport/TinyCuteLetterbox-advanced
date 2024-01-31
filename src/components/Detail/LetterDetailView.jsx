@@ -140,7 +140,7 @@ function LetterDetailView({ savedLetters }) {
                 .map((item) => {
                     const koreanName = changeToKoreanName(item.writedTo)
                     return (
-                        <StLetterSendingBox>
+                        <StLetterSendingBox key={item.id}>
                             <DateTime>{item.createdAt}</DateTime>
                             <ProfileBox >
                                 <ProfileImg src={profileImg} />

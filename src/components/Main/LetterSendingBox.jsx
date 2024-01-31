@@ -88,39 +88,40 @@ export const ChiikawaOnBox = styled.img`
     `
 
 function LetterSendingBox({ savedLetters, setSavedLetters }) {
-    const setDate = (date) => {
-        date = date < 10 ? "0" + date : date
-        return date;
-    }
 
-    const year = new Date().getFullYear();
-    let month = setDate(new Date().getMonth() + 1);
-    const day = new Date().getDate();
-    let hour = setDate(new Date().getHours());
-    let minute = setDate(new Date().getMinutes());
-
-    const createdAt = [[year, month, day].join('-') + " " + [hour, minute].join(':')]
-
-    const letterContentValue = useRef();
-    const writerValue = useRef();
+    const letterInput = useRef();
+    const writerInput = useRef();
 
     //옵션으로 선택한 캐릭터
     const [selectedCharacter, setSelectedCharacter] = useState("chiikawa");
 
-
-
     const handleSendButtonClick = () => {
-        const letterContent = letterContentValue.current.value; //편지 작성 내용
+        const setDate = (date) => {
+            return date < 10 ? "0" + date : date.toString();
+        }
+
+        const year = new Date().getFullYear();
+        const month = setDate(new Date().getMonth() + 1);
+        const day = new Date().getDate();
+        const hour = setDate(new Date().getHours());
+        const minute = setDate(new Date().getMinutes());
+
+        const createdAt = [[year, month, day].join('-') + " " + [hour, minute].join(':')]
+        console.log("🚀 ~ handleSendButtonClick ~ createdAt:", createdAt)
+
+        const letterContent = letterInput.current.value;
         const sendTo = selectedCharacter; //보낼 캐릭터
-        const writer = writerValue.current.value; //작성자
+        const writer = writerInput.current.value; //작성자
 
         if (letterContent.trim() === '') {
             alert('편지 내용을 입력해주세요.');
+            letterInput.current.focus();
             return;
         }
 
         if (writer.trim() === '') {
             alert('작성자를 입력해주세요.')
+            writerInput.current.focus();
             return;
         }
         const newLetter = {
@@ -137,15 +138,10 @@ function LetterSendingBox({ savedLetters, setSavedLetters }) {
         const koreanName = changeToKoreanName(sendTo)
         alert(`💌 ${koreanName}에게 편지를 보냈어요.`)
 
-
+        //폼 초기화
+        letterInput.current.value = ''
+        writerInput.current.value = ''
     }
-
-    // "createdAt": "2023-11-03T02:07:09.423Z",
-    // "nickname": "Dr. Clint Christiansen",
-    //     "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg",
-    //         "content": "치이카와 Vitae recusandae tenetur debitis impedit ut dolorem atque reprehenderit magnam. Cum dolor magnam commodi qui perferendis. Vel temporibus soluta. Eum delectus blanditiis. Neque dicta non quod ex. Maiores aspernatur fuga reprehenderit a magni eaque fuga voluptatum hic.",
-    //             "writedTo": "치이카와",
-    //                 "id": "1"
 
     const handleSelector = (e) => {
         setSelectedCharacter(e.currentTarget.value)
@@ -154,7 +150,6 @@ function LetterSendingBox({ savedLetters, setSavedLetters }) {
 
     return (
         <>
-            {/* form태그 써보기 */}
             <SendLetterText>편지 보내기</SendLetterText>
             <StLetterSendingBox>
                 <ChiikawaOnBox src={meltingChiikawa}></ChiikawaOnBox>
@@ -166,10 +161,11 @@ function LetterSendingBox({ savedLetters, setSavedLetters }) {
                         <option value={"momonga"}>모몽가</option>
                     </SelectBox>
                 </div>
-                <WriteLetterBox maxLength={100} placeholder='최대 100자까지 입력할 수 있습니다.' spellCheck={false} ref={letterContentValue} />
+                <WriteLetterBox
+                    maxLength={100} placeholder='최대 100자까지 입력할 수 있습니다.' spellCheck={false} ref={letterInput} />
                 <div style={{ alignSelf: "flex-end" }}>
                     <span style={{ fontSize: "14px" }} >작성자</span>
-                    <WriterInput maxLength={10} ref={writerValue} />
+                    <WriterInput maxLength={10} ref={writerInput} />
                 </div>
                 <SendLetterButton type="submit" onClick={handleSendButtonClick}>보내기</SendLetterButton>
             </StLetterSendingBox>
