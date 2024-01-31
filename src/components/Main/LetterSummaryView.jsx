@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useParams } from 'react'
 import styled from 'styled-components';
-import profileImg from 'assets/default_profile_bear2.png';
+import profileImg from 'assets/image/default_profile_bear2.png';
 import colors from 'shared/color';
 import "shared/index.css"
 import { useNavigate } from 'react-router-dom';

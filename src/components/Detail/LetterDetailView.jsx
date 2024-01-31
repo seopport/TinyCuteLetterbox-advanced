@@ -1,14 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import colors from 'shared/color'
-import profileImg from 'assets/default_profile_bear.png';
-import sleepyMomonga from "assets/sleepy_momonga.png"
-import flowerChiikawa from "assets/chiikawa_w_flower.png"
+import profileImg from 'assets/image/default_profile_bear.png';
+import sleepyMomonga from "assets/image/sleepy_momonga.png"
+import flowerChiikawa from "assets/image/chiikawa_w_flower.png"
 import { useNavigate, useParams } from 'react-router-dom';
 import { Date } from 'components/Main/LetterSummaryView';
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 
 
+//#region
 const StLetterSendingBox = styled.div`
     box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.10);
     background-color: white;
@@ -122,6 +123,7 @@ const DateTime = styled(Date)`
     right: 30px;
     top: 38px;
 `
+//#endregion
 
 function LetterDetailView({ savedLetters }) {
     const navigate = useNavigate();

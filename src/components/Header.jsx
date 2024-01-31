@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import headerImg from 'assets/header_background.jpeg'
-import headerTitle from 'assets/header_title.png'
+import headerImg from 'assets/image/header_background.jpeg'
+import headerTitle from 'assets/image/header_title.png'
 import "shared/index.css"
 
 const HeaderImage = styled.div`

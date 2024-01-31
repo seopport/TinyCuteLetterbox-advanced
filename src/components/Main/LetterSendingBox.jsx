@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import color from 'shared/color'
 import "shared/index.css"
-import meltingChiikawa from "assets/melting_chiikawa.png"
-import profileImge from "assets/default_profile_bear.png"
+import meltingChiikawa from "assets/image/melting_chiikawa.png"
+import profileImge from "assets/image/default_profile_bear.png"
 import uuid from 'react-uuid'
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 
@@ -127,7 +127,7 @@ function LetterSendingBox({ savedLetters, setSavedLetters }) {
         setSavedLetters([...savedLetters, newLetter])
 
         const koreanName = changeToKoreanName(sendTo)
-        alert(`💌 ${koreanName}에게 편지를 보냈습니다.`)
+        alert(`💌 ${koreanName}에게 편지를 보냈어요.`)
 
 
     }
