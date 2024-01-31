@@ -7,6 +7,7 @@ import profileImge from "assets/image/default_profile_bear.png"
 import uuid from 'react-uuid'
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 
+//#region
 const StLetterSendingBox = styled.div`
         background-color: white;
         width: 475px;
@@ -76,6 +77,8 @@ const SendLetterButton = styled.button`
             background-color: #187aaf
         }
     `
+//#endregion
+
 
 export const ChiikawaOnBox = styled.img`
         width: 73px;
@@ -85,13 +88,18 @@ export const ChiikawaOnBox = styled.img`
     `
 
 function LetterSendingBox({ savedLetters, setSavedLetters }) {
+    const setDate = (date) => {
+        date = date < 10 ? "0" + date : date
+        return date;
+    }
 
     const year = new Date().getFullYear();
-    let month = new Date().getMonth() + 1;
-    month = month < 10 ? "0" + month : month;
+    let month = setDate(new Date().getMonth() + 1);
     const day = new Date().getDate();
+    let hour = setDate(new Date().getHours());
+    let minute = setDate(new Date().getMinutes());
 
-    const createdAt = [year, month, day].join('-')
+    const createdAt = [[year, month, day].join('-') + " " + [hour, minute].join(':')]
 
     const letterContentValue = useRef();
     const writerValue = useRef();
@@ -116,7 +124,7 @@ function LetterSendingBox({ savedLetters, setSavedLetters }) {
             return;
         }
         const newLetter = {
-            createdAt,
+            createdAt: createdAt[0],
             nickname: writer,
             avatar: profileImge,
             content: letterContent,

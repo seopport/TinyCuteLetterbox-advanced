@@ -141,7 +141,7 @@ function LetterDetailView({ savedLetters }) {
                     const koreanName = changeToKoreanName(item.writedTo)
                     return (
                         <StLetterSendingBox>
-                            <DateTime>{item.creatdAt}</DateTime>
+                            <DateTime>{item.createdAt}</DateTime>
                             <ProfileBox >
                                 <ProfileImg src={profileImg} />
                                 <span style={{ lineHeight: "normal", marginTop: "5px" }}>{item.nickname}</span>
