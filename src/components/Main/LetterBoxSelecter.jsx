@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import styled from 'styled-components'
 import colors from 'shared/color'
 import "shared/index.css"
@@ -13,7 +12,7 @@ const SelectorBox = styled.div`
     padding: 10px;
     border-radius: 7px;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 20px; 
     `
 
 export const SelectCharacter = styled.button`

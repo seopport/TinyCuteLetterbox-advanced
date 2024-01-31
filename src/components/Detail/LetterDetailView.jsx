@@ -4,8 +4,10 @@ import colors from 'shared/color'
 import profileImg from 'assets/default_profile_bear.png';
 import sleepyMomonga from "assets/sleepy_momonga.png"
 import flowerChiikawa from "assets/chiikawa_w_flower.png"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Date } from 'components/Main/LetterSummaryView';
+import { changeToKoreanName } from 'shared/changeToKoreanName'
+
 
 const StLetterSendingBox = styled.div`
     box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.10);
@@ -24,7 +26,7 @@ const StLetterSendingBox = styled.div`
 
 const ProfileImg = styled.img`
     width: 45px;
-    margin-right: 7px;
+    margin-right: 10px;
 `
 
 const ProfileBox = styled.div`
@@ -121,29 +123,41 @@ const DateTime = styled(Date)`
     top: 38px;
 `
 
-function LetterDetailView() {
+function LetterDetailView({ savedLetters }) {
     const navigate = useNavigate();
+
+    const param = useParams();
+    console.log(param)
+
+    console.log(savedLetters)
 
     return (
         <>
             <BackButton onClick={() => { navigate('/') }}>돌아가기</BackButton>
-            <StLetterSendingBox>
-                <DateTime>2024/01/30 15:27</DateTime>
-                <ProfileBox >
-                    <ProfileImg src={profileImg} />
-                    <span style={{ lineHeight: "normal" }}>갈비찜</span>
-                </ProfileBox>
-                <FlowerChiikawa src={flowerChiikawa}></FlowerChiikawa>
-                <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
-                <LetterContent>
-                    <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. 모몽가</p>
-                    <p>야 만나서 반갑다 친구야</p>
-                </LetterContent>
-                <ButtonsWrap >
-                    <ModifyButton>수정</ModifyButton>
-                    <DeleteButton>삭제</DeleteButton>
-                </ButtonsWrap>
-            </StLetterSendingBox >
+            {savedLetters.filter((item) => item.id === param.id)
+                .map((item) => {
+                    const koreanName = changeToKoreanName(item.writedTo)
+                    return (
+                        <StLetterSendingBox>
+                            <DateTime>{item.creatdAt}</DateTime>
+                            <ProfileBox >
+                                <ProfileImg src={profileImg} />
+                                <span style={{ lineHeight: "normal", marginTop: "5px" }}>{item.nickname}</span>
+                            </ProfileBox>
+                            <FlowerChiikawa src={flowerChiikawa}></FlowerChiikawa>
+                            <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
+                            <LetterContent>
+                                <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. {koreanName}</p>
+                                <p>{item.content}</p>
+                            </LetterContent>
+                            <ButtonsWrap >
+                                <ModifyButton>수정</ModifyButton>
+                                <DeleteButton>삭제</DeleteButton>
+                            </ButtonsWrap>
+                        </StLetterSendingBox >
+                    )
+                })}
+
         </>
     )
 }

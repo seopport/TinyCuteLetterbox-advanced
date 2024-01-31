@@ -5,6 +5,7 @@ import "shared/index.css"
 import meltingChiikawa from "assets/melting_chiikawa.png"
 import profileImge from "assets/default_profile_bear.png"
 import uuid from 'react-uuid'
+import { changeToKoreanName } from 'shared/changeToKoreanName'
 
 const StLetterSendingBox = styled.div`
         background-color: white;
@@ -43,14 +44,18 @@ const WriteLetterBox = styled.textarea`
         padding: 10px;
         border: 1px solid rgba(147, 147, 147, 1);
         font-size: 14px;
+        &::placeholder {
+            font-size: 12px;
+        }
     `
 
 const WriterInput = styled.input`
         border: none;
         border-bottom: 1px solid black;
         outline: none;
-        width: 100px;
+        width: 80px;
         padding: 2px;
+        margin-left: 3px;
     `
 
 const SendLetterButton = styled.button`
@@ -94,6 +99,8 @@ function LetterSendingBox({ savedLetters, setSavedLetters }) {
     //옵션으로 선택한 캐릭터
     const [selectedCharacter, setSelectedCharacter] = useState("chiikawa");
 
+
+
     const handleSendButtonClick = () => {
         const letterContent = letterContentValue.current.value; //편지 작성 내용
         const sendTo = selectedCharacter; //보낼 캐릭터
@@ -119,24 +126,7 @@ function LetterSendingBox({ savedLetters, setSavedLetters }) {
         }
         setSavedLetters([...savedLetters, newLetter])
 
-        let koreanName = '';
-
-        switch (sendTo) {
-            case "chiikawa":
-                koreanName = "치이카와";
-                break;
-            case "hachiware":
-                koreanName = "하치와레";
-                break;
-            case "usagi":
-                koreanName = "우사기";
-                break;
-            case "momonga":
-                koreanName = "모몽가";
-                break;
-            default:
-                koreanName = "치이카와";
-        }
+        const koreanName = changeToKoreanName(sendTo)
         alert(`💌 ${koreanName}에게 편지를 보냈습니다.`)
 
 

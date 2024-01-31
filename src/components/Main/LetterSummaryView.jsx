@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useParams } from 'react'
 import styled from 'styled-components';
 import profileImg from 'assets/default_profile_bear2.png';
 import colors from 'shared/color';
@@ -72,9 +72,9 @@ export const Date = styled.span`
 `
 
 function LetterSummaryView({ selectedCharacter, savedLetters }) {
-    const navigate = useNavigate();
 
-    console.log(selectedCharacter)
+
+    const navigate = useNavigate();
 
     return (
         <>
@@ -93,7 +93,7 @@ function LetterSummaryView({ selectedCharacter, savedLetters }) {
                                 <Summary>{item.content}</Summary>
 
                             </div>
-                            <ViewDetails onClick={() => navigate('/details')}>상세보기</ViewDetails>
+                            <ViewDetails onClick={() => navigate(`/details/${item.id}`)}>상세보기</ViewDetails>
                         </LetterSummaryBox>
                     )
                 })}
