@@ -71,12 +71,10 @@ export const Date = styled.span`
     color: grey;
 `
 
-function LetterSummaryView() {
+function LetterSummaryView({ selectedCharacter }) {
     const navigate = useNavigate();
 
-    // SelectCharacter = (props) => {
-    //     console.log(props.character)
-    // }
+    console.log(selectedCharacter)
 
     const [lodedData, setLodedData] = useState([]);
 
@@ -96,7 +94,7 @@ function LetterSummaryView() {
 
     return (
         <>
-            <LetterSummaryBox>
+            {/* <LetterSummaryBox>
                 <ProfileImg src={profileImg}></ProfileImg>
                 <Line></Line>
                 <div>
@@ -108,15 +106,15 @@ function LetterSummaryView() {
 
                 </div>
                 <ViewDetails onClick={() => navigate('/details')}>상세보기</ViewDetails>
-            </LetterSummaryBox>
-            {lodedData.map((item) => {
+            </LetterSummaryBox> */}
+            {lodedData.filter((item) => item.writedTo === selectedCharacter).map((item) => {
                 return (
                     <LetterSummaryBox key={uuid()}>
                         <ProfileImg src={profileImg}></ProfileImg>
                         <Line></Line>
                         <div>
                             <div style={{ display: "flex" }}>
-                                <span style={{ fontSize: "15px" }}>{item.nickname}</span>
+                                <span style={{ fontSize: "15px" }}>{item.nickname}{item.writedTo}</span>
                                 <Date>{item.createdAt.slice(0, 10)}</Date>
                             </div>
                             <Summary>{item.content}</Summary>

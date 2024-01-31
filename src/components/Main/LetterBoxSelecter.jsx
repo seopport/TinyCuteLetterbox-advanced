@@ -35,10 +35,7 @@ export const SelectCharacter = styled.button`
     `
 
 
-function LetterBoxSelecter() {
-
-    const [selectedCharacter, setSelectedCharacter] = useState();
-
+function LetterBoxSelecter({ selectedCharacter, setSelectedCharacter }) {
 
     const handleCharacterBox = (character) => {
         setSelectedCharacter(character)
