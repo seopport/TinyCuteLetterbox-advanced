@@ -4,6 +4,8 @@ import profileImg from 'assets/default_profile_bear2.png';
 import colors from 'shared/color';
 import "shared/index.css"
 import { useNavigate } from 'react-router-dom';
+import uuid from 'react-uuid';
+import { SelectCharacter } from 'components/Main/LetterBoxSelecter';
 
 
 const LetterSummaryBox = styled.div`
@@ -72,14 +74,18 @@ export const Date = styled.span`
 function LetterSummaryView() {
     const navigate = useNavigate();
 
-    const [lodedData, setLodedData] = useState('');
+    // SelectCharacter = (props) => {
+    //     console.log(props.character)
+    // }
+
+    const [lodedData, setLodedData] = useState([]);
 
     useEffect(() => {
         const loadData = async () => {
             try {
                 const res = await fetch('http://localhost:4000/data');
                 const data = await res.json();
-                setLodedData(data);
+                setLodedData(data)
             } catch (error) {
                 console.log(error)
             }
@@ -87,8 +93,6 @@ function LetterSummaryView() {
         }
         loadData();
     }, [])
-
-    console.log(lodedData)
 
     return (
         <>
@@ -105,9 +109,9 @@ function LetterSummaryView() {
                 </div>
                 <ViewDetails onClick={() => navigate('/details')}>상세보기</ViewDetails>
             </LetterSummaryBox>
-            {/* {lodedData.map((item) => {
+            {lodedData.map((item) => {
                 return (
-                    <LetterSummaryBox>
+                    <LetterSummaryBox key={uuid()}>
                         <ProfileImg src={profileImg}></ProfileImg>
                         <Line></Line>
                         <div>
@@ -121,7 +125,7 @@ function LetterSummaryView() {
                         <ViewDetails onClick={() => navigate('/details')}>상세보기</ViewDetails>
                     </LetterSummaryBox>
                 )
-            })} */}
+            })}
         </>
     )
 }

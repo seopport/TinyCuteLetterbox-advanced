@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import colors from 'shared/color'
 import "shared/index.css"
@@ -16,39 +16,45 @@ const SelectorBox = styled.div`
     margin-bottom: 20px;
     `
 
-const SelectCharacter = styled.button`
+export const SelectCharacter = styled.button`
         font-family: "UhBeeSe_hyun";
         padding: 10px;
         width: 88px;
         height: 35px;
-        background-color: white;
+        background-color: ${(props) => {
+        return props.character === props.selectedCharacter ? colors.aquaBlue : "white"
+    }};
         border: 1px solid ${colors.bordeGreyishBlue};
         border-radius: 7px;
         line-height: 100%;
-        color: ${colors.bordeGreyishBlue};
+        color: ${(props) => (props.character === props.selectedCharacter ? "white" : colors.bordeGreyishBlue)};
+
         &:hover {
             cursor: pointer;
-        }
-
-        &:active { /* 추후 onClick으로 구현 필요 */
-            background-color: ${colors.aquaBlue};
-            color: white;
         }
     `
 
 
-
 function LetterBoxSelecter() {
+
+    const [selectedCharacter, setSelectedCharacter] = useState();
+
+
+    const handleCharacterBox = (character) => {
+        setSelectedCharacter(character)
+    }
+
+
     return (
         <>
             <SelectorBox>
-                <SelectCharacter>치이카와</SelectCharacter>
-                <SelectCharacter>하치와레</SelectCharacter>
-                <SelectCharacter>우사기</SelectCharacter>
-                <SelectCharacter>모몽가</SelectCharacter>
+                <SelectCharacter character="chiikawa" onClick={() => handleCharacterBox("chiikawa")} selectedCharacter={selectedCharacter}>치이카와</SelectCharacter>
+                <SelectCharacter character="hachiware" onClick={() => handleCharacterBox("hachiware")} selectedCharacter={selectedCharacter}> 하치와레</SelectCharacter>
+                <SelectCharacter character="usagi" onClick={() => handleCharacterBox("usagi")} selectedCharacter={selectedCharacter}>우사기</SelectCharacter>
+                <SelectCharacter character="momonga" onClick={() => handleCharacterBox("momonga")} selectedCharacter={selectedCharacter}>모몽가</SelectCharacter>
             </SelectorBox>
         </>
     )
 }
 
-export default LetterBoxSelecter
+export default LetterBoxSelecter;
