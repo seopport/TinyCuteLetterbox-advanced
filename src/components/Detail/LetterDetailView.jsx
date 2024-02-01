@@ -183,12 +183,22 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
 
     const [isModifying, setIsModifying] = useState(false)
 
+    const renderModifyButton = (isModifying) => {
+        if (isModifying) {
+            modifyButton.current.style.display = 'none';
+            modifyCompleteButton.current.style.display = 'inline';
+            modifyCancelButton.current.style.display = 'inline';
+        } else {
+            modifyButton.current.style.display = 'inline';
+            modifyCompleteButton.current.style.display = 'none';
+            modifyCancelButton.current.style.display = 'none';
+        }
+    }
+
     const handleModifyButtonClick = (id) => {
         //true로 바꾸면 props로 스타일 결정?
         setIsModifying(true);
-        modifyButton.current.style.display = 'none';
-        modifyCompleteButton.current.style.display = 'inline';
-        modifyCancelButton.current.style.display = 'inline';
+        renderModifyButton(true);
         contentArea.current.style.outline = '1px solid black';
         contentArea.current.style.padding = '3px';
 
@@ -200,6 +210,16 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
         console.log("수정 전 :", originalContent.content, "수정 후 : ", newContent)
 
         //아이디가 같은 편지의 textContent
+    }
+
+    const handleModifyCompleteButtonClick = (id) => {
+        setIsModifying(false);
+        renderModifyButton(false);
+    }
+
+    const handleModifyCancelButtonClick = () => {
+        setIsModifying(false);
+        renderModifyButton(false);
     }
 
     return (
@@ -232,8 +252,8 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                                     onClick={() => handleModifyButtonClick(item.id)}>
                                     수정
                                 </ModifyButton>
-                                <ModifyCompleteButton ref={modifyCompleteButton} onClick={() => handleDeleteButtonClick(item.id)}>완료</ModifyCompleteButton>
-                                <ModifyCancelButton ref={modifyCancelButton} onClick={() => handleDeleteButtonClick(item.id)}>취소</ModifyCancelButton>
+                                <ModifyCompleteButton ref={modifyCompleteButton} onClick={() => handleModifyCompleteButtonClick(item.id)} >완료</ModifyCompleteButton>
+                                <ModifyCancelButton ref={modifyCancelButton} onClick={handleModifyCancelButtonClick} >취소</ModifyCancelButton>
                                 <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
                             </ButtonsWrap>
                         </StLetterSendingBox >
