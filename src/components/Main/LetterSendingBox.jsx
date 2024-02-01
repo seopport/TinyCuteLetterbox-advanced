@@ -8,7 +8,7 @@ import uuid from 'react-uuid'
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 
 //#region
-const StLetterSendingBox = styled.div`
+export const StLetterSendingBox = styled.div`
         background-color: white;
         width: 475px;
         min-height: 215px;

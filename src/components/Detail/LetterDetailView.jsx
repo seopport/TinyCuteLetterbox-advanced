@@ -7,22 +7,15 @@ import flowerChiikawa from "assets/image/chiikawa_w_flower.png"
 import { useNavigate, useParams } from 'react-router-dom';
 import { Date } from 'components/Main/LetterSummaryView';
 import { changeToKoreanName } from 'shared/changeToKoreanName'
-
-
+import { StLetterSendingBox } from 'components/Main/LetterSendingBox';
 //#region
-const StLetterSendingBox = styled.div`
+const StLetterDetailBox = styled(StLetterSendingBox)`
     box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.10);
-    background-color: white;
-    width: 475px;
     min-height: 240px;
-    border-radius: 11px;
     border: 1px solid ${colors.bordeGreyishBlue};
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
     margin: 40px;
     padding: 10px 20px 10px 20px;
+    font-family: "sans-serif";
 `
 
 const ProfileImg = styled.img`
@@ -181,7 +174,6 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
     const [isModifying, setIsModifying] = useState(false)
 
     const handleModifyButtonClick = () => {
-        //true로 바꾸면 props로 스타일 결정?
         setIsModifying(true);
         setmodifiedContent(contentArea.current.textContent)
         console.log(contentArea.current.textContent)
@@ -222,19 +214,20 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
     return (
         <>
             <BackButton onClick={() => { navigate('/') }}>돌아가기</BackButton>
+
             {savedLetters.filter((item) => item.id === param.id)
                 .map((item) => {
                     const koreanName = changeToKoreanName(item.writedTo)
 
                     return (
-                        <StLetterSendingBox key={item.id}>
+                        <StLetterDetailBox key={item.id}>
+                            <FlowerChiikawa src={flowerChiikawa}></FlowerChiikawa>
+                            <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
                             <DateTime>{item.createdAt}</DateTime>
                             <ProfileBox >
                                 <ProfileImg src={profileImg} />
                                 <span style={{ lineHeight: "normal", marginTop: "5px" }}>{item.nickname}</span>
                             </ProfileBox>
-                            <FlowerChiikawa src={flowerChiikawa}></FlowerChiikawa>
-                            <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
                             <LetterContent>
                                 <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. {koreanName}</p>
                                 {/* 편지 내용 textarea ----------------------------------- */}
@@ -252,7 +245,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                                 <ModifyCancelButton isModifying={isModifying} onClick={() => handleModifyCancelButtonClick(item.id)} >취소</ModifyCancelButton>
                                 <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
                             </ButtonsWrap>
-                        </StLetterSendingBox >
+                        </StLetterDetailBox >
                     )
                 })}
 
