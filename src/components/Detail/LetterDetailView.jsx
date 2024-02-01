@@ -239,11 +239,10 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
             return item.id === id
         });
 
-        console.log(originalLetter.content)
+        contentArea.current.value = originalLetter.content;
+        console.log(originalLetter.content);
 
-        setSavedLetters([
-            ...savedLetters,
-        ])
+
 
     }
 
@@ -265,6 +264,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                             <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
                             <LetterContent>
                                 <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. {koreanName}</p>
+                                {/* 편지 내용 textarea ----------------------------------- */}
                                 <LetterContentTextArea
                                     defaultValue={item.content}
                                     onChange={handleContentChange}
