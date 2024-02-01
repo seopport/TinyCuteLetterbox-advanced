@@ -218,7 +218,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
         if (originalLetter.content === modifiedContent) {
             alert('수정 사항이 없습니다.');
             return;
-        } else alert('수정되었습니다.')
+        } else alert('수정되었습니다.');
 
         setIsModifying(false);
         renderModifyView(false);
@@ -236,7 +236,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
 
 
         const originalLetter = savedLetters.find((item) => {
-            return item.id === id
+            return item.id === id;
         });
 
         contentArea.current.value = originalLetter.content;
