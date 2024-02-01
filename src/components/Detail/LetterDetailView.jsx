@@ -157,7 +157,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
     const modifyCompleteButton = useRef();
     const modifyCancelButton = useRef();
 
-    const [content, setContent] = useState('');
+    const [modifiedContent, setmodifiedContent] = useState('');
 
     const param = useParams();
 
@@ -177,8 +177,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
 
 
     const handleContentChange = (e) => {
-        setContent(e.target.value);
-        console.log(content)
+        setmodifiedContent(e.target.value);
     }
 
     const [isModifying, setIsModifying] = useState(false)
@@ -210,35 +209,42 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
         setIsModifying(true);
         renderModifyButton(true);
         renderTextAreaStyle(true)
-        const originalContent = savedLetters.find((item) => {
-            return item.id === id
-        })
-        const newContent = content;
 
-        console.log("수정 전 :", originalContent.content, "수정 후 : ", newContent)
-
-        //아이디가 같은 편지의 textContent
     }
 
     const handleModifyCompleteButtonClick = (id) => {
         setIsModifying(false);
         renderModifyButton(false);
         renderTextAreaStyle(false)
+        const originalContent = savedLetters.find((item) => {
+            return item.id === id
+        });
 
+        originalContent.content = modifiedContent;
+
+        setSavedLetters([
+
+            ...savedLetters,
+
+        ])
+        console.log(231, savedLetters)
+
+        //오리지날 컨텐츠를 모디파이드컨텐트로 
     }
 
-    const handleModifyCancelButtonClick = () => {
+    const handleModifyCancelButtonClick = (id) => {
         setIsModifying(false);
         renderModifyButton(false);
         renderTextAreaStyle(false)
-
     }
 
     return (
         <>
             <BackButton onClick={() => { navigate('/') }}>돌아가기</BackButton>
+            {console.log(245, savedLetters)}
             {savedLetters.filter((item) => item.id === param.id)
                 .map((item) => {
+                    console.log(248, item)
                     const koreanName = changeToKoreanName(item.writedTo)
                     return (
                         <StLetterSendingBox key={item.id}>
