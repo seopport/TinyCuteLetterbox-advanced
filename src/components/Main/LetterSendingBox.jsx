@@ -102,7 +102,7 @@ function LetterSendingBox({ savedLetters, setSavedLetters }) {
 
         const year = new Date().getFullYear();
         const month = setDate(new Date().getMonth() + 1);
-        const day = new Date().getDate();
+        const day = setDate(new Date().getDate());
         const hour = setDate(new Date().getHours());
         const minute = setDate(new Date().getMinutes());
 

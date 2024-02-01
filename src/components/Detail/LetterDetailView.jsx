@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import colors from 'shared/color'
 import profileImg from 'assets/image/default_profile_bear.png';
@@ -40,7 +40,6 @@ const ProfileBox = styled.div`
 
 const LetterContent = styled.div`
     width: 100%;
-    height: 130px;
     margin: 7px;
     border-radius: 7px;
     padding: 15px;
@@ -123,6 +122,16 @@ const DateTime = styled(Date)`
     right: 30px;
     top: 38px;
 `
+
+const LetterContentTextArea = styled.textarea`
+    width: 100%;
+    height: 100px;
+    background-color: transparent;
+    border: none;
+    resize: none;
+    outline: none;
+    line-height: 18px;
+`
 //#endregion
 
 function LetterDetailView({ savedLetters, setSavedLetters }) {
@@ -138,17 +147,22 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
     }
 
     const handleDeleteButtonClick = (id) => {
-        if (window.confirm("삭제하시겠습니까?")) {
+        if (window.confirm("편지를 삭제하시겠습니까?")) {
             setSavedLetters((prev) => {
                 const newSavedLetters = prev.filter((item) => {
                     return item.id !== id
                 });
                 return newSavedLetters;
             })
-
+            alert('💌 편지를 삭제했습니다. 홈으로 이동합니다.');
             navigate('/')
         } return;
     };
+
+    const contentArea = useRef();
+
+    const handleResizeHeight = () => {
+    }
 
     return (
         <>
@@ -167,7 +181,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                             <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
                             <LetterContent>
                                 <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. {koreanName}</p>
-                                <p>{item.content}</p>
+                                <LetterContentTextArea ref={contentArea} spellCheck={false} maxLength={100} onChange={handleResizeHeight}>{item.content}</LetterContentTextArea>
                             </LetterContent>
                             <ButtonsWrap >
                                 <ModifyButton onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
