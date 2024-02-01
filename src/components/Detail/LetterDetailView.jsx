@@ -121,8 +121,11 @@ const ModifyCancelButton = styled(ModifyButton)`
     background-color: #fcf0c9;
     color: #a57b06;
     border: 1px solid #d4aa35;
+    display: none;
+
 `
 const ModifyCompleteButton = styled(ModifyButton)`
+    display: none;
 `
 
 
@@ -182,8 +185,10 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
 
     const handleModifyButtonClick = (id) => {
         //true로 바꾸면 props로 스타일 결정?
-        modifyButton.current.textContent = '완료'
         setIsModifying(true);
+        modifyButton.current.style.display = 'none';
+        modifyCompleteButton.current.style.display = 'inline';
+        modifyCancelButton.current.style.display = 'inline';
         contentArea.current.style.outline = '1px solid black';
         contentArea.current.style.padding = '3px';
 
