@@ -180,51 +180,50 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
 
     const [isModifying, setIsModifying] = useState(false)
 
-    const renderModifyButton = (isModifying) => {
+    const renderModifyView = (isModifying) => {
         if (isModifying) {
             modifyButton.current.style.display = 'none';
             modifyCompleteButton.current.style.display = 'inline';
             modifyCancelButton.current.style.display = 'inline';
+            contentArea.current.style.outline = '1px solid black';
+            contentArea.current.style.padding = '3px';
+
         } else {
             modifyButton.current.style.display = 'inline';
             modifyCompleteButton.current.style.display = 'none';
             modifyCancelButton.current.style.display = 'none';
-        }
-    }
-
-    const renderTextAreaStyle = (isModifying) => {
-        if (isModifying) {
-            contentArea.current.style.outline = '1px solid black';
-            contentArea.current.style.padding = '3px';
-        } else {
             contentArea.current.style.outline = 'none';
             contentArea.current.style.padding = '0px';
         }
     }
 
+
     const handleModifyButtonClick = (id) => {
         //true로 바꾸면 props로 스타일 결정?
         setIsModifying(true);
-        renderModifyButton(true);
-        renderTextAreaStyle(true);
+        renderModifyView(true);
         setmodifiedContent(contentArea.current.textContent)
         console.log(contentArea.current.textContent)
     }
 
-    const handleModifyCompleteButtonClick = (id) => {
-        const originalLetter = savedLetters.find((item) => {
+    const findLetter = (id) => {
+        return savedLetters.find((item) => {
             return item.id === id
-        });
+        })
+    }
+
+    const handleModifyCompleteButtonClick = (id) => {
+        const originalLetter = findLetter(id)
 
         if (originalLetter.content === modifiedContent) {
             alert('수정 사항이 없습니다.');
             return;
         } else alert('수정되었습니다.')
+
         setIsModifying(false);
-        renderModifyButton(false);
-        renderTextAreaStyle(false);
+        renderModifyView(false);
 
-
+        originalLetter.content = modifiedContent;
 
         setSavedLetters([
             ...savedLetters,
@@ -233,8 +232,14 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
 
     const handleModifyCancelButtonClick = (id) => {
         setIsModifying(false);
-        renderModifyButton(false);
-        renderTextAreaStyle(false)
+        renderModifyView(false);
+
+
+        const originalLetter = savedLetters.find((item) => {
+            return item.id === id
+        });
+
+        console.log(originalLetter.content)
 
         setSavedLetters([
             ...savedLetters,
@@ -248,6 +253,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
             {savedLetters.filter((item) => item.id === param.id)
                 .map((item) => {
                     const koreanName = changeToKoreanName(item.writedTo)
+
                     return (
                         <StLetterSendingBox key={item.id}>
                             <DateTime>{item.createdAt}</DateTime>
@@ -273,7 +279,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                                     수정
                                 </ModifyButton>
                                 <ModifyCompleteButton ref={modifyCompleteButton} onClick={() => handleModifyCompleteButtonClick(item.id)} >완료</ModifyCompleteButton>
-                                <ModifyCancelButton ref={modifyCancelButton} onClick={handleModifyCancelButtonClick} >취소</ModifyCancelButton>
+                                <ModifyCancelButton ref={modifyCancelButton} onClick={() => handleModifyCancelButtonClick(item.id)} >취소</ModifyCancelButton>
                                 <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
                             </ButtonsWrap>
                         </StLetterSendingBox >
