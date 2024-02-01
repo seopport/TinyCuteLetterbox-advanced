@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import colors from 'shared/color'
 import profileImg from 'assets/image/default_profile_bear.png';
@@ -116,12 +116,24 @@ const DeleteButton = styled.button`
             cursor: pointer;
         }
     `
+
+const ModifyCancelButton = styled(ModifyButton)`
+    background-color: #fcf0c9;
+    color: #a57b06;
+    border: 1px solid #d4aa35;
+`
+const ModifyCompleteButton = styled(ModifyButton)`
+`
+
+
+
 const DateTime = styled(Date)`
     position: absolute;
     font-size: 14px;
     right: 30px;
     top: 38px;
 `
+
 
 const LetterContentTextArea = styled.textarea`
     width: 100%;
@@ -131,18 +143,21 @@ const LetterContentTextArea = styled.textarea`
     resize: none;
     outline: none;
     line-height: 18px;
+    border-radius: 5px;
 `
 //#endregion
 
 function LetterDetailView({ savedLetters, setSavedLetters }) {
     const navigate = useNavigate();
     const contentArea = useRef();
+    const modifyButton = useRef();
+    const modifyCompleteButton = useRef();
+    const modifyCancelButton = useRef();
+
+    const [content, setContent] = useState('');
 
     const param = useParams();
 
-    const handleModifyButtonClick = () => {
-
-    }
 
     const handleDeleteButtonClick = (id) => {
         if (window.confirm("편지를 삭제하시겠습니까?")) {
@@ -158,7 +173,28 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
     };
 
 
-    const handleResizeHeight = () => {
+    const handleContentChange = (e) => {
+        setContent(e.target.value);
+        console.log(content)
+    }
+
+    const [isModifying, setIsModifying] = useState(false)
+
+    const handleModifyButtonClick = (id) => {
+        //true로 바꾸면 props로 스타일 결정?
+        modifyButton.current.textContent = '완료'
+        setIsModifying(true);
+        contentArea.current.style.outline = '1px solid black';
+        contentArea.current.style.padding = '3px';
+
+        const originalContent = savedLetters.find((item) => {
+            return item.id === id
+        })
+        const newContent = content;
+
+        console.log("수정 전 :", originalContent.content, "수정 후 : ", newContent)
+
+        //아이디가 같은 편지의 textContent
     }
 
     return (
@@ -178,10 +214,21 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                             <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
                             <LetterContent>
                                 <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. {koreanName}</p>
-                                <LetterContentTextArea ref={contentArea} spellCheck={false} maxLength={100} onChange={handleResizeHeight}>{item.content}</LetterContentTextArea>
+                                <LetterContentTextArea
+                                    defaultValue={item.content}
+                                    onChange={handleContentChange}
+                                    ref={contentArea} spellCheck={false} maxLength={100} readOnly={!isModifying}>
+
+                                </LetterContentTextArea>
                             </LetterContent>
                             <ButtonsWrap >
-                                <ModifyButton onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
+                                <ModifyButton
+                                    ref={modifyButton}
+                                    onClick={() => handleModifyButtonClick(item.id)}>
+                                    수정
+                                </ModifyButton>
+                                <ModifyCompleteButton ref={modifyCompleteButton} onClick={() => handleDeleteButtonClick(item.id)}>완료</ModifyCompleteButton>
+                                <ModifyCancelButton ref={modifyCancelButton} onClick={() => handleDeleteButtonClick(item.id)}>취소</ModifyCancelButton>
                                 <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
                             </ButtonsWrap>
                         </StLetterSendingBox >
