@@ -12,7 +12,6 @@ function Home({ savedLetters, setSavedLetters, selectedCharacter, setSelectedCha
         <LetterSendingBox savedLetters={savedLetters} setSavedLetters={setSavedLetters}></LetterSendingBox>
         <LetterBoxSelector selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter}></LetterBoxSelector>
         <LetterSummaryView selectedCharacter={selectedCharacter} savedLetters={savedLetters}></LetterSummaryView>
-        <EmptyLetterBoxMessage></EmptyLetterBoxMessage>
     </Layout>
 
 }

@@ -4,28 +4,29 @@ import colors from 'shared/color';
 import "shared/index.css"
 import { useNavigate } from 'react-router-dom';
 import uuid from 'react-uuid';
+import EmptyLetterBoxMessage from './EmptyLetterBoxMessage';
 
 
 const LetterSummaryBox = styled.div`
-        width: 68%;
-        height: 80px;
-        background-color: white;
-        border-radius: 11px;
-        padding: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 17px;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-        border: 1px solid ${colors.bordeGreyishBlue};
-        position: relative;
+    width: 68%;
+    height: 80px;
+    background-color: white;
+    border-radius: 11px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 17px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border: 1px solid ${colors.bordeGreyishBlue};
+    position: relative;
         
-    `
+`
 
 const ProfileImg = styled.img`
-        width: 58px;
-        margin-right: 5px;
-    `
+    width: 58px;
+    margin-right: 5px;
+`
 
 const Line = styled.span`
     height: 1px; 
@@ -74,13 +75,18 @@ function LetterSummaryView({ selectedCharacter, savedLetters }) {
 
     const navigate = useNavigate();
 
+    const filteredLetters = savedLetters
+        .filter((item) => {
+            return item.writedTo === selectedCharacter
+        })
+
     return (
         <>
-            {savedLetters
-                .filter((item) => item.writedTo === selectedCharacter)
-                .map((item) => {
-                    return (
-                        <LetterSummaryBox key={uuid()}>
+            {filteredLetters.length === 0 && <EmptyLetterBoxMessage />}
+            {filteredLetters.map((item) => {
+                return (
+                    <>
+                        <LetterSummaryBox key={item.id}>
                             <ProfileImg src={profileImg}></ProfileImg>
                             <Line></Line>
                             <div>
@@ -93,22 +99,11 @@ function LetterSummaryView({ selectedCharacter, savedLetters }) {
                             </div>
                             <ViewDetails onClick={() => navigate(`/details/${item.id}`)}>상세보기</ViewDetails>
                         </LetterSummaryBox>
-                    )
-                })}
-            {/* <LetterSummaryBox>
-                <ProfileImg src={profileImg}></ProfileImg>
-                <Line></Line>
-                <div>
-                    <div style={{ display: "flex" }}>
-                        <span style={{ fontSize: "15px" }}>닉네임</span>
-                        <Date>2024/01/30</Date>
-                    </div>
-                    <Summary>맥도날드 감자튀김은 짭짤하고 고소하고 맥도날드 감자튀김은 짭짤하고 고...</Summary>
 
-                </div>
-                <ViewDetails onClick={() => navigate('/details')}>상세보기</ViewDetails>
-            </LetterSummaryBox> */}
-
+                    </>
+                )
+            })
+            }
         </>
     )
 }
