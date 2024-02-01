@@ -231,19 +231,14 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
     }
 
     const handleModifyCancelButtonClick = (id) => {
-        setIsModifying(false);
-        renderModifyView(false);
-
-
-        const originalLetter = savedLetters.find((item) => {
-            return item.id === id;
-        });
-
-        contentArea.current.value = originalLetter.content;
-        console.log(originalLetter.content);
-
-
-
+        if (window.confirm("수정을 취소하시겠습니까?")) {
+            setIsModifying(false);
+            renderModifyView(false);
+            const originalLetter = savedLetters.find((item) => {
+                return item.id === id;
+            });
+            contentArea.current.value = originalLetter.content;
+        } else return;
     }
 
     return (
