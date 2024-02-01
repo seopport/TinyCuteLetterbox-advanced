@@ -3,7 +3,6 @@ import profileImg from 'assets/image/default_profile_bear2.png';
 import colors from 'shared/color';
 import "shared/index.css"
 import { useNavigate } from 'react-router-dom';
-import uuid from 'react-uuid';
 import EmptyLetterBoxMessage from './EmptyLetterBoxMessage';
 
 
@@ -85,22 +84,20 @@ function LetterSummaryView({ selectedCharacter, savedLetters }) {
             {filteredLetters.length === 0 && <EmptyLetterBoxMessage />}
             {filteredLetters.map((item) => {
                 return (
-                    <>
-                        <LetterSummaryBox key={item.id}>
-                            <ProfileImg src={profileImg}></ProfileImg>
-                            <Line></Line>
-                            <div>
-                                <div style={{ display: "flex" }}>
-                                    <span style={{ fontSize: "15px" }}>{item.nickname}</span>
-                                    <Date>{item.createdAt.slice(0, 10)}</Date>
-                                </div>
-                                <Summary>{item.content}</Summary>
 
+                    <LetterSummaryBox key={item.id}>
+                        <ProfileImg src={profileImg}></ProfileImg>
+                        <Line></Line>
+                        <div>
+                            <div style={{ display: "flex" }}>
+                                <span style={{ fontSize: "15px" }}>{item.nickname}</span>
+                                <Date>{item.createdAt.slice(0, 10)}</Date>
                             </div>
-                            <ViewDetails onClick={() => navigate(`/details/${item.id}`)}>상세보기</ViewDetails>
-                        </LetterSummaryBox>
+                            <Summary>{item.content}</Summary>
 
-                    </>
+                        </div>
+                        <ViewDetails onClick={() => navigate(`/details/${item.id}`)}>상세보기</ViewDetails>
+                    </LetterSummaryBox>
                 )
             })
             }

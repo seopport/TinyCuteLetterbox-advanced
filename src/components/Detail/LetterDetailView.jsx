@@ -96,6 +96,7 @@ const ModifyButton = styled.button`
     border-radius: 7px;
     line-height: normal;
     margin-right: 6px;
+    display: ${(props) => props.isModifying ? "none" : "inline"};
         
     &:hover {
             cursor: pointer;
@@ -111,7 +112,7 @@ const DeleteButton = styled.button`
     border: 1px solid #DFADAD;
     color: #b96b6b;
     border-radius: 7px;
-       
+      
     &:hover {
             cursor: pointer;
         }
@@ -121,11 +122,11 @@ const ModifyCancelButton = styled(ModifyButton)`
     background-color: #fcf0c9;
     color: #a57b06;
     border: 1px solid #d4aa35;
-    display: none;
+    display: ${(props) => props.isModifying ? "inline" : "none"};
 
 `
 const ModifyCompleteButton = styled(ModifyButton)`
-    display: none;
+    display: ${(props) => props.isModifying ? "inline" : "none"};
 `
 
 
@@ -141,21 +142,20 @@ const DateTime = styled(Date)`
 const LetterContentTextArea = styled.textarea`
     width: 100%;
     min-height: 100px;
-    background-color: transparent;
+    background-color: transparent; 
     border: none;
     resize: none;
-    outline: none;
+    outline: ${(props) => props.isModifying ? "1px solid black" : "none"};
     line-height: 18px;
     border-radius: 5px;
+    padding: ${(props) => props.isModifying ? "3px" : "0px"};
+
 `
 //#endregion
 
 function LetterDetailView({ savedLetters, setSavedLetters }) {
     const navigate = useNavigate();
     const contentArea = useRef();
-    const modifyButton = useRef();
-    const modifyCompleteButton = useRef();
-    const modifyCancelButton = useRef();
 
     const param = useParams();
 
@@ -180,28 +180,9 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
 
     const [isModifying, setIsModifying] = useState(false)
 
-    const renderModifyView = (isModifying) => {
-        if (isModifying) {
-            modifyButton.current.style.display = 'none';
-            modifyCompleteButton.current.style.display = 'inline';
-            modifyCancelButton.current.style.display = 'inline';
-            contentArea.current.style.outline = '1px solid black';
-            contentArea.current.style.padding = '3px';
-
-        } else {
-            modifyButton.current.style.display = 'inline';
-            modifyCompleteButton.current.style.display = 'none';
-            modifyCancelButton.current.style.display = 'none';
-            contentArea.current.style.outline = 'none';
-            contentArea.current.style.padding = '0px';
-        }
-    }
-
-
-    const handleModifyButtonClick = (id) => {
+    const handleModifyButtonClick = () => {
         //true로 바꾸면 props로 스타일 결정?
         setIsModifying(true);
-        renderModifyView(true);
         setmodifiedContent(contentArea.current.textContent)
         console.log(contentArea.current.textContent)
     }
@@ -221,8 +202,6 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
         } else alert('수정되었습니다.');
 
         setIsModifying(false);
-        renderModifyView(false);
-
         originalLetter.content = modifiedContent;
 
         setSavedLetters([
@@ -233,7 +212,6 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
     const handleModifyCancelButtonClick = (id) => {
         if (window.confirm("수정을 취소하시겠습니까?")) {
             setIsModifying(false);
-            renderModifyView(false);
             const originalLetter = savedLetters.find((item) => {
                 return item.id === id;
             });
@@ -261,6 +239,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                                 <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. {koreanName}</p>
                                 {/* 편지 내용 textarea ----------------------------------- */}
                                 <LetterContentTextArea
+                                    isModifying={isModifying}
                                     defaultValue={item.content}
                                     onChange={handleContentChange}
                                     ref={contentArea} spellCheck={false} maxLength={200} readOnly={!isModifying}>
@@ -268,13 +247,9 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                                 </LetterContentTextArea>
                             </LetterContent>
                             <ButtonsWrap >
-                                <ModifyButton
-                                    ref={modifyButton}
-                                    onClick={() => handleModifyButtonClick(item.id)}>
-                                    수정
-                                </ModifyButton>
-                                <ModifyCompleteButton ref={modifyCompleteButton} onClick={() => handleModifyCompleteButtonClick(item.id)} >완료</ModifyCompleteButton>
-                                <ModifyCancelButton ref={modifyCancelButton} onClick={() => handleModifyCancelButtonClick(item.id)} >취소</ModifyCancelButton>
+                                <ModifyButton isModifying={isModifying} onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
+                                <ModifyCompleteButton isModifying={isModifying} onClick={() => handleModifyCompleteButtonClick(item.id)} >완료</ModifyCompleteButton>
+                                <ModifyCancelButton isModifying={isModifying} onClick={() => handleModifyCancelButtonClick(item.id)} >취소</ModifyCancelButton>
                                 <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
                             </ButtonsWrap>
                         </StLetterSendingBox >
