@@ -26,7 +26,8 @@ export const SelectCharacter = styled.button`
         border: 1px solid ${colors.bordeGreyishBlue};
         border-radius: 7px;
         line-height: 100%;
-        color: ${(props) => (props.character === props.selectedCharacter ? "white" : colors.bordeGreyishBlue)};
+        color: ${(props) => props.character === props.selectedCharacter ? "white" : colors.bordeGreyishBlue};
+        transition: all 0.1s;
 
         &:hover {
             cursor: pointer;

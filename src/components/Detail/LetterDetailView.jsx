@@ -66,9 +66,11 @@ const BackButton = styled.button`
     color: #4D86A6;
     border-radius: 9px;
     line-height: 100%;
+    transition: all 0.3s;
         
     &:hover {
             cursor: pointer;
+            background-color: #eefeff;
         }
     `
 
@@ -90,9 +92,12 @@ const ModifyButton = styled.button`
     line-height: normal;
     margin-right: 6px;
     display: ${(props) => props.isModifying ? "none" : "inline"};
+    transition: all 0.3s;
         
     &:hover {
             cursor: pointer;
+            background-color: #d8f7ff;
+
         }
     `
 
@@ -105,9 +110,11 @@ const DeleteButton = styled.button`
     border: 1px solid #DFADAD;
     color: #b96b6b;
     border-radius: 7px;
+    transition: all 0.3s;
       
     &:hover {
             cursor: pointer;
+            background-color: #ffdada;
         }
     `
 
@@ -116,6 +123,11 @@ const ModifyCancelButton = styled(ModifyButton)`
     color: #a57b06;
     border: 1px solid #d4aa35;
     display: ${(props) => props.isModifying ? "inline" : "none"};
+
+    &:hover {
+        background-color: #fae5a1;
+    }
+
 
 `
 const ModifyCompleteButton = styled(ModifyButton)`
@@ -176,7 +188,6 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
     const handleModifyButtonClick = () => {
         setIsModifying(true);
         setmodifiedContent(contentArea.current.textContent)
-        console.log(contentArea.current.textContent)
     }
 
     const findLetter = (id) => {
@@ -190,6 +201,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
 
         if (originalLetter.content === modifiedContent) {
             alert('수정 사항이 없습니다.');
+            contentArea.current.focus();
             return;
         } else alert('수정되었습니다.');
 
@@ -208,7 +220,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                 return item.id === id;
             });
             contentArea.current.value = originalLetter.content;
-        } else return;
+        } else contentArea.current.focus();
     }
 
     return (
