@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
 import Layout from 'components/Layout'
 import LetterSendingBox from "components/Main/LetterSendingBox";
 import LetterBoxSelector from "components/Main/LetterBoxSelecter";
 import LetterSummaryView from "components/Main/LetterSummaryView";
-import EmptyLetterBoxMessage from "components/Main/EmptyLetterBoxMessage";
 
 function Home({ savedLetters, setSavedLetters, selectedCharacter, setSelectedCharacter }) {
 

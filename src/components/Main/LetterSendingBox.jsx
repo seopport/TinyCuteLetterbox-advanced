@@ -107,7 +107,6 @@ function LetterSendingBox({ savedLetters, setSavedLetters }) {
         const minute = setDate(new Date().getMinutes());
 
         const createdAt = [[year, month, day].join('-') + " " + [hour, minute].join(':')]
-        console.log("🚀 ~ handleSendButtonClick ~ createdAt:", createdAt)
 
         const letterContent = letterInput.current.value;
         const sendTo = selectedCharacter; //보낼 캐릭터
