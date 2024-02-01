@@ -195,13 +195,21 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
         }
     }
 
+    const renderTextAreaStyle = (isModifying) => {
+        if (isModifying) {
+            contentArea.current.style.outline = '1px solid black';
+            contentArea.current.style.padding = '3px';
+        } else {
+            contentArea.current.style.outline = 'none';
+            contentArea.current.style.padding = '0px';
+        }
+    }
+
     const handleModifyButtonClick = (id) => {
         //true로 바꾸면 props로 스타일 결정?
         setIsModifying(true);
         renderModifyButton(true);
-        contentArea.current.style.outline = '1px solid black';
-        contentArea.current.style.padding = '3px';
-
+        renderTextAreaStyle(true)
         const originalContent = savedLetters.find((item) => {
             return item.id === id
         })
@@ -215,11 +223,15 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
     const handleModifyCompleteButtonClick = (id) => {
         setIsModifying(false);
         renderModifyButton(false);
+        renderTextAreaStyle(false)
+
     }
 
     const handleModifyCancelButtonClick = () => {
         setIsModifying(false);
         renderModifyButton(false);
+        renderTextAreaStyle(false)
+
     }
 
     return (
