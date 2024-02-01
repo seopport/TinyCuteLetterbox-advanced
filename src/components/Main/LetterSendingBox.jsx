@@ -162,7 +162,7 @@ function LetterSendingBox({ savedLetters, setSavedLetters }) {
                     </SelectBox>
                 </div>
                 <WriteLetterBox
-                    maxLength={100} placeholder='최대 100자까지 입력할 수 있습니다.' spellCheck={false} ref={letterInput} />
+                    maxLength={200} placeholder='최대 200자까지 입력할 수 있습니다.' spellCheck={false} ref={letterInput} />
                 <div style={{ alignSelf: "flex-end" }}>
                     <span style={{ fontSize: "14px" }} >작성자</span>
                     <WriterInput maxLength={10} ref={writerInput} />

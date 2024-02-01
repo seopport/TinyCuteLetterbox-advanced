@@ -140,7 +140,7 @@ const DateTime = styled(Date)`
 
 const LetterContentTextArea = styled.textarea`
     width: 100%;
-    height: 100px;
+    min-height: 100px;
     background-color: transparent;
     border: none;
     resize: none;
@@ -157,10 +157,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
     const modifyCompleteButton = useRef();
     const modifyCancelButton = useRef();
 
-    const [modifiedContent, setmodifiedContent] = useState('');
-
     const param = useParams();
-
 
     const handleDeleteButtonClick = (id) => {
         if (window.confirm("편지를 삭제하시겠습니까?")) {
@@ -175,6 +172,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
         } return;
     };
 
+    const [modifiedContent, setmodifiedContent] = useState('');
 
     const handleContentChange = (e) => {
         setmodifiedContent(e.target.value);
@@ -208,43 +206,47 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
         //true로 바꾸면 props로 스타일 결정?
         setIsModifying(true);
         renderModifyButton(true);
-        renderTextAreaStyle(true)
-
+        renderTextAreaStyle(true);
+        setmodifiedContent(contentArea.current.textContent)
+        console.log(contentArea.current.textContent)
     }
 
     const handleModifyCompleteButtonClick = (id) => {
-        setIsModifying(false);
-        renderModifyButton(false);
-        renderTextAreaStyle(false)
-        const originalContent = savedLetters.find((item) => {
+        const originalLetter = savedLetters.find((item) => {
             return item.id === id
         });
 
-        originalContent.content = modifiedContent;
+        if (originalLetter.content === modifiedContent) {
+            alert('수정 사항이 없습니다.');
+            return;
+        } else alert('수정되었습니다.')
+        setIsModifying(false);
+        renderModifyButton(false);
+        renderTextAreaStyle(false);
+
+
 
         setSavedLetters([
-
             ...savedLetters,
-
         ])
-        console.log(231, savedLetters)
-
-        //오리지날 컨텐츠를 모디파이드컨텐트로 
     }
 
     const handleModifyCancelButtonClick = (id) => {
         setIsModifying(false);
         renderModifyButton(false);
         renderTextAreaStyle(false)
+
+        setSavedLetters([
+            ...savedLetters,
+        ])
+
     }
 
     return (
         <>
             <BackButton onClick={() => { navigate('/') }}>돌아가기</BackButton>
-            {console.log(245, savedLetters)}
             {savedLetters.filter((item) => item.id === param.id)
                 .map((item) => {
-                    console.log(248, item)
                     const koreanName = changeToKoreanName(item.writedTo)
                     return (
                         <StLetterSendingBox key={item.id}>
@@ -260,7 +262,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                                 <LetterContentTextArea
                                     defaultValue={item.content}
                                     onChange={handleContentChange}
-                                    ref={contentArea} spellCheck={false} maxLength={100} readOnly={!isModifying}>
+                                    ref={contentArea} spellCheck={false} maxLength={200} readOnly={!isModifying}>
 
                                 </LetterContentTextArea>
                             </LetterContent>
