@@ -136,11 +136,9 @@ const LetterContentTextArea = styled.textarea`
 
 function LetterDetailView({ savedLetters, setSavedLetters }) {
     const navigate = useNavigate();
+    const contentArea = useRef();
 
     const param = useParams();
-    console.log(param)
-
-    console.log(savedLetters)
 
     const handleModifyButtonClick = () => {
 
@@ -159,7 +157,6 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
         } return;
     };
 
-    const contentArea = useRef();
 
     const handleResizeHeight = () => {
     }
