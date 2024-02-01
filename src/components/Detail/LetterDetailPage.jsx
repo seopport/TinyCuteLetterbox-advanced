@@ -13,7 +13,7 @@ function LetterDetailPage({ savedLetters, setSavedLetters }) {
                 savedLetters={savedLetters}
                 setSavedLetters={setSavedLetters}
             ></LetterDetailView>
-        </Layout >
+        </Layout>
     )
 }
 
