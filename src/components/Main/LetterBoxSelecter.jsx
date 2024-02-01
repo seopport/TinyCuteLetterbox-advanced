@@ -21,12 +21,12 @@ export const SelectCharacter = styled.button`
         width: 88px;
         height: 35px;
         background-color: ${(props) => {
-        return props.character === props.selectedCharacter ? colors.aquaBlue : "white"
+        return props.$character === props.$selectedCharacter ? colors.aquaBlue : "white"
     }};
         border: 1px solid ${colors.bordeGreyishBlue};
         border-radius: 7px;
         line-height: 100%;
-        color: ${(props) => props.character === props.selectedCharacter ? "white" : colors.bordeGreyishBlue};
+        color: ${(props) => props.$character === props.$selectedCharacter ? "white" : colors.bordeGreyishBlue};
         transition: all 0.1s;
 
         &:hover {
@@ -43,14 +43,12 @@ function LetterBoxSelecter({ selectedCharacter, setSelectedCharacter }) {
 
 
     return (
-        <>
-            <SelectorBox>
-                <SelectCharacter character="chiikawa" onClick={() => handleCharacterBox("chiikawa")} selectedCharacter={selectedCharacter}>치이카와</SelectCharacter>
-                <SelectCharacter character="hachiware" onClick={() => handleCharacterBox("hachiware")} selectedCharacter={selectedCharacter}> 하치와레</SelectCharacter>
-                <SelectCharacter character="usagi" onClick={() => handleCharacterBox("usagi")} selectedCharacter={selectedCharacter}>우사기</SelectCharacter>
-                <SelectCharacter character="momonga" onClick={() => handleCharacterBox("momonga")} selectedCharacter={selectedCharacter}>모몽가</SelectCharacter>
-            </SelectorBox>
-        </>
+        <SelectorBox>
+            <SelectCharacter $character="chiikawa" onClick={() => handleCharacterBox("chiikawa")} $selectedCharacter={selectedCharacter}>치이카와</SelectCharacter>
+            <SelectCharacter $character="hachiware" onClick={() => handleCharacterBox("hachiware")} $selectedCharacter={selectedCharacter}> 하치와레</SelectCharacter>
+            <SelectCharacter $character="usagi" onClick={() => handleCharacterBox("usagi")} $selectedCharacter={selectedCharacter}>우사기</SelectCharacter>
+            <SelectCharacter $character="momonga" onClick={() => handleCharacterBox("momonga")} $selectedCharacter={selectedCharacter}>모몽가</SelectCharacter>
+        </SelectorBox>
     )
 }
 

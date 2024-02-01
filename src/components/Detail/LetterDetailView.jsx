@@ -91,7 +91,7 @@ const ModifyButton = styled.button`
     border-radius: 7px;
     line-height: normal;
     margin-right: 6px;
-    display: ${(props) => props.isModifying ? "none" : "inline"};
+    display: ${(props) => props.$isModifying ? "none" : "inline"};
     transition: all 0.3s;
         
     &:hover {
@@ -122,7 +122,7 @@ const ModifyCancelButton = styled(ModifyButton)`
     background-color: #fcf0c9;
     color: #a57b06;
     border: 1px solid #d4aa35;
-    display: ${(props) => props.isModifying ? "inline" : "none"};
+    display: ${(props) => props.$isModifying ? "inline" : "none"};
 
     &:hover {
         background-color: #fae5a1;
@@ -131,7 +131,7 @@ const ModifyCancelButton = styled(ModifyButton)`
 
 `
 const ModifyCompleteButton = styled(ModifyButton)`
-    display: ${(props) => props.isModifying ? "inline" : "none"};
+    display: ${(props) => props.$isModifying ? "inline" : "none"};
 `
 
 
@@ -150,10 +150,10 @@ const LetterContentTextArea = styled.textarea`
     background-color: transparent; 
     border: none;
     resize: none;
-    outline: ${(props) => props.isModifying ? "1px solid black" : "none"};
+    outline: ${(props) => props.$isModifying ? "1px solid black" : "none"};
     line-height: 18px;
     border-radius: 5px;
-    padding: ${(props) => props.isModifying ? "3px" : "0px"};
+    padding: ${(props) => props.$isModifying ? "3px" : "0px"};
 
 `
 //#endregion
@@ -244,17 +244,16 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                                 <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. {koreanName}</p>
                                 {/* 편지 내용 textarea ----------------------------------- */}
                                 <LetterContentTextArea
-                                    isModifying={isModifying}
+                                    $isModifying={isModifying}
                                     defaultValue={item.content}
                                     onChange={handleContentChange}
                                     ref={contentArea} spellCheck={false} maxLength={200} readOnly={!isModifying}>
-
                                 </LetterContentTextArea>
                             </LetterContent>
                             <ButtonsWrap >
-                                <ModifyButton isModifying={isModifying} onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
-                                <ModifyCompleteButton isModifying={isModifying} onClick={() => handleModifyCompleteButtonClick(item.id)} >완료</ModifyCompleteButton>
-                                <ModifyCancelButton isModifying={isModifying} onClick={() => handleModifyCancelButtonClick(item.id)} >취소</ModifyCancelButton>
+                                <ModifyButton $isModifying={isModifying} onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
+                                <ModifyCompleteButton $isModifying={isModifying} onClick={() => handleModifyCompleteButtonClick(item.id)} >완료</ModifyCompleteButton>
+                                <ModifyCancelButton $isModifying={isModifying} onClick={() => handleModifyCancelButtonClick(item.id)} >취소</ModifyCancelButton>
                                 <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
                             </ButtonsWrap>
                         </StLetterDetailBox >
