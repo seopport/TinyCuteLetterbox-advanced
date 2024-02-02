@@ -4,6 +4,8 @@ import colors from 'shared/color';
 import "shared/index.css"
 import { useNavigate } from 'react-router-dom';
 import EmptyLetterBoxMessage from './EmptyLetterBoxMessage';
+import { useContext } from 'react';
+import { LetterContext } from 'context/LetterContext';
 
 
 const LetterSummaryBox = styled.div`

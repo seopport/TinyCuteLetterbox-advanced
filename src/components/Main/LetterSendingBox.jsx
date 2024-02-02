@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import styled from 'styled-components'
 import color from 'shared/color'
 import "shared/index.css"
@@ -6,6 +6,7 @@ import meltingChiikawa from "assets/image/melting_chiikawa.png"
 import profileImge from "assets/image/default_profile_bear.png"
 import uuid from 'react-uuid'
 import { changeToKoreanName } from 'shared/changeToKoreanName'
+import { LetterContext } from 'context/LetterContext'
 
 //#region
 export const StLetterSendingBox = styled.div`
@@ -87,14 +88,17 @@ export const ChiikawaOnBox = styled.img`
         right: 20px;
     `
 
-function LetterSendingBox({ savedLetters, setSavedLetters }) {
+function LetterSendingBox({ savedLetters, setSavedLetters, selectedCharacter, setSelectedCharacter }) {
+    const data = useContext(LetterContext)
+    console.log("🚀 ~ LetterSendingBox ~ data:", data)
+    // const savedLetters = useContext(LetterContext.savedLetters);
+    console.log("로그")
+
 
     const letterInput = useRef();
     const writerInput = useRef();
 
     //옵션으로 선택한 캐릭터
-    const [selectedCharacter, setSelectedCharacter] = useState("chiikawa");
-
     const handleSendButtonClick = () => {
         const setDate = (date) => {
             return date < 10 ? "0" + date : date.toString();
@@ -132,7 +136,7 @@ function LetterSendingBox({ savedLetters, setSavedLetters }) {
             id: uuid()
 
         }
-        setSavedLetters([...savedLetters, newLetter])
+        // setSavedLetters([...savedLetters, newLetter])
 
         const koreanName = changeToKoreanName(sendTo)
         alert(`💌 ${koreanName}에게 편지를 보냈어요.`)

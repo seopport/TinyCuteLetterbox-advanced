@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import styled from 'styled-components'
 import colors from 'shared/color'
 import profileImg from 'assets/image/default_profile_bear.png';
@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Date } from 'components/Main/LetterSummaryView';
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 import { StLetterSendingBox } from 'components/Main/LetterSendingBox';
+import { LetterContext } from 'context/LetterContext';
 
 //#region
 const StLetterDetailBox = styled(StLetterSendingBox)`
@@ -160,6 +161,12 @@ const LetterContentTextArea = styled.textarea`
 //#endregion
 
 function LetterDetailView({ savedLetters, setSavedLetters }) {
+    console.log("렌더링")
+    // const data = useContext(LetterContext)
+    // console.log("🚀 ~ LetterDetailView ~ data:", data)
+    // console.log("🚀 ~ LetterDetailView ~ data:", data.savedLetters)
+    // const savedLetters = useContext(data.savedLetters)
+
     const navigate = useNavigate();
     const contentArea = useRef();
 
