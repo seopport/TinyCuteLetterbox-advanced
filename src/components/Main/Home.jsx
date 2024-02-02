@@ -3,15 +3,21 @@ import LetterSendingBox from "components/Main/LetterSendingBox";
 import LetterBoxSelector from "components/Main/LetterBoxSelecter";
 import LetterSummaryView from "components/Main/LetterSummaryView";
 import { useState } from 'react';
+import { CharacterContext } from 'context/CharacterContext';
 
-function Home({ savedLetters, setSavedLetters }) {
+function Home() {
     const [selectedCharacter, setSelectedCharacter] = useState("chiikawa");
 
     return <Layout >
         {/* 감싸진 내용이 Layout의 children props로 들어간다. */}
-        <LetterSendingBox selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter} savedLetters={savedLetters} setSavedLetters={setSavedLetters}></LetterSendingBox>
-        <LetterBoxSelector selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter}></LetterBoxSelector>
-        <LetterSummaryView selectedCharacter={selectedCharacter}></LetterSummaryView>
+        <CharacterContext.Provider value={{
+            selectedCharacter,
+            setSelectedCharacter
+        }}>
+            <LetterSendingBox selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter}></LetterSendingBox>
+            <LetterBoxSelector selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter}></LetterBoxSelector>
+            <LetterSummaryView selectedCharacter={selectedCharacter}></LetterSummaryView>
+        </CharacterContext.Provider>
     </Layout>
 
 }
