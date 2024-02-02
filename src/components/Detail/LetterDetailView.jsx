@@ -244,7 +244,6 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                                 <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. {koreanName}</p>
                                 {/* 편지 내용 textarea ----------------------------------- */}
                                 <LetterContentTextArea
-                                    $isModifying={isModifying}
                                     defaultValue={item.content}
                                     onChange={handleContentChange}
                                     ref={contentArea} spellCheck={false} maxLength={200} readOnly={!isModifying}>
@@ -255,13 +254,13 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                             {isModifying
                                 ?
                                 <ButtonsWrap>
-                                    <ModifyCompleteButton $isModifying={isModifying} onClick={() => handleModifyCompleteButtonClick(item.id)} >완료</ModifyCompleteButton>
-                                    <ModifyCancelButton $isModifying={isModifying} onClick={() => handleModifyCancelButtonClick(item.id)} >취소</ModifyCancelButton>
+                                    <ModifyCompleteButton onClick={() => handleModifyCompleteButtonClick(item.id)} >완료</ModifyCompleteButton>
+                                    <ModifyCancelButton onClick={() => handleModifyCancelButtonClick(item.id)} >취소</ModifyCancelButton>
                                     <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
                                 </ButtonsWrap>
                                 :
                                 <ButtonsWrap>
-                                    <ModifyButton $isModifying={isModifying} onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
+                                    <ModifyButton onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
                                     <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
                                 </ButtonsWrap>
                             }
