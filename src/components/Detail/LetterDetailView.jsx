@@ -214,13 +214,19 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
     }
 
     const handleModifyCancelButtonClick = (id) => {
-        if (window.confirm("수정을 취소하시겠습니까?")) {
+        const originalLetter = findLetter(id)
+        // 변경 사항 있을시에만 컨펌메세지 출력
+        if (originalLetter.content !== modifiedContent) {
+            if (window.confirm("수정을 취소하시겠습니까?")) {
+                setIsModifying(false);
+                const originalLetter = savedLetters.find((item) => {
+                    return item.id === id;
+                });
+                contentArea.current.value = originalLetter.content;
+            } else contentArea.current.focus();
+        } else {
             setIsModifying(false);
-            const originalLetter = savedLetters.find((item) => {
-                return item.id === id;
-            });
-            contentArea.current.value = originalLetter.content;
-        } else contentArea.current.focus();
+        }
     }
 
     return (
