@@ -71,8 +71,9 @@ export const Date = styled.span`
     color: grey;
 `
 
-function LetterSummaryView({ selectedCharacter, savedLetters }) {
-
+function LetterSummaryView({ selectedCharacter, }) {
+    const context = useContext(LetterContext);
+    const savedLetters = context.savedLetters;
 
     const navigate = useNavigate();
 

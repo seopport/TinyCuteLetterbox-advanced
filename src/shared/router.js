@@ -8,7 +8,6 @@ const Router = () => {
   const [savedLetters, setSavedLetters] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect 몇번?");
     const loadData = async () => {
       try {
         const res = await fetch("http://localhost:4000/data");
@@ -30,7 +29,7 @@ const Router = () => {
         }}
       >
         <Routes>
-          <Route path="/" element={<Home savedLetters={savedLetters} />} />
+          <Route path="/" element={<Home />} />
           <Route
             path="details/:id"
             element={<LetterDetailPage savedLetters={savedLetters} />}

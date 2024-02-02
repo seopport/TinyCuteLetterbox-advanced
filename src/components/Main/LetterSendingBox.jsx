@@ -88,12 +88,11 @@ export const ChiikawaOnBox = styled.img`
         right: 20px;
     `
 
-function LetterSendingBox({ savedLetters, setSavedLetters, selectedCharacter, setSelectedCharacter }) {
+function LetterSendingBox({ selectedCharacter, setSelectedCharacter }) {
     const data = useContext(LetterContext)
-    console.log("🚀 ~ LetterSendingBox ~ data:", data)
-    // const savedLetters = useContext(LetterContext.savedLetters);
-    console.log("로그")
-
+    console.log(data.savedLetters)
+    const savedLetters = data.savedLetters;
+    const setSavedLetters = data.setSavedLetters;
 
     const letterInput = useRef();
     const writerInput = useRef();
@@ -136,7 +135,7 @@ function LetterSendingBox({ savedLetters, setSavedLetters, selectedCharacter, se
             id: uuid()
 
         }
-        // setSavedLetters([...savedLetters, newLetter])
+        setSavedLetters([...savedLetters, newLetter])
 
         const koreanName = changeToKoreanName(sendTo)
         alert(`💌 ${koreanName}에게 편지를 보냈어요.`)
