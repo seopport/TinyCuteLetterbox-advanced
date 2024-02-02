@@ -160,12 +160,10 @@ const LetterContentTextArea = styled.textarea`
 `
 //#endregion
 
-function LetterDetailView({ savedLetters, setSavedLetters }) {
-    console.log("렌더링")
-    // const data = useContext(LetterContext)
-    // console.log("🚀 ~ LetterDetailView ~ data:", data)
-    // console.log("🚀 ~ LetterDetailView ~ data:", data.savedLetters)
-    // const savedLetters = useContext(data.savedLetters)
+function LetterDetailView() {
+    const context = useContext(LetterContext)
+    const savedLetters = context.savedLetters
+    const setSavedLetters = context.setSavedLetters
 
     const navigate = useNavigate();
     const contentArea = useRef();

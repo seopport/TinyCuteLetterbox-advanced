@@ -30,10 +30,7 @@ const Router = () => {
       >
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="details/:id"
-            element={<LetterDetailPage savedLetters={savedLetters} />}
-          />
+          <Route path="details/:id" element={<LetterDetailPage />} />
         </Routes>
       </LetterContext.Provider>
     </BrowserRouter>
