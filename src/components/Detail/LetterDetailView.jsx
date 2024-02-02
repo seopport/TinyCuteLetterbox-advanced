@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Date } from 'components/Main/LetterSummaryView';
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 import { StLetterSendingBox } from 'components/Main/LetterSendingBox';
+
 //#region
 const StLetterDetailBox = styled(StLetterSendingBox)`
     box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.10);
@@ -250,6 +251,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                                 <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. {koreanName}</p>
                                 {/* 편지 내용 textarea ----------------------------------- */}
                                 <LetterContentTextArea
+                                    $isModifying={isModifying}
                                     defaultValue={item.content}
                                     onChange={handleContentChange}
                                     ref={contentArea} spellCheck={false} maxLength={200} readOnly={!isModifying}>
