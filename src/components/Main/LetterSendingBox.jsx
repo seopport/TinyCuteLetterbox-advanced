@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useRef } from 'react'
 import styled from 'styled-components'
 import color from 'shared/color'
 import "shared/index.css"
@@ -7,6 +7,7 @@ import profileImge from "assets/image/default_profile_bear.png"
 import uuid from 'react-uuid'
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 import { LetterContext } from 'context/LetterContext'
+import { CharacterContext } from 'context/CharacterContext'
 
 //#region
 export const StLetterSendingBox = styled.div`
@@ -88,11 +89,15 @@ export const ChiikawaOnBox = styled.img`
         right: 20px;
     `
 
-function LetterSendingBox({ selectedCharacter, setSelectedCharacter }) {
-    const data = useContext(LetterContext)
-    console.log(data.savedLetters)
-    const savedLetters = data.savedLetters;
-    const setSavedLetters = data.setSavedLetters;
+function LetterSendingBox() {
+    const letterContextData = useContext(LetterContext)
+    console.log(letterContextData.savedLetters)
+    const savedLetters = letterContextData.savedLetters;
+    const setSavedLetters = letterContextData.setSavedLetters;
+
+    const characterContextData = useContext(CharacterContext);
+    const selectedCharacter = characterContextData.selectedCharacter;
+    const setSelectedCharacter = characterContextData.setSelectedCharacter;
 
     const letterInput = useRef();
     const writerInput = useRef();
@@ -145,6 +150,8 @@ function LetterSendingBox({ selectedCharacter, setSelectedCharacter }) {
         writerInput.current.value = ''
     }
 
+
+    //드롭다운 select한 캐릭터로 set
     const handleSelector = (e) => {
         setSelectedCharacter(e.currentTarget.value)
     }

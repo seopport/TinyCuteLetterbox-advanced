@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import EmptyLetterBoxMessage from './EmptyLetterBoxMessage';
 import { useContext } from 'react';
 import { LetterContext } from 'context/LetterContext';
+import { CharacterContext } from 'context/CharacterContext';
 
 
 const LetterSummaryBox = styled.div`
@@ -71,9 +72,12 @@ export const Date = styled.span`
     color: grey;
 `
 
-function LetterSummaryView({ selectedCharacter, }) {
+function LetterSummaryView() {
     const context = useContext(LetterContext);
     const savedLetters = context.savedLetters;
+
+    const characterContextData = useContext(CharacterContext);
+    const selectedCharacter = characterContextData.selectedCharacter;
 
     const navigate = useNavigate();
 

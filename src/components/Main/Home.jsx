@@ -14,9 +14,9 @@ function Home() {
             selectedCharacter,
             setSelectedCharacter
         }}>
-            <LetterSendingBox selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter}></LetterSendingBox>
-            <LetterBoxSelector selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter}></LetterBoxSelector>
-            <LetterSummaryView selectedCharacter={selectedCharacter}></LetterSummaryView>
+            <LetterSendingBox />
+            <LetterBoxSelector />
+            <LetterSummaryView />
         </CharacterContext.Provider>
     </Layout>
 

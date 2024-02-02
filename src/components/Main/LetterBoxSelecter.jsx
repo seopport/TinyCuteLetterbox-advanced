@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import colors from 'shared/color'
 import "shared/index.css"
+import { useContext } from 'react'
+import { CharacterContext } from 'context/CharacterContext'
 
 const SelectorBox = styled.div`
     width: 57%;
@@ -35,7 +37,11 @@ export const SelectCharacter = styled.button`
     `
 
 
-function LetterBoxSelecter({ selectedCharacter, setSelectedCharacter }) {
+function LetterBoxSelecter() {
+
+    const characterContextData = useContext(CharacterContext)
+    const selectedCharacter = characterContextData.selectedCharacter;
+    const setSelectedCharacter = characterContextData.setSelectedCharacter;
 
     const handleCharacterBox = (character) => {
         setSelectedCharacter(character)
