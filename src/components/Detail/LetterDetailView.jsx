@@ -91,7 +91,7 @@ const ModifyButton = styled.button`
     border-radius: 7px;
     line-height: normal;
     margin-right: 6px;
-    display: ${(props) => props.$isModifying ? "none" : "inline"};
+    /* display: ${(props) => props.$isModifying ? "none" : "inline"}; */ //삼항연산자로 처리
     transition: all 0.3s;
         
     &:hover {
@@ -122,7 +122,7 @@ const ModifyCancelButton = styled(ModifyButton)`
     background-color: #fcf0c9;
     color: #a57b06;
     border: 1px solid #d4aa35;
-    display: ${(props) => props.$isModifying ? "inline" : "none"};
+    /* display: ${(props) => props.$isModifying ? "inline" : "none"}; */
 
     &:hover {
         background-color: #fae5a1;
@@ -131,7 +131,7 @@ const ModifyCancelButton = styled(ModifyButton)`
 
 `
 const ModifyCompleteButton = styled(ModifyButton)`
-    display: ${(props) => props.$isModifying ? "inline" : "none"};
+    /* display: ${(props) => props.$isModifying ? "inline" : "none"}; */
 `
 
 
@@ -203,7 +203,7 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
             alert('수정 사항이 없습니다.');
             contentArea.current.focus();
             return;
-        } else alert('수정되었습니다.');
+        } else alert('💌 수정이 완료되었습니다.');
 
         setIsModifying(false);
         originalLetter.content = modifiedContent;
@@ -250,12 +250,21 @@ function LetterDetailView({ savedLetters, setSavedLetters }) {
                                     ref={contentArea} spellCheck={false} maxLength={200} readOnly={!isModifying}>
                                 </LetterContentTextArea>
                             </LetterContent>
-                            <ButtonsWrap >
-                                <ModifyButton $isModifying={isModifying} onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
-                                <ModifyCompleteButton $isModifying={isModifying} onClick={() => handleModifyCompleteButtonClick(item.id)} >완료</ModifyCompleteButton>
-                                <ModifyCancelButton $isModifying={isModifying} onClick={() => handleModifyCancelButtonClick(item.id)} >취소</ModifyCancelButton>
-                                <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
-                            </ButtonsWrap>
+
+                            {/* isModifying 상태에 따라 버튼 컴포넌트 조건부 렌더링 해보기 */}
+                            {isModifying
+                                ?
+                                <ButtonsWrap>
+                                    <ModifyCompleteButton $isModifying={isModifying} onClick={() => handleModifyCompleteButtonClick(item.id)} >완료</ModifyCompleteButton>
+                                    <ModifyCancelButton $isModifying={isModifying} onClick={() => handleModifyCancelButtonClick(item.id)} >취소</ModifyCancelButton>
+                                    <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
+                                </ButtonsWrap>
+                                :
+                                <ButtonsWrap>
+                                    <ModifyButton $isModifying={isModifying} onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
+                                    <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
+                                </ButtonsWrap>
+                            }
                         </StLetterDetailBox >
                     )
                 })}
