@@ -11,7 +11,7 @@ function Home({ savedLetters, setSavedLetters }) {
         {/* 감싸진 내용이 Layout의 children props로 들어간다. */}
         <LetterSendingBox selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter} savedLetters={savedLetters} setSavedLetters={setSavedLetters}></LetterSendingBox>
         <LetterBoxSelector selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter}></LetterBoxSelector>
-        <LetterSummaryView selectedCharacter={selectedCharacter} savedLetters={savedLetters}></LetterSummaryView>
+        <LetterSummaryView selectedCharacter={selectedCharacter}></LetterSummaryView>
     </Layout>
 
 }

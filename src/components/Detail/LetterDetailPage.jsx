@@ -4,17 +4,14 @@ import Layout from 'components/Layout'
 import { LetterContext } from 'context/LetterContext'
 
 
-function LetterDetailPage({ savedLetters, setSavedLetters }) {
+function LetterDetailPage() {
     // const savedLetters = useContext(LetterContext.savedLetters)
     // const setSavedLetters = useContext(LetterContext.setSavedLetters)
 
     //saved letter 받아와서 item id로 필터해서 렌더
     return (
         <Layout>
-            <LetterDetailView
-                savedLetters={savedLetters}
-                setSavedLetters={setSavedLetters}
-            ></LetterDetailView>
+            <LetterDetailView></LetterDetailView>
         </Layout>
     )
 }
