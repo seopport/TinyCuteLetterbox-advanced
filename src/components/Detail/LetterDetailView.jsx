@@ -168,8 +168,6 @@ function LetterDetailView() {
 
     const dispatch = useDispatch();
 
-    console.log(savedLetters);
-
     const navigate = useNavigate();
     const contentArea = useRef();
 

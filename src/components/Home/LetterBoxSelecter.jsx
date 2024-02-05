@@ -44,7 +44,6 @@ function LetterBoxSelecter() {
     const dispatch = useDispatch();
 
     const handleCharacterBox = (character) => {
-        // setSelectedCharacter(character)
         dispatch(changeCharacter(character))
     }
 
