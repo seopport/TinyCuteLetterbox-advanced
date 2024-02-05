@@ -3,6 +3,8 @@ import colors from 'shared/color'
 import "shared/index.css"
 import { useContext } from 'react'
 import { CharacterContext } from 'context/CharacterContext'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeCharacter } from 'store/redux/modules/character'
 
 const SelectorBox = styled.div`
     width: 57%;
@@ -38,13 +40,14 @@ export const SelectCharacter = styled.button`
 
 
 function LetterBoxSelecter() {
-
-    const characterContextData = useContext(CharacterContext)
-    const selectedCharacter = characterContextData.selectedCharacter;
-    const setSelectedCharacter = characterContextData.setSelectedCharacter;
+    const selectedCharacter = useSelector((state) => {
+        return state.character.selectedCharacter
+    })
+    const dispatch = useDispatch();
 
     const handleCharacterBox = (character) => {
-        setSelectedCharacter(character)
+        // setSelectedCharacter(character)
+        dispatch(changeCharacter(character))
     }
 
 

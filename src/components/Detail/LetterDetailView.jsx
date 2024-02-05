@@ -9,7 +9,7 @@ import { Date } from 'components/Main/LetterSummaryView';
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 import { StLetterSendingBox } from 'components/Main/LetterSendingBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { ModifyLetter, deleteLetter } from 'store/redux/modules/letters';
+import { deleteLetter } from 'store/redux/modules/letters';
 
 //#region
 const StLetterDetailBox = styled(StLetterSendingBox)`
@@ -216,7 +216,6 @@ function LetterDetailView() {
 
         setIsModifying(false);
         originalLetter.content = modifiedContent;
-        console.log(savedLetters)
 
     }
 

@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import color from 'shared/color'
 import "shared/index.css"
@@ -6,12 +6,9 @@ import meltingChiikawa from "assets/image/melting_chiikawa.png"
 import profileImge from "assets/image/default_profile_bear.png"
 import uuid from 'react-uuid'
 import { changeToKoreanName } from 'shared/changeToKoreanName'
-import { LetterContext } from 'context/LetterContext'
-import { CharacterContext } from 'context/CharacterContext'
 import { useDispatch, useSelector } from 'react-redux'
-import { SetSavedLetters } from 'store/redux/modules/letters'
-import { UseDispatch } from 'react-redux'
 import { sendLetter } from 'store/redux/modules/letters'
+import { changeCharacter } from 'store/redux/modules/character'
 
 //#region
 export const StLetterSendingBox = styled.div`
@@ -94,22 +91,10 @@ export const ChiikawaOnBox = styled.img`
     `
 
 function LetterSendingBox() {
-    const savedLetters = useSelector((state) => {
-        return state.letters.savedLetters;
-    });
-
+    const selectedCharacter = useSelector((state) => {
+        return state.character.selectedCharacter
+    })
     const dispatch = useDispatch();
-
-    console.log(savedLetters);
-
-    // const letterContextData = useContext(LetterContext)
-    // console.log(letterContextData.savedLetters)
-    // const savedLetters = letterContextData.savedLetters;
-    // const setSavedLetters = letterContextData.setSavedLetters;
-
-    const characterContextData = useContext(CharacterContext);
-    const selectedCharacter = characterContextData.selectedCharacter;
-    const setSelectedCharacter = characterContextData.setSelectedCharacter;
 
     const letterInput = useRef();
     const writerInput = useRef();
@@ -120,6 +105,7 @@ function LetterSendingBox() {
             return date < 10 ? "0" + date : date.toString();
         }
 
+        //#region 
         const year = new Date().getFullYear();
         const month = setDate(new Date().getMonth() + 1);
         const day = setDate(new Date().getDate());
@@ -128,9 +114,11 @@ function LetterSendingBox() {
 
         const createdAt = [[year, month, day].join('-') + " " + [hour, minute].join(':')]
 
+        //#endregion
         const letterContent = letterInput.current.value;
         const sendTo = selectedCharacter; //보낼 캐릭터
         const writer = writerInput.current.value; //작성자
+        console.log(sendTo)
 
         if (letterContent.trim() === '') {
             alert('편지 내용을 입력해주세요.');
@@ -152,7 +140,6 @@ function LetterSendingBox() {
             id: uuid()
 
         }
-        // setSavedLetters([...savedLetters, newLetter])
         dispatch(sendLetter(newLetter))
 
         const koreanName = changeToKoreanName(sendTo)
@@ -166,7 +153,8 @@ function LetterSendingBox() {
 
     //드롭다운 select한 캐릭터로 set
     const handleSelector = (e) => {
-        setSelectedCharacter(e.currentTarget.value)
+        dispatch(changeCharacter(e.currentTarget.value))
+        console.log(e.currentTarget.value)
     }
 
 
