@@ -94,18 +94,18 @@ export const ChiikawaOnBox = styled.img`
     `
 
 function LetterSendingBox() {
-    const data = useSelector((state) => {
+    const savedLetters = useSelector((state) => {
         return state.letters.savedLetters;
     });
 
     const dispatch = useDispatch();
 
-    console.log(data);
+    console.log(savedLetters);
 
-    const letterContextData = useContext(LetterContext)
-    console.log(letterContextData.savedLetters)
-    const savedLetters = letterContextData.savedLetters;
-    const setSavedLetters = letterContextData.setSavedLetters;
+    // const letterContextData = useContext(LetterContext)
+    // console.log(letterContextData.savedLetters)
+    // const savedLetters = letterContextData.savedLetters;
+    // const setSavedLetters = letterContextData.setSavedLetters;
 
     const characterContextData = useContext(CharacterContext);
     const selectedCharacter = characterContextData.selectedCharacter;
@@ -154,7 +154,6 @@ function LetterSendingBox() {
         }
         // setSavedLetters([...savedLetters, newLetter])
         dispatch(sendLetter(newLetter))
-        console.log(data)
 
         const koreanName = changeToKoreanName(sendTo)
         alert(`💌 ${koreanName}에게 편지를 보냈어요.`)

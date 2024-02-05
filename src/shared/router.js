@@ -25,17 +25,10 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <LetterContext.Provider
-          value={{
-            savedLetters,
-            setSavedLetters,
-          }}
-        >
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="details/:id" element={<LetterDetailPage />} />
-          </Routes>
-        </LetterContext.Provider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="details/:id" element={<LetterDetailPage />} />
+        </Routes>
       </Provider>
     </BrowserRouter>
   );

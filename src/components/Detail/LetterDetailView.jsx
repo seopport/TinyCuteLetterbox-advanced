@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import colors from 'shared/color'
 import profileImg from 'assets/image/default_profile_bear.png';
@@ -8,7 +8,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Date } from 'components/Main/LetterSummaryView';
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 import { StLetterSendingBox } from 'components/Main/LetterSendingBox';
-import { LetterContext } from 'context/LetterContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { ModifyLetter, deleteLetter } from 'store/redux/modules/letters';
 
@@ -171,12 +170,6 @@ function LetterDetailView() {
 
     console.log(savedLetters);
 
-    const context = useContext(LetterContext)
-    // const savedLetters = context.savedLetters
-    // const setSavedLetters = context.setSavedLetters
-
-    // const [savedLetters, setSavedLetters] = useState([]);
-
     const navigate = useNavigate();
     const contentArea = useRef();
 
@@ -271,7 +264,6 @@ function LetterDetailView() {
                                 </LetterContentTextArea>
                             </LetterContent>
 
-                            {/* isModifying 상태에 따라 버튼 컴포넌트 조건부 렌더링 해보기 */}
                             {isModifying
                                 ?
                                 <ButtonsWrap>

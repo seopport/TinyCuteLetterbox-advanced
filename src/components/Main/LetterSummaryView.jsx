@@ -74,22 +74,20 @@ export const Date = styled.span`
 `
 
 function LetterSummaryView() {
-    const data = useSelector((state) => {
+    const savedLetters = useSelector((state) => {
         return state.letters.savedLetters;
     });
 
-    console.log(data)
 
-
-    const context = useContext(LetterContext);
-    const savedLetters = context.savedLetters;
+    // const context = useContext(LetterContext);
+    // const savedLetters = context.savedLetters;
 
     const characterContextData = useContext(CharacterContext);
     const selectedCharacter = characterContextData.selectedCharacter;
 
     const navigate = useNavigate();
 
-    const filteredLetters = data
+    const filteredLetters = savedLetters
         .filter((item) => {
             return item.writedTo === selectedCharacter
         })
