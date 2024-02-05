@@ -10,6 +10,7 @@ import { changeToKoreanName } from 'shared/changeToKoreanName'
 import { StLetterSendingBox } from 'components/Main/LetterSendingBox';
 import { LetterContext } from 'context/LetterContext';
 import { useDispatch, useSelector } from 'react-redux';
+import { ModifyLetter, deleteLetter } from 'store/redux/modules/letters';
 
 //#region
 const StLetterDetailBox = styled(StLetterSendingBox)`
@@ -183,12 +184,10 @@ function LetterDetailView() {
 
     const handleDeleteButtonClick = (id) => {
         if (window.confirm("편지를 삭제하시겠습니까?")) {
-            // setSavedLetters((prev) => {
-            //     const newSavedLetters = prev.filter((item) => {
-            //         return item.id !== id
-            //     });
-            //     return newSavedLetters;
-            // })
+            const newSavedLetters = savedLetters.filter((item) => {
+                return item.id !== id
+            });
+            dispatch(deleteLetter(newSavedLetters))
             alert('💌 편지를 삭제했습니다. 홈으로 이동합니다.');
             navigate('/')
         } return;
@@ -224,10 +223,8 @@ function LetterDetailView() {
 
         setIsModifying(false);
         originalLetter.content = modifiedContent;
+        console.log(savedLetters)
 
-        // setSavedLetters([
-        //     ...savedLetters,
-        // ])
     }
 
     const handleModifyCancelButtonClick = (id) => {

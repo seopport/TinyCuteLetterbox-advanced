@@ -4,7 +4,7 @@ import LetterDetailPage from "components/Detail/LetterDetailPage";
 import { useState, useEffect } from "react";
 import { LetterContext } from "context/LetterContext";
 import { Provider, UseSelector, useSelector } from "react-redux";
-import store from "redux_/config/configStore";
+import store from "store/redux/config/configStore";
 
 const Router = () => {
   const [savedLetters, setSavedLetters] = useState([]);

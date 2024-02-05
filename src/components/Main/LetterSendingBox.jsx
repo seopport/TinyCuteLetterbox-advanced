@@ -9,9 +9,9 @@ import { changeToKoreanName } from 'shared/changeToKoreanName'
 import { LetterContext } from 'context/LetterContext'
 import { CharacterContext } from 'context/CharacterContext'
 import { useDispatch, useSelector } from 'react-redux'
-import { SetSavedLetters } from 'redux_/modules/letters'
+import { SetSavedLetters } from 'store/redux/modules/letters'
 import { UseDispatch } from 'react-redux'
-import { sendLetter } from 'redux_/modules/letters'
+import { sendLetter } from 'store/redux/modules/letters'
 
 //#region
 export const StLetterSendingBox = styled.div`
