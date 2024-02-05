@@ -162,8 +162,10 @@ const LetterContentTextArea = styled.textarea`
 
 function LetterDetailView() {
     const context = useContext(LetterContext)
-    const savedLetters = context.savedLetters
-    const setSavedLetters = context.setSavedLetters
+    // const savedLetters = context.savedLetters
+    // const setSavedLetters = context.setSavedLetters
+
+    const [savedLetters, setSavedLetters] = useState([]);
 
     const navigate = useNavigate();
     const contentArea = useRef();

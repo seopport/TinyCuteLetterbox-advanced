@@ -4,9 +4,10 @@ import colors from 'shared/color';
 import "shared/index.css"
 import { useNavigate } from 'react-router-dom';
 import EmptyLetterBoxMessage from './EmptyLetterBoxMessage';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { LetterContext } from 'context/LetterContext';
 import { CharacterContext } from 'context/CharacterContext';
+import { useSelector } from 'react-redux';
 
 
 const LetterSummaryBox = styled.div`
@@ -73,6 +74,11 @@ export const Date = styled.span`
 `
 
 function LetterSummaryView() {
+    const data = useSelector((state) => {
+        return state.letters;
+    });
+
+
     const context = useContext(LetterContext);
     const savedLetters = context.savedLetters;
 
@@ -81,7 +87,7 @@ function LetterSummaryView() {
 
     const navigate = useNavigate();
 
-    const filteredLetters = savedLetters
+    const filteredLetters = data
         .filter((item) => {
             return item.writedTo === selectedCharacter
         })

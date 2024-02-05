@@ -8,6 +8,7 @@ import uuid from 'react-uuid'
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 import { LetterContext } from 'context/LetterContext'
 import { CharacterContext } from 'context/CharacterContext'
+import { useSelector } from 'react-redux'
 
 //#region
 export const StLetterSendingBox = styled.div`
@@ -90,6 +91,12 @@ export const ChiikawaOnBox = styled.img`
     `
 
 function LetterSendingBox() {
+    const data = useSelector((state) => {
+        return state.letters;
+    });
+
+    console.log(data);
+
     const letterContextData = useContext(LetterContext)
     console.log(letterContextData.savedLetters)
     const savedLetters = letterContextData.savedLetters;
