@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 import colors from 'shared/color'
 import "shared/index.css"
-import { useContext } from 'react'
-import { CharacterContext } from 'context/CharacterContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeCharacter } from 'store/redux/modules/character'
 

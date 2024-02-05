@@ -5,9 +5,9 @@ import profileImg from 'assets/image/default_profile_bear.png';
 import sleepyMomonga from "assets/image/sleepy_momonga.png"
 import flowerChiikawa from "assets/image/chiikawa_w_flower.png"
 import { useNavigate, useParams } from 'react-router-dom';
-import { Date } from 'components/Main/LetterSummaryView';
+import { Date } from 'components/Home/LetterSummaryView';
 import { changeToKoreanName } from 'shared/changeToKoreanName'
-import { StLetterSendingBox } from 'components/Main/LetterSendingBox';
+import { StLetterSendingBox } from 'components/Home/LetterSendingBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteLetter } from 'store/redux/modules/letters';
 
