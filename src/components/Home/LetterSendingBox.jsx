@@ -118,7 +118,6 @@ function LetterSendingBox() {
         const letterContent = letterInput.current.value;
         const sendTo = selectedCharacter; //보낼 캐릭터
         const writer = writerInput.current.value; //작성자
-        console.log(sendTo)
 
         if (letterContent.trim() === '') {
             alert('편지 내용을 입력해주세요.');
@@ -154,7 +153,6 @@ function LetterSendingBox() {
     //드롭다운 select한 캐릭터로 set
     const handleSelector = (e) => {
         dispatch(changeCharacter(e.currentTarget.value))
-        console.log(e.currentTarget.value)
     }
 
 
