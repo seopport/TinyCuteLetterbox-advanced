@@ -8,7 +8,10 @@ import uuid from 'react-uuid'
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 import { LetterContext } from 'context/LetterContext'
 import { CharacterContext } from 'context/CharacterContext'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { SetSavedLetters } from 'redux_/modules/letters'
+import { UseDispatch } from 'react-redux'
+import { sendLetter } from 'redux_/modules/letters'
 
 //#region
 export const StLetterSendingBox = styled.div`
@@ -92,8 +95,10 @@ export const ChiikawaOnBox = styled.img`
 
 function LetterSendingBox() {
     const data = useSelector((state) => {
-        return state.letters;
+        return state.letters.savedLetters;
     });
+
+    const dispatch = useDispatch();
 
     console.log(data);
 
@@ -147,7 +152,9 @@ function LetterSendingBox() {
             id: uuid()
 
         }
-        setSavedLetters([...savedLetters, newLetter])
+        // setSavedLetters([...savedLetters, newLetter])
+        dispatch(sendLetter(newLetter))
+        console.log(data)
 
         const koreanName = changeToKoreanName(sendTo)
         alert(`💌 ${koreanName}에게 편지를 보냈어요.`)

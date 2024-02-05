@@ -9,6 +9,7 @@ import { Date } from 'components/Main/LetterSummaryView';
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 import { StLetterSendingBox } from 'components/Main/LetterSendingBox';
 import { LetterContext } from 'context/LetterContext';
+import { useDispatch, useSelector } from 'react-redux';
 
 //#region
 const StLetterDetailBox = styled(StLetterSendingBox)`
@@ -161,11 +162,19 @@ const LetterContentTextArea = styled.textarea`
 //#endregion
 
 function LetterDetailView() {
+    const savedLetters = useSelector((state) => {
+        return state.letters.savedLetters;
+    });
+
+    const dispatch = useDispatch();
+
+    console.log(savedLetters);
+
     const context = useContext(LetterContext)
     // const savedLetters = context.savedLetters
     // const setSavedLetters = context.setSavedLetters
 
-    const [savedLetters, setSavedLetters] = useState([]);
+    // const [savedLetters, setSavedLetters] = useState([]);
 
     const navigate = useNavigate();
     const contentArea = useRef();
@@ -174,12 +183,12 @@ function LetterDetailView() {
 
     const handleDeleteButtonClick = (id) => {
         if (window.confirm("편지를 삭제하시겠습니까?")) {
-            setSavedLetters((prev) => {
-                const newSavedLetters = prev.filter((item) => {
-                    return item.id !== id
-                });
-                return newSavedLetters;
-            })
+            // setSavedLetters((prev) => {
+            //     const newSavedLetters = prev.filter((item) => {
+            //         return item.id !== id
+            //     });
+            //     return newSavedLetters;
+            // })
             alert('💌 편지를 삭제했습니다. 홈으로 이동합니다.');
             navigate('/')
         } return;
@@ -216,9 +225,9 @@ function LetterDetailView() {
         setIsModifying(false);
         originalLetter.content = modifiedContent;
 
-        setSavedLetters([
-            ...savedLetters,
-        ])
+        // setSavedLetters([
+        //     ...savedLetters,
+        // ])
     }
 
     const handleModifyCancelButtonClick = (id) => {

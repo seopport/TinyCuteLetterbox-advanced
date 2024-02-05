@@ -75,8 +75,10 @@ export const Date = styled.span`
 
 function LetterSummaryView() {
     const data = useSelector((state) => {
-        return state.letters;
+        return state.letters.savedLetters;
     });
+
+    console.log(data)
 
 
     const context = useContext(LetterContext);
