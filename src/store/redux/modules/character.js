@@ -5,13 +5,6 @@ const initialState = {
   selectedCharacter: "chiikawa",
 };
 
-export const setSelectedCharacter = (payload) => {
-  return {
-    type: SelectedCharacter,
-    payload,
-  };
-};
-
 export const changeCharacter = (payload) => {
   return {
     type: ChangeCharacter,
