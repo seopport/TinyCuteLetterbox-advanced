@@ -9,7 +9,7 @@ import { Date } from 'components/Home/LetterSummaryView';
 import { changeToKoreanName } from 'shared/changeToKoreanName'
 import { StLetterSendingBox } from 'components/Home/LetterSendingBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteLetter } from 'store/redux/modules/letters';
+import { deleteLetter, modifyLetter } from 'store/redux/modules/letters';
 
 //#region
 const StLetterDetailBox = styled(StLetterSendingBox)`
@@ -175,9 +175,6 @@ function LetterDetailView() {
 
     const handleDeleteButtonClick = (id) => {
         if (window.confirm("편지를 삭제하시겠습니까?")) {
-            const newSavedLetters = savedLetters.filter((item) => {
-                return item.id !== id
-            });
             dispatch(deleteLetter(id))
             alert('💌 편지를 삭제했습니다. 홈으로 이동합니다.');
             navigate('/')
@@ -212,9 +209,8 @@ function LetterDetailView() {
             return;
         } else alert('💌 수정이 완료되었습니다.');
 
+        dispatch(modifyLetter({ id, modifiedContent }))
         setIsModifying(false);
-        originalLetter.content = modifiedContent;
-
     }
 
     const handleModifyCancelButtonClick = (id) => {
