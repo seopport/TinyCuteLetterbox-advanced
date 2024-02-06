@@ -31,9 +31,13 @@ const letters = (state = initialState, action) => {
       };
 
     case DeleteLetter:
+      const deleteTargetId = action.payload;
+      const deletedTargetLetters = state.savedLetters.filter((item) => {
+        return item.id !== deleteTargetId;
+      });
       return {
         ...state,
-        savedLetters: [...action.payload],
+        savedLetters: deletedTargetLetters,
       };
     default:
       return state;

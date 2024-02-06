@@ -178,7 +178,7 @@ function LetterDetailView() {
             const newSavedLetters = savedLetters.filter((item) => {
                 return item.id !== id
             });
-            dispatch(deleteLetter(newSavedLetters))
+            dispatch(deleteLetter(id))
             alert('💌 편지를 삭제했습니다. 홈으로 이동합니다.');
             navigate('/')
         } return;
