@@ -21,7 +21,7 @@ React를 이용한 먼작귀 캐릭터 팬레터 사이트 만들기 [ [먼작�
 ### 🔽  **개발 환경**
 
 - **Environment :** vscode, github
-- **Development :** React, Javascript, HTML, CSS
+- **Development :** React, Javascript, JSX, HTML, CSS
 - **Library :** redux, router, styled-components, uuid
 - **Design :** Figma
 - **Deployment:** Vercel
