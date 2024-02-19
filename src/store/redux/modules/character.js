@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   selectedCharacter: 'chiikawa',
@@ -17,5 +17,5 @@ const characterSlice = createSlice({
   },
 });
 
-export const { changeCharacter } = characterSlice.actions;
+export const {changeCharacter} = characterSlice.actions;
 export default characterSlice.reducer;

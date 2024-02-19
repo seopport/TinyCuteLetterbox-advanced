@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import {createGlobalStyle} from 'styled-components';
 
 const ResetStyles = createGlobalStyle`
     /* Reset CSS */
@@ -131,6 +131,6 @@ table {
   border-spacing: 0;
 }
 
-`
+`;
 
-export default ResetStyles
+export default ResetStyles;

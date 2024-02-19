@@ -1,21 +1,21 @@
 /* 어비폰트 - 웹폰트 설정영역 */
 
 @font-face {
-  font-family: "UhBeeSe_hyun";
-  src: url("assets/fonts/UhBeeSe_hyun.eot");
+  font-family: 'UhBeeSe_hyun';
+  src: url('assets/fonts/UhBeeSe_hyun.eot');
 }
 @font-face {
-  font-family: "UhBeeSe_hyun";
-  src: url("assets/fonts/UhBeeSe_hyun.woff") format("woff");
+  font-family: 'UhBeeSe_hyun';
+  src: url('assets/fonts/UhBeeSe_hyun.woff') format('woff');
 }
 article {
-  font-family: "UhBeeSe_hyun", serif;
+  font-family: 'UhBeeSe_hyun', serif;
 }
 textarea {
-  font-family: "UhBeeSe_hyun", serif;
+  font-family: 'UhBeeSe_hyun', serif;
 }
 
 @font-face {
-  font-family: "NPSfont-regular";
-  src: url("assets/fonts/NPSfont_regular.ttf");
+  font-family: 'NPSfont-regular';
+  src: url('assets/fonts/NPSfont_regular.ttf');
 }

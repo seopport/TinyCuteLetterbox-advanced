@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import fakeData from 'fakeData';
 
 const initialState = {
@@ -18,7 +18,7 @@ const letterSlice = createSlice({
 
     deleteLetter: (state, action) => {
       const deleteTargetId = action.payload;
-      const deletedTargetLetters = state.savedLetters.filter((item) => {
+      const deletedTargetLetters = state.savedLetters.filter(item => {
         return item.id !== deleteTargetId;
       });
       return {
@@ -30,9 +30,9 @@ const letterSlice = createSlice({
     modifyLetter: (state, action) => {
       const modifyTargetId = action.payload.id;
       const modifiedContent = action.payload.modifiedContent;
-      const modifiedTargetLetters = state.savedLetters.map((item) => {
+      const modifiedTargetLetters = state.savedLetters.map(item => {
         if (item.id === modifyTargetId) {
-          return { ...item, content: modifiedContent };
+          return {...item, content: modifiedContent};
         } else return item;
       });
       return {
@@ -43,5 +43,5 @@ const letterSlice = createSlice({
   },
 });
 
-export const { sendLetter, deleteLetter, modifyLetter } = letterSlice.actions;
+export const {sendLetter, deleteLetter, modifyLetter} = letterSlice.actions;
 export default letterSlice.reducer;
