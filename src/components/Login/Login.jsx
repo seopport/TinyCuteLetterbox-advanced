@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { SelectCharacter } from 'components/Home/LetterBoxSelecter';
 import colors from 'shared/color';
@@ -23,9 +23,9 @@ border-radius: 10px;
 border: 1px solid grey;
 width: 100%;
 height: 50px;
-margin-bottom: 20px;
 padding-left: 10px;
 font-size: 14px;
+padding: 0 10px;
 `
 
 export const DefaultButton = styled(SelectCharacter)`
@@ -41,25 +41,68 @@ export const DefaultButton = styled(SelectCharacter)`
 export const LoginButton = styled(StSignButton)`
 `
 
+export const StMessage = styled.span`
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    left: 5px;
+    top: 55px;
+
+`
+
+export const StInputContainer = styled.div`
+    position: relative;
+    margin-bottom: 30px;
+    
+`
 
 
-const Login = ({ setIsSignUpAcitve }) => {
+const Login = ({ setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue }) => {
+    const [isValid, setIsValid] = useState(false);
+    const [userId, setUserId] = useState('');
+    const [userPw, setUserPw] = useState('');
+
+    useEffect(() => {
+        checkIdValue(userId);
+        checkPwValue(userPw);
+        if (isValidId && isValidPw) {
+            setIsValid(true);
+        } else {
+            setIsValid(false);
+        }
+    }, [isValidId, isValidPw, userId, userPw])
 
 
     const handleSignButtonClick = () => {
         setIsSignUpAcitve(true)
     }
 
+    const handleUserIdChange = (e) => {
+        e.target.value = e.target.value.replace(/[^A-Za-z0-9]/ig, '');
+        setUserId(e.target.value);
+    }
+
+
+    const handleUserPwChange = (e) => {
+        setUserPw(e.target.value);
+    }
+
     return (
         <LoginContainer>
-            <p style={{ fontWeight: "bold", fontSize: "20px", marginBottom: "30px" }}>로그인</p>
+            <p style={{ fontWeight: "bold", fontSize: "20px", marginBottom: "40px" }}>로그인</p>
 
             <form style={{ width: "100%" }}>
-                <StLoginInput placeholder='아이디 (4 ~ 10글자)' />
-                <StLoginInput placeholder='비밀번호 (4 ~ 15글자)' />
+                <StInputContainer>
+                    <StLoginInput type="text" value={userId} onChange={handleUserIdChange} maxLength={10} placeholder='아이디 (4~10글자)' />
+                    {!isValidId && userId.length > 0 && <StMessage>4글자 이상 입력하세요.</StMessage>}
+                </StInputContainer>
+                <StInputContainer>
+                    <StLoginInput type='password' value={userPw} onChange={handleUserPwChange} placeholder='비밀번호 (4~15글자)' maxLength={15} />
+                    {!isValidPw && userPw.length > 0 && <StMessage> 4글자 이상 입력하세요.</StMessage>}
+                </StInputContainer>
 
             </form>
-            <LoginButton > 로그인 </LoginButton>
+            <LoginButton $isValid={isValid} type='submit'> 로그인 </LoginButton>
             <DefaultButton onClick={handleSignButtonClick}
             > 회원가입 </DefaultButton>
         </LoginContainer>

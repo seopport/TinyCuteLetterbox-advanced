@@ -108,7 +108,7 @@ const Login = ({ setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwV
     return (
         <>
             <LoginContainer>
-                <p style={{ fontWeight: "bold", fontSize: "20px", marginBottom: "30px" }}>회원가입</p>
+                <p style={{ fontWeight: "bold", fontSize: "20px", marginBottom: "40px" }}>회원가입</p>
 
                 <form style={{ width: "100%" }}>
                     <StInputContainer>
