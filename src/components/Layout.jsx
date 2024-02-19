@@ -12,6 +12,7 @@ const LayoutWrap = styled.div`
     flex-direction: column;
     align-items: center;
     background-color: #DDF2F9;;
+    padding-bottom: 50px;
 
 `
 const MainWrap = styled.div`

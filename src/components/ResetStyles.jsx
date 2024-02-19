@@ -83,7 +83,8 @@ time,
 mark,
 audio,
 video,
-textarea {
+textarea,
+input {
   margin: 0;
   padding: 0;
   border: 0;
@@ -91,6 +92,7 @@ textarea {
   font: inherit;
   vertical-align: baseline;
   box-sizing: border-box;
+  
 }
 /* HTML5 display-role reset for older browsers */
 article,

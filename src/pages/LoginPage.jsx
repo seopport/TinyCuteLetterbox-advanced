@@ -3,14 +3,16 @@ import SignUp from 'components/Login/SignUp'
 import React, { useState } from 'react'
 
 const LoginPage = () => {
-
+    const [isSignUpAcitve, setIsSignUpAcitve] = useState(false);
 
     return (
-        <div>
+        <>
             여기는 로그인 페이지
-            <Login />
-            <SignUp />
-        </div>
+            {!isSignUpAcitve
+                ? <Login setIsSignUpAcitve={setIsSignUpAcitve} />
+                : <SignUp setIsSignUpAcitve={setIsSignUpAcitve} />
+            }
+        </>
     )
 }
 
