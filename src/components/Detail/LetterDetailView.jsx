@@ -11,6 +11,124 @@ import { StLetterSendingBox } from 'components/Home/LetterSendingBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteLetter, modifyLetter } from 'store/redux/modules/letters';
 
+
+function LetterDetailView() {
+    const savedLetters = useSelector((state) => {
+        return state.letters.savedLetters;
+    });
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+    const contentArea = useRef();
+
+    const param = useParams();
+
+    const handleDeleteButtonClick = (id) => {
+        if (window.confirm("편지를 삭제하시겠습니까?")) {
+            dispatch(deleteLetter(id))
+            alert('💌 편지를 삭제했습니다. 홈으로 이동합니다.');
+            navigate('/')
+        } return;
+    };
+
+    const [modifiedContent, setmodifiedContent] = useState('');
+
+    const handleContentChange = (e) => {
+        setmodifiedContent(e.target.value);
+    }
+
+    const [isModifying, setIsModifying] = useState(false)
+
+    const handleModifyButtonClick = () => {
+        setIsModifying(true);
+        setmodifiedContent(contentArea.current.textContent)
+    }
+
+    const findLetter = (id) => {
+        return savedLetters.find((item) => {
+            return item.id === id
+        })
+    }
+
+    const handleModifyCompleteButtonClick = (id) => {
+        const originalLetter = findLetter(id)
+
+        if (originalLetter.content === modifiedContent) {
+            alert('수정 사항이 없습니다.');
+            contentArea.current.focus();
+            return;
+        } else alert('💌 수정이 완료되었습니다.');
+
+        dispatch(modifyLetter({ id, modifiedContent }))
+        setIsModifying(false);
+    }
+
+    const handleModifyCancelButtonClick = (id) => {
+        const originalLetter = findLetter(id)
+        // 변경 사항 있을시에만 컨펌메세지 출력
+        if (originalLetter.content !== modifiedContent) {
+            if (window.confirm("수정을 취소하시겠습니까?")) {
+                setIsModifying(false);
+                const originalLetter = savedLetters.find((item) => {
+                    return item.id === id;
+                });
+                contentArea.current.value = originalLetter.content;
+            } else contentArea.current.focus();
+        } else {
+            setIsModifying(false);
+        }
+    }
+
+    return (
+        <>
+            <BackButton onClick={() => { navigate('/') }}>돌아가기</BackButton>
+
+            {savedLetters.filter((item) => item.id === param.id)
+                .map((item) => {
+                    const koreanName = changeToKoreanName(item.writedTo)
+
+                    return (
+                        <StLetterDetailBox key={item.id}>
+                            <FlowerChiikawa src={flowerChiikawa}></FlowerChiikawa>
+                            <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
+                            <DateTime>{item.createdAt}</DateTime>
+                            <ProfileBox >
+                                <ProfileImg src={profileImg} />
+                                <span style={{ lineHeight: "normal", marginTop: "5px" }}>{item.nickname}</span>
+                            </ProfileBox>
+                            <LetterContent>
+                                <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. {koreanName}</p>
+                                {/* 편지 내용 textarea ----------------------------------- */}
+                                <LetterContentTextArea
+                                    $isModifying={isModifying}
+                                    defaultValue={item.content}
+                                    onChange={handleContentChange}
+                                    ref={contentArea} spellCheck={false} maxLength={200} readOnly={!isModifying}>
+                                </LetterContentTextArea>
+                            </LetterContent>
+
+                            {isModifying
+                                ?
+                                <ButtonsWrap>
+                                    <ModifyCompleteButton onClick={() => handleModifyCompleteButtonClick(item.id)} >완료</ModifyCompleteButton>
+                                    <ModifyCancelButton onClick={() => handleModifyCancelButtonClick(item.id)} >취소</ModifyCancelButton>
+                                    <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
+                                </ButtonsWrap>
+                                :
+                                <ButtonsWrap>
+                                    <ModifyButton onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
+                                    <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
+                                </ButtonsWrap>
+                            }
+                        </StLetterDetailBox >
+                    )
+                })}
+
+        </>
+    )
+}
+
 //#region
 const StLetterDetailBox = styled(StLetterSendingBox)`
     box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.10);
@@ -160,122 +278,5 @@ const LetterContentTextArea = styled.textarea`
 
 `
 //#endregion
-
-function LetterDetailView() {
-    const savedLetters = useSelector((state) => {
-        return state.letters.savedLetters;
-    });
-
-    const dispatch = useDispatch();
-
-    const navigate = useNavigate();
-    const contentArea = useRef();
-
-    const param = useParams();
-
-    const handleDeleteButtonClick = (id) => {
-        if (window.confirm("편지를 삭제하시겠습니까?")) {
-            dispatch(deleteLetter(id))
-            alert('💌 편지를 삭제했습니다. 홈으로 이동합니다.');
-            navigate('/')
-        } return;
-    };
-
-    const [modifiedContent, setmodifiedContent] = useState('');
-
-    const handleContentChange = (e) => {
-        setmodifiedContent(e.target.value);
-    }
-
-    const [isModifying, setIsModifying] = useState(false)
-
-    const handleModifyButtonClick = () => {
-        setIsModifying(true);
-        setmodifiedContent(contentArea.current.textContent)
-    }
-
-    const findLetter = (id) => {
-        return savedLetters.find((item) => {
-            return item.id === id
-        })
-    }
-
-    const handleModifyCompleteButtonClick = (id) => {
-        const originalLetter = findLetter(id)
-
-        if (originalLetter.content === modifiedContent) {
-            alert('수정 사항이 없습니다.');
-            contentArea.current.focus();
-            return;
-        } else alert('💌 수정이 완료되었습니다.');
-
-        dispatch(modifyLetter({ id, modifiedContent }))
-        setIsModifying(false);
-    }
-
-    const handleModifyCancelButtonClick = (id) => {
-        const originalLetter = findLetter(id)
-        // 변경 사항 있을시에만 컨펌메세지 출력
-        if (originalLetter.content !== modifiedContent) {
-            if (window.confirm("수정을 취소하시겠습니까?")) {
-                setIsModifying(false);
-                const originalLetter = savedLetters.find((item) => {
-                    return item.id === id;
-                });
-                contentArea.current.value = originalLetter.content;
-            } else contentArea.current.focus();
-        } else {
-            setIsModifying(false);
-        }
-    }
-
-    return (
-        <>
-            <BackButton onClick={() => { navigate('/') }}>돌아가기</BackButton>
-
-            {savedLetters.filter((item) => item.id === param.id)
-                .map((item) => {
-                    const koreanName = changeToKoreanName(item.writedTo)
-
-                    return (
-                        <StLetterDetailBox key={item.id}>
-                            <FlowerChiikawa src={flowerChiikawa}></FlowerChiikawa>
-                            <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
-                            <DateTime>{item.createdAt}</DateTime>
-                            <ProfileBox >
-                                <ProfileImg src={profileImg} />
-                                <span style={{ lineHeight: "normal", marginTop: "5px" }}>{item.nickname}</span>
-                            </ProfileBox>
-                            <LetterContent>
-                                <p style={{ marginBottom: "10px", fontWeight: "bold" }}>Dear. {koreanName}</p>
-                                {/* 편지 내용 textarea ----------------------------------- */}
-                                <LetterContentTextArea
-                                    $isModifying={isModifying}
-                                    defaultValue={item.content}
-                                    onChange={handleContentChange}
-                                    ref={contentArea} spellCheck={false} maxLength={200} readOnly={!isModifying}>
-                                </LetterContentTextArea>
-                            </LetterContent>
-
-                            {isModifying
-                                ?
-                                <ButtonsWrap>
-                                    <ModifyCompleteButton onClick={() => handleModifyCompleteButtonClick(item.id)} >완료</ModifyCompleteButton>
-                                    <ModifyCancelButton onClick={() => handleModifyCancelButtonClick(item.id)} >취소</ModifyCancelButton>
-                                    <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
-                                </ButtonsWrap>
-                                :
-                                <ButtonsWrap>
-                                    <ModifyButton onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
-                                    <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
-                                </ButtonsWrap>
-                            }
-                        </StLetterDetailBox >
-                    )
-                })}
-
-        </>
-    )
-}
 
 export default LetterDetailView

@@ -1,26 +1,21 @@
-export const SelectedCharacter = "SelectedCharacter";
-export const ChangeCharacter = "ChangeCharacter";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  selectedCharacter: "chiikawa",
+  selectedCharacter: 'chiikawa',
 };
 
-export const changeCharacter = (payload) => {
-  return {
-    type: ChangeCharacter,
-    payload,
-  };
-};
-
-export const character = (state = initialState, action) => {
-  switch (action.type) {
-    case ChangeCharacter:
+const characterSlice = createSlice({
+  name: 'character',
+  initialState,
+  reducers: {
+    changeCharacter: (state, action) => {
       return {
         ...state,
         selectedCharacter: action.payload,
       };
+    },
+  },
+});
 
-    default:
-      return state;
-  }
-};
+export const { changeCharacter } = characterSlice.actions;
+export default characterSlice.reducer;

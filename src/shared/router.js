@@ -1,8 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "pages/Home";
-import LetterDetailPage from "pages/LetterDetailPage";
-import { Provider } from "react-redux";
-import store from "store/redux/config/configStore";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from 'pages/Home';
+import LetterDetailPage from 'pages/LetterDetailPage';
+import { Provider } from 'react-redux';
+import store from 'store/redux/config/configStore';
 
 const Router = () => {
   //#region
@@ -24,8 +24,8 @@ const Router = () => {
     <BrowserRouter>
       <Provider store={store}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="details/:id" element={<LetterDetailPage />} />
+          <Route path='/' element={<Home />} />
+          <Route path='details/:id' element={<LetterDetailPage />} />
         </Routes>
       </Provider>
     </BrowserRouter>

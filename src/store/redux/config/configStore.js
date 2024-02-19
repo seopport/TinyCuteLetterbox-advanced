@@ -1,12 +1,13 @@
-import { createStore } from "redux";
-import { combineReducers } from "redux";
-import letters from "store/redux/modules/letters";
-import { character } from "store/redux/modules/character";
+import character from '../modules/character';
+import letters from '../modules/letters';
 
-const rootReducer = combineReducers({
-  letters,
-  character,
+import { configureStore } from '@reduxjs/toolkit';
+
+const store = configureStore({
+  reducer: {
+    character,
+    letters,
+  },
 });
-const store = createStore(rootReducer);
 
 export default store;

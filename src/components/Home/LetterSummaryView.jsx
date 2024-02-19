@@ -6,6 +6,48 @@ import { useNavigate } from 'react-router-dom';
 import EmptyLetterBoxMessage from './EmptyLetterBoxMessage';
 import { useSelector } from 'react-redux';
 
+
+
+function LetterSummaryView() {
+    const navigate = useNavigate();
+
+    const savedLetters = useSelector((state) => {
+        return state.letters.savedLetters;
+    });
+
+    const selectedCharacter = useSelector((state) => {
+        return state.character.selectedCharacter
+    })
+
+
+    const filteredLetters = savedLetters.filter((item) => item.writedTo === selectedCharacter)
+
+    return (
+        <>
+            {filteredLetters.length === 0 && <EmptyLetterBoxMessage />}
+            {filteredLetters?.map((item) => {
+                return (
+
+                    <LetterSummaryBox key={item.id}>
+                        <ProfileImg src={profileImg}></ProfileImg>
+                        <Line></Line>
+                        <div>
+                            <div style={{ display: "flex" }}>
+                                <span style={{ fontSize: "15px" }}>{item.nickname}</span>
+                                <Date>{item.createdAt.slice(0, 10)}</Date>
+                            </div>
+                            <Summary>{item.content}</Summary>
+
+                        </div>
+                        <ViewDetails onClick={() => navigate(`/details/${item.id}`)}>상세보기</ViewDetails>
+                    </LetterSummaryBox>
+                )
+            })
+            }
+        </>
+    )
+}
+
 //#region 
 const LetterSummaryBox = styled.div`
     width: 68%;
@@ -70,48 +112,5 @@ export const Date = styled.span`
     color: grey;
 `
 //#endregion
-
-function LetterSummaryView() {
-    const navigate = useNavigate();
-
-    const savedLetters = useSelector((state) => {
-        return state.letters.savedLetters;
-    });
-
-    const selectedCharacter = useSelector((state) => {
-        return state.character.selectedCharacter
-    })
-
-
-    const filteredLetters = savedLetters
-        .filter((item) => {
-            return item.writedTo === selectedCharacter
-        })
-
-    return (
-        <>
-            {filteredLetters.length === 0 && <EmptyLetterBoxMessage />}
-            {filteredLetters.map((item) => {
-                return (
-
-                    <LetterSummaryBox key={item.id}>
-                        <ProfileImg src={profileImg}></ProfileImg>
-                        <Line></Line>
-                        <div>
-                            <div style={{ display: "flex" }}>
-                                <span style={{ fontSize: "15px" }}>{item.nickname}</span>
-                                <Date>{item.createdAt.slice(0, 10)}</Date>
-                            </div>
-                            <Summary>{item.content}</Summary>
-
-                        </div>
-                        <ViewDetails onClick={() => navigate(`/details/${item.id}`)}>상세보기</ViewDetails>
-                    </LetterSummaryBox>
-                )
-            })
-            }
-        </>
-    )
-}
 
 export default LetterSummaryView
