@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from "components/Header";
 import styled from 'styled-components';
 import ResetStyles from './ResetStyles';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const LayoutWrap = styled.div`
     width: 710px;
@@ -18,13 +19,25 @@ const MainWrap = styled.div`
     background-color: #eef9fd;;
 `
 
-function Layout({ children }) {
+function Layout() {
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigage = useNavigate();
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigage('/login');
+        } else {
+            navigage('/home');
+        }
+    }, [])
+
     return (
         <MainWrap>
             <ResetStyles />
             <LayoutWrap>
-                <Header></Header>
-                {children}
+                <Header />
+                <Outlet />
             </LayoutWrap>
         </MainWrap>
     )

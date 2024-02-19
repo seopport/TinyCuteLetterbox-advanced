@@ -10,10 +10,12 @@ import { changeToKoreanName } from 'shared/changeToKoreanName'
 import { StLetterSendingBox } from 'components/Home/LetterSendingBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteLetter, modifyLetter } from 'store/redux/modules/letters';
+import Header from 'components/Header';
 
 
 function LetterDetailView() {
     const savedLetters = useSelector((state) => {
+        console.log("sedc")
         return state.letters.savedLetters;
     });
 
@@ -82,6 +84,7 @@ function LetterDetailView() {
 
     return (
         <>
+            <Header />
             <BackButton onClick={() => { navigate('/') }}>돌아가기</BackButton>
 
             {savedLetters.filter((item) => item.id === param.id)
