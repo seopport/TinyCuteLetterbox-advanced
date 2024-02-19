@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import fakeData from 'fakeData';
+import db from 'db.json';
 
 const initialState = {
   savedLetters: fakeData.data,

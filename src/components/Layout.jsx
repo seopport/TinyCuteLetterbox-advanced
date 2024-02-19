@@ -36,7 +36,7 @@ function Layout() {
     <MainWrap>
       <ResetStyles />
       <LayoutWrap>
-        <NavHeader />
+        {isLoggedIn && <NavHeader />}
         <Header />
         <Outlet />
       </LayoutWrap>
