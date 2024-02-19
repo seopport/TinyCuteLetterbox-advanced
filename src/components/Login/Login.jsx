@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { SelectCharacter } from 'components/Home/LetterBoxSelecter';
 import colors from 'shared/color';
+import { StSignButton } from './SignUp';
 
 export const LoginContainer = styled.div`
 margin-top: 50px;
@@ -27,22 +28,24 @@ padding-left: 10px;
 font-size: 14px;
 `
 
-export const LoginButton = styled(SelectCharacter)`
-        color: white;
-    background-color: ${colors.aquaBlue};
-
-    &:active{
-        background-color: #0b75b3;
-    }
+export const DefaultButton = styled(SelectCharacter)`
+    color: #9e9e9e;
+    background-color: white;
+    border: 1px solid grey;
     width: 100%;
     height: 45px;
     font-size: 16px;
     margin-top: 10px;
 `
 
+export const LoginButton = styled(StSignButton)`
+`
+
 
 
 const Login = ({ setIsSignUpAcitve }) => {
+
+
     const handleSignButtonClick = () => {
         setIsSignUpAcitve(true)
     }
@@ -57,8 +60,8 @@ const Login = ({ setIsSignUpAcitve }) => {
 
             </form>
             <LoginButton > 로그인 </LoginButton>
-            <LoginButton onClick={handleSignButtonClick}
-                style={{ color: `${colors.bordeGreyishBlue}`, backgroundColor: "white" }}> 회원가입 </LoginButton>
+            <DefaultButton onClick={handleSignButtonClick}
+            > 회원가입 </DefaultButton>
         </LoginContainer>
     )
 }
