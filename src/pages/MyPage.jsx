@@ -33,7 +33,7 @@ const MyPage = () => {
     // 닉네임 수정하는 디스패치
     dispatch(modifyNickname({userId: userInfo.id, modifiedNickname}));
 
-    // 닉네임 수정 patch
+    // 닉네임 수정 서버 patch
     const updateUserInfo = {nickname: modifiedNickname};
     const res = await loginApi.patch('/profile', updateUserInfo);
     alert(res.data.message);
@@ -55,7 +55,7 @@ const MyPage = () => {
       <StTitle>프로필 관리</StTitle>
       {console.log(userInfo)}
       <StProfileContainer>
-        <StProfileImage src="https://f4.bcbits.com/img/a3746752716_65" />
+        <StProfileImage src={userInfo.avatar} />
         <div style={{margin: 'auto 0'}}>
           <StInfoWrap style={{marginBottom: '20px'}}>
             <StSpan>아이디</StSpan>

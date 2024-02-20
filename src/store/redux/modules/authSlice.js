@@ -7,6 +7,7 @@ const initialState = {
     password: null,
     nickname: null,
     accessToken: null,
+    avatar: null,
   },
 
   isLoggedIn: false,

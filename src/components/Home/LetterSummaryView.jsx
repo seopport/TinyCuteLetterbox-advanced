@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import profileImg from 'assets/image/default_profile_bear2.png';
+import profileImg from 'assets/image/momongaProfile.jpg';
 import colors from 'shared/color';
 import 'shared/index.css';
 import {useNavigate} from 'react-router-dom';
@@ -29,7 +29,7 @@ function LetterSummaryView() {
       {filteredLetters?.map(item => {
         return (
           <LetterSummaryBox key={item.id}>
-            <ProfileImg src={profileImg} />
+            <ProfileImg src={item.avatar} />
             <Line></Line>
             <div>
               <div style={{display: 'flex'}}>
@@ -64,7 +64,11 @@ const LetterSummaryBox = styled.div`
 
 const ProfileImg = styled.img`
   width: 58px;
-  margin-right: 5px;
+  height: 58px;
+  object-fit: cover;
+  margin-right: 10px;
+  border-radius: 50%;
+  border: 1px solid black;
 `;
 
 const Line = styled.span`

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import color from 'shared/color';
 import 'shared/index.css';
 import meltingChiikawa from 'assets/image/melting_chiikawa.png';
-import profileImge from 'assets/image/default_profile_bear.png';
+import profileImg from 'assets/image/default_profile_bear.png';
 import uuid from 'react-uuid';
 import {changeToKoreanName} from 'shared/changeToKoreanName';
 import {useDispatch, useSelector} from 'react-redux';
@@ -63,7 +63,7 @@ function LetterSendingBox() {
       nickname: userInfo.nickname,
       content: letterContent,
       createdAt: createdAt[0],
-      avatar: profileImge,
+      avatar: userInfo.avatar,
       userId: userInfo.id,
     };
 

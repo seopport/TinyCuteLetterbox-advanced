@@ -9,6 +9,7 @@ import {changeLoginState, updateUserInfo, updateUserToken} from 'store/redux/mod
 import {useNavigate} from 'react-router-dom';
 import loginApi from '../../apis/loginApi';
 import {LoginContainer} from './LoginContainer';
+import profileImg from 'assets/image/momongaProfile.jpg';
 
 const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
   const {setItem, getItem, removeItem, clear, length, key} = localStorage;
@@ -59,6 +60,7 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
         password: userPw,
         nickname,
         accessToken,
+        avatar: profileImg,
       };
 
       localStorage.setItem('accessToken', `${accessToken}`);
