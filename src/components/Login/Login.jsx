@@ -11,6 +11,8 @@ import loginApi from '../../apis/loginApi';
 import {LoginContainer} from './LoginContainer';
 
 const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
+  const {setItem, getItem, removeItem, clear, length, key} = localStorage;
+
   const dispacth = useDispatch();
   const navigate = useNavigate();
 
@@ -58,6 +60,8 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
         nickname,
         accessToken,
       };
+
+      localStorage.setItem('accessToken', `${accessToken}`);
 
       dispacth(updateUserInfo(newUser));
       dispacth(changeLoginState());
