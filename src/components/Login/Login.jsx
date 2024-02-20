@@ -52,7 +52,7 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
     try {
       const userInfo = {id: userId, password: userPw};
       const response = await loginApi.post('/login', userInfo);
-      const {accessToken, nickname} = response.data;
+      const {accessToken, nickname, avatar} = response.data;
       alert('💌 로그인되었습니다. 홈으로 이동합니다.');
 
       const newUser = {
@@ -60,7 +60,7 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
         password: userPw,
         nickname,
         accessToken,
-        avatar: profileImg,
+        avatar,
       };
 
       localStorage.setItem('accessToken', `${accessToken}`);

@@ -4,7 +4,7 @@ import {ModifyCompleteButton} from 'components/Detail/ModifyCompleteButton';
 import {LoginContainer} from 'components/Login/LoginContainer';
 import React, {useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {modifyNickname} from 'store/redux/modules/authSlice';
+import {modifyNickname, modifyUserAvatar, modifyUserInfo} from 'store/redux/modules/authSlice';
 import styled from 'styled-components';
 import loginApi from 'apis/loginApi';
 
@@ -12,37 +12,47 @@ const MyPage = () => {
   const userInfo = useSelector(state => state.authSlice.users);
   //토큰이 백엔드에 있어야 요청을 보낼지 안보낼지 결정
   //토큰 검정 실패시 로그아웃으로 바꿔버려
-
   const dispatch = useDispatch();
 
   const [isModifying, setIsModifying] = useState(false);
-  const inputValue = useRef();
   const [modifiedNickname, setModifiedNickname] = useState('');
-  const [imageSrc, setImageSrc] = useState();
+  const [imageSrc64, setImageSrc64] = useState();
+  const [imageSrc, setImageSrc] = useState(userInfo.avatar);
+  const nicknameInputValue = useRef();
+  const fileInput = useRef();
 
   const handleModifyButtonClick = () => {
     console.log('닉네임 :', userInfo.nickname, '수정한닉 : ', modifiedNickname);
     setIsModifying(true);
     setModifiedNickname(userInfo.nickname);
   };
+
   const handleModifyCompleteButtonClick = async () => {
-    if (userInfo.nickname === modifiedNickname) {
+    //닉네임이 바뀌거나, 프로필 이미지가 바뀌면 수정완료
+    // 닉네임과 프로필 이미지 모두 같으면 수정 안됨
+    if (userInfo.nickname === modifiedNickname && userInfo.avatar === imageSrc) {
       alert('수정사항없다');
+      console.log(userInfo.avatar, imageSrc);
       return;
     }
-
     // 닉네임 수정하는 디스패치
-    dispatch(modifyNickname({userId: userInfo.id, modifiedNickname}));
+    dispatch(modifyUserInfo({userId: userInfo.id, modifiedNickname, modifiedAvatar: imageSrc}));
+
+    // dispatch(modifyUserAvatar({userId: userInfo.id, imageSrc}));
 
     // 닉네임 수정 서버 patch
-    const updateUserInfo = {nickname: modifiedNickname};
+    const updateUserInfo = {nickname: modifiedNickname, avatar: imageSrc};
     const res = await loginApi.patch('/profile', updateUserInfo);
     alert(res.data.message);
+    console.log(res.data);
 
     setIsModifying(false);
   };
+
+  console.log('업데이트한 userInfo', userInfo);
+
   const handleModifyCancelButtonClick = () => {
-    inputValue.current.value = userInfo.nickname;
+    nicknameInputValue.current.value = userInfo.nickname;
     setIsModifying(false);
   };
 
@@ -52,22 +62,23 @@ const MyPage = () => {
   };
 
   const handleInputChange = e => {
-    console.log(e.target.files[0]);
     encodeFileToBase64(e.target.files[0]);
+
+    const imageUrl = URL.createObjectURL(e.target.files[0]);
+    setImageSrc(imageUrl);
+    console.log(imageUrl, '여기는 크리에이트 오브젝ㅌ 어쩌고 한거');
   };
 
   const handleEditButtonClick = () => {
     fileInput.current.click();
   };
 
-  const fileInput = useRef();
-
   const encodeFileToBase64 = fileBlob => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
     return new Promise(resolve => {
       reader.onload = () => {
-        setImageSrc(reader.result);
+        setImageSrc64(reader.result);
         resolve();
       };
     });
@@ -80,9 +91,9 @@ const MyPage = () => {
       <StProfileContainer>
         {/* 이미지 */}
         <div style={{position: 'relative'}}>
-          <StProfileImage src={!imageSrc ? userInfo.avatar : imageSrc} />
+          <StProfileImage src={!imageSrc64 ? imageSrc : imageSrc64} />
           <input type="file" style={{display: 'none'}} onChange={handleInputChange} ref={fileInput}></input>
-          <StEditButton onClick={handleEditButtonClick}>edit</StEditButton>
+          {isModifying && <StEditButton onClick={handleEditButtonClick}>edit</StEditButton>}
         </div>
         {/* 아이디 닉네임 */}
         <div style={{margin: 'auto 0'}}>
@@ -94,7 +105,7 @@ const MyPage = () => {
             <StSpan>닉네임</StSpan>
             <StInfoInput
               onChange={handleNicknameInputChange}
-              ref={inputValue}
+              ref={nicknameInputValue}
               defaultValue={userInfo.nickname}
               style={{backgroundColor: 'white'}}
               readOnly={!isModifying}
