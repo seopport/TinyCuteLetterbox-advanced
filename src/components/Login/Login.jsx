@@ -4,6 +4,7 @@ import {SelectCharacter} from 'components/Home/LetterBoxSelecter';
 import colors from 'shared/color';
 import {StSignButton} from './SignUp';
 import {AuthActionButton} from './AuthActionButton';
+import {useSelector} from 'react-redux';
 
 export const LoginContainer = styled.div`
   margin-top: 50px;
@@ -55,6 +56,9 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
 
+  const users = useSelector(state => state.authSlice.users);
+  console.log(users);
+
   useEffect(() => {
     checkIdValue(userId);
     checkPwValue(userPw);
@@ -78,11 +82,18 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
     setUserPw(e.target.value);
   };
 
+  const handleLoginButtonclick = () => {
+    if (!isValid) {
+      return;
+    }
+    alert('#');
+  };
+
   return (
     <LoginContainer>
       <p style={{fontWeight: 'bold', fontSize: '20px', marginBottom: '40px'}}>로그인</p>
 
-      <form style={{width: '100%'}}>
+      <form type="submit" style={{width: '100%'}}>
         <StInputContainer>
           <StLoginInput
             type="text"
@@ -104,7 +115,7 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
           {!isValidPw && userPw.length > 0 && <StMessage> 4글자 이상 입력하세요.</StMessage>}
         </StInputContainer>
       </form>
-      <AuthActionButton $isValid={isValid} type="submit">
+      <AuthActionButton onClick={handleLoginButtonclick} $isValid={isValid} type="submit">
         {' '}
         로그인{' '}
       </AuthActionButton>
