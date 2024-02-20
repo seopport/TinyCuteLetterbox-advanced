@@ -38,7 +38,6 @@ export const SelectCharacter = styled.button`
 
 function LetterBoxSelecter() {
   const selectedCharacter = useSelector(state => {
-    console.log('first');
     return state.character.selectedCharacter;
   });
   const dispatch = useDispatch();

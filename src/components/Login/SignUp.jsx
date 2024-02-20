@@ -4,24 +4,16 @@ import {LoginContainer, StLoginInput, DefaultButton, LoginButton, StMessage, StI
 import {SelectCharacter} from 'components/Home/LetterBoxSelecter';
 import colors from 'shared/color';
 import {AuthActionButton} from './AuthActionButton';
-
-// export const StSignButton = styled(SelectCharacter)`
-//   width: 100%;
-//   height: 45px;
-//   font-size: 16px;
-//   margin-top: 10px;
-//   color: ${props => (props.$isValid ? 'white' : colors.bordeGreyishBlue)};
-//   background-color: ${props => (props.$isValid ? colors.aquaBlue : 'white')};
-//   transition: all 0.3s;
-
-//   &:hover {
-//     cursor: ${props => (props.isValid ? 'pointer' : 'default')};
-//   }
-// `;
+import {useDispatch, useSelector} from 'react-redux';
+import {addUser} from 'store/redux/modules/authSlice';
 
 // 시간늠으면 고려 : 닉네임, 아이디 숫자만 입력 안되게
 
 const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
+  const dispatch = useDispatch();
+
+  const users = useSelector(state => state.authSlice.users);
+
   const [isValid, setIsValid] = useState(false);
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
@@ -51,6 +43,23 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
   };
   const handleUserNicknameChange = e => {
     setUserNickname(e.target.value);
+  };
+
+  const handleSignUpButtonClick = () => {
+    if (!isValid) {
+      return;
+    }
+
+    const newUser = {
+      userId,
+      userPw,
+      userNickname,
+      accessToken: null,
+    };
+
+    dispatch(addUser(newUser));
+    alert('회원가입이 완료되었습니다.');
+    setIsSignUpAcitve(false);
   };
 
   return (
@@ -88,7 +97,7 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
             />
           </StInputContainer>
         </form>
-        <AuthActionButton $isValid={isValid} type="submit">
+        <AuthActionButton onClick={handleSignUpButtonClick} $isValid={isValid} type="submit">
           {' '}
           회원가입{' '}
         </AuthActionButton>

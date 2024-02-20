@@ -4,7 +4,9 @@ import {SelectCharacter} from 'components/Home/LetterBoxSelecter';
 import colors from 'shared/color';
 import {StSignButton} from './SignUp';
 import {AuthActionButton} from './AuthActionButton';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {addUser, changeLoginState} from 'store/redux/modules/authSlice';
+import {useNavigate} from 'react-router-dom';
 
 export const LoginContainer = styled.div`
   margin-top: 50px;
@@ -51,13 +53,16 @@ export const StInputContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
+const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
+  const dispacth = useDispatch();
+  const navigate = useNavigate();
+
   const [isValid, setIsValid] = useState(false);
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
 
   const users = useSelector(state => state.authSlice.users);
-  console.log(users);
+  const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
 
   useEffect(() => {
     checkIdValue(userId);
@@ -86,7 +91,15 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
     if (!isValid) {
       return;
     }
-    alert('#');
+
+    const UserExist = users.filter(item => item.userId === userId && item.userPw === userPw);
+    console.log(UserExist);
+    if (UserExist.length === 0) {
+      alert('아이디 비번 확인');
+    } else {
+      alert('로그인 성공');
+      dispacth(changeLoginState());
+    }
   };
 
   return (

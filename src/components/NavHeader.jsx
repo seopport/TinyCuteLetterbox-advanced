@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import colors from 'shared/color';
+import {changeLoginState} from 'store/redux/modules/authSlice';
 import styled from 'styled-components';
 
 const StNavHeaderContainer = styled.nav`
@@ -30,6 +32,21 @@ const StNavLink = styled(NavLink)`
 `;
 
 const NavHeader = () => {
+  const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
+  const dispatch = useDispatch();
+
+  const [toValue, setToValue] = useState('login');
+
+  const handleLoginStateButton = () => {
+    if (isLoggedIn) {
+      if (window.confirm('로그아웃할거니?')) {
+        dispatch(changeLoginState());
+      } else {
+        return;
+      }
+    }
+  };
+
   return (
     <StNavHeaderContainer>
       <StNavLink to={'home'}>Home</StNavLink>
@@ -37,7 +54,7 @@ const NavHeader = () => {
         <StNavLink to={'myPage'} style={{marginRight: '20px'}}>
           MyPage
         </StNavLink>
-        <StNavLink to={'login'}>Login</StNavLink>
+        <StNavLink onClick={handleLoginStateButton}>Logout</StNavLink>
       </div>
     </StNavHeaderContainer>
   );

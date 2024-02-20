@@ -1,14 +1,17 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {useState} from 'react';
 
 const initialState = {
   users: [
     {
-      userId: null,
-      userPw: null,
+      userId: '1234',
+      userPw: '1234',
       userNickname: null,
       accessToken: null,
     },
   ],
+
+  isLoggedIn: false,
 };
 
 const authSlice = createSlice({
@@ -17,22 +20,14 @@ const authSlice = createSlice({
   reducers: {
     addUser: (state, action) => {
       //페이로드 : userId, Pw, 닉네임 객체
-      return [...state, action.payload];
+      return {...state, users: [...state.users, action.payload]};
     },
 
-    checkUser: (state, action) => {
-      //payload: 유저 아이디, pw
-      const targetId = action.payload.userId;
-      const targetPw = action.payload.userPw;
-      state.users.map(item => {
-        if (item.userId === targetId && item.userPw === targetPw) {
-          //일치하면 로그인
-          return true;
-        } else return false;
-      });
+    changeLoginState: (state, action) => {
+      return {...state, isLoggedIn: !state.isLoggedIn};
     },
   },
 });
 
-export const {addUser, checkUser} = authSlice.actions;
+export const {addUser, changeLoginState} = authSlice.actions;
 export default authSlice.reducer;

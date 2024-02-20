@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ResetStyles from './ResetStyles';
 import {Outlet, useNavigate} from 'react-router-dom';
 import NavHeader from './NavHeader';
+import {useSelector} from 'react-redux';
 
 const LayoutWrap = styled.div`
   width: 710px;
@@ -21,8 +22,11 @@ const MainWrap = styled.div`
 `;
 
 function Layout() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigage = useNavigate();
+
+  const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
+  console.log('로그인합격', isLoggedIn);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -30,7 +34,7 @@ function Layout() {
     } else {
       navigage('/home');
     }
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <MainWrap>
