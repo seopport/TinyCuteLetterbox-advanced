@@ -1,8 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import fakeData from 'fakeData';
-import db from 'db.json';
-import letterApi from 'apis/letterApi';
-import {useState} from 'react';
 
 const initialState = {
   savedLetters: [],

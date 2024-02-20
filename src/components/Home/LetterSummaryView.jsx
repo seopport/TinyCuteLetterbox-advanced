@@ -29,7 +29,7 @@ function LetterSummaryView() {
       {filteredLetters?.map(item => {
         return (
           <LetterSummaryBox key={item.id}>
-            <ProfileImg src={profileImg}></ProfileImg>
+            <ProfileImg src={profileImg} />
             <Line></Line>
             <div>
               <div style={{display: 'flex'}}>

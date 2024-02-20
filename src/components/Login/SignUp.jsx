@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {LoginContainer, StLoginInput, DefaultButton, LoginButton, StMessage, StInputContainer} from './Login';
+import {StLoginInput, DefaultButton, LoginButton, StMessage, StInputContainer} from './Login';
 import {SelectCharacter} from 'components/Home/LetterBoxSelecter';
 import colors from 'shared/color';
 import {AuthActionButton} from './AuthActionButton';
 import {useDispatch, useSelector} from 'react-redux';
 import loginApi from '../../apis/loginApi';
 import {updateUserInfo} from 'store/redux/modules/authSlice';
+import {LoginContainer} from './LoginContainer';
 
 // 시간늠으면 고려 : 닉네임, 아이디 숫자만 입력 안되게
 

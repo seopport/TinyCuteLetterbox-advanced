@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {changeLoginState, updateUserInfo, updateUserToken} from 'store/redux/modules/authSlice';
 import {useNavigate} from 'react-router-dom';
 import loginApi from '../../apis/loginApi';
+import {LoginContainer} from './LoginContainer';
 
 const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
   const dispacth = useDispatch();
@@ -79,7 +80,7 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
             value={userId}
             onChange={handleUserIdChange}
             maxLength={10}
-            placeholder="아이디 (영문 4~10글자)"
+            placeholder="아이디 (4~10글자 영문으로 입력해주세요.)"
           />
           {!isValidId && userId.length > 0 && <StMessage>4글자 이상 입력하세요.</StMessage>}
         </StInputContainer>
@@ -102,19 +103,6 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
     </LoginContainer>
   );
 };
-
-export const LoginContainer = styled.div`
-  margin-top: 50px;
-  width: 70%;
-  background-color: white;
-  border-radius: 10px;
-  padding: 30px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-`;
 
 export const StLoginInput = styled.input`
   border-radius: 10px;

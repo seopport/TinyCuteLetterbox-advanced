@@ -13,6 +13,105 @@ import axios from 'axios';
 import letterApi from 'apis/letterApi';
 
 //#region
+function LetterSendingBox() {
+  useEffect(() => {}, []);
+  const selectedCharacter = useSelector(state => {
+    return state.character.selectedCharacter;
+  });
+
+  const userInfo = useSelector(state => state.authSlice.users);
+  console.log(userInfo);
+  const dispatch = useDispatch();
+
+  const letterInput = useRef();
+  const writerInput = useRef();
+  console.log(selectedCharacter);
+  //옵션으로 선택한 캐릭터
+  const handleSendButtonClick = async () => {
+    const setDate = date => {
+      return date < 10 ? '0' + date : date.toString();
+    };
+
+    //#region
+    const year = new Date().getFullYear();
+    const month = setDate(new Date().getMonth() + 1);
+    const day = setDate(new Date().getDate());
+    const hour = setDate(new Date().getHours());
+    const minute = setDate(new Date().getMinutes());
+
+    const createdAt = [[year, month, day].join('-') + ' ' + [hour, minute].join(':')];
+
+    //#endregion
+    const letterContent = letterInput.current.value;
+    const sendTo = selectedCharacter; //보낼 캐릭터
+    // const writer = writerInput.current.value; //작성자
+
+    if (letterContent.trim() === '') {
+      alert('편지 내용을 입력해주세요.');
+      letterInput.current.focus();
+      return;
+    }
+
+    // if (writer.trim() === '') {
+    //   alert('작성자를 입력해주세요.');
+    //   writerInput.current.focus();
+    //   return;
+    // }
+    const newLetter = {
+      id: uuid(),
+      writedTo: sendTo,
+      nickname: userInfo.nickname,
+      content: letterContent,
+      createdAt: createdAt[0],
+      avatar: profileImge,
+      userId: userInfo.id,
+    };
+
+    dispatch(sendLetter(newLetter));
+
+    const koreanName = changeToKoreanName(sendTo);
+    alert(`💌 ${koreanName}에게 편지를 보냈어요.`);
+
+    //폼 초기화
+    letterInput.current.value = '';
+    // writerInput.current.value = '';
+    // await letterApi.post('letters', newLetter);
+  };
+
+  const handleSelector = e => {
+    dispatch(changeCharacter(e.currentTarget.value));
+  };
+
+  return (
+    <>
+      <SendLetterText>편지 보내기</SendLetterText>
+      <StLetterSendingBox>
+        <ChiikawaOnBox src={meltingChiikawa}></ChiikawaOnBox>
+        <div style={{alignSelf: 'flex-start', position: 'relative'}}>
+          <span style={{position: 'absolute', bottom: '3px'}}>Dear.</span>{' '}
+          <SelectBox value={selectedCharacter} onChange={handleSelector}>
+            <option value={'chiikawa'}>치이카와</option>
+            <option value={'hachiware'}>하치와레</option>
+            <option value={'usagi'}>우사기</option>
+            <option value={'momonga'}>모몽가</option>
+          </SelectBox>
+        </div>
+        <WriteLetterBox
+          maxLength={200}
+          placeholder="최대 200자까지 입력할 수 있습니다."
+          spellCheck={false}
+          ref={letterInput}
+        />
+        <div style={{alignSelf: 'flex-end'}}>
+          <span style={{fontSize: '14px'}}>작성자 : {userInfo.nickname}</span>
+          {/* <WriterInput maxLength={10} ref={writerInput} /> */}
+        </div>
+        <SendLetterButton onClick={handleSendButtonClick}>보내기</SendLetterButton>
+      </StLetterSendingBox>
+    </>
+  );
+}
+
 export const StLetterSendingBox = styled.div`
   background-color: white;
   width: 475px;
@@ -90,106 +189,5 @@ export const ChiikawaOnBox = styled.img`
   top: -37px;
   right: 20px;
 `;
-
-function LetterSendingBox() {
-  useEffect(() => {}, []);
-  const selectedCharacter = useSelector(state => {
-    return state.character.selectedCharacter;
-  });
-
-  const userInfo = useSelector(state => state.authSlice.users);
-  console.log(userInfo);
-  const dispatch = useDispatch();
-
-  const letterInput = useRef();
-  const writerInput = useRef();
-  console.log(selectedCharacter);
-  //옵션으로 선택한 캐릭터
-  const handleSendButtonClick = async () => {
-    const setDate = date => {
-      return date < 10 ? '0' + date : date.toString();
-    };
-
-    //#region
-    const year = new Date().getFullYear();
-    const month = setDate(new Date().getMonth() + 1);
-    const day = setDate(new Date().getDate());
-    const hour = setDate(new Date().getHours());
-    const minute = setDate(new Date().getMinutes());
-
-    const createdAt = [[year, month, day].join('-') + ' ' + [hour, minute].join(':')];
-
-    //#endregion
-    const letterContent = letterInput.current.value;
-    const sendTo = selectedCharacter; //보낼 캐릭터
-    // const writer = writerInput.current.value; //작성자
-
-    if (letterContent.trim() === '') {
-      alert('편지 내용을 입력해주세요.');
-      letterInput.current.focus();
-      return;
-    }
-
-    // if (writer.trim() === '') {
-    //   alert('작성자를 입력해주세요.');
-    //   writerInput.current.focus();
-    //   return;
-    // }
-    const newLetter = {
-      id: uuid(),
-      writedTo: sendTo,
-      nickname: userInfo.nickname,
-      content: letterContent,
-      createdAt: createdAt[0],
-      avatar: profileImge,
-      userId: userInfo.id,
-    };
-
-    dispatch(sendLetter(newLetter));
-
-    const koreanName = changeToKoreanName(sendTo);
-    alert(`💌 ${koreanName}에게 편지를 보냈어요.`);
-
-    //폼 초기화
-    letterInput.current.value = '';
-    // writerInput.current.value = '';
-    await letterApi.post('letters', newLetter);
-  };
-
-  const handleSelector = e => {
-    dispatch(changeCharacter(e.currentTarget.value));
-  };
-
-  return (
-    <>
-      <SendLetterText>편지 보내기</SendLetterText>
-      <StLetterSendingBox>
-        <ChiikawaOnBox src={meltingChiikawa}></ChiikawaOnBox>
-        <div style={{alignSelf: 'flex-start', position: 'relative'}}>
-          <span style={{position: 'absolute', bottom: '3px'}}>Dear.</span>{' '}
-          <SelectBox value={selectedCharacter} onChange={handleSelector}>
-            <option value={'chiikawa'}>치이카와</option>
-            <option value={'hachiware'}>하치와레</option>
-            <option value={'usagi'}>우사기</option>
-            <option value={'momonga'}>모몽가</option>
-          </SelectBox>
-        </div>
-        <WriteLetterBox
-          maxLength={200}
-          placeholder="최대 200자까지 입력할 수 있습니다."
-          spellCheck={false}
-          ref={letterInput}
-        />
-        <div style={{alignSelf: 'flex-end'}}>
-          <span style={{fontSize: '14px'}}>작성자 : {userInfo.nickname}</span>
-          {/* <WriterInput maxLength={10} ref={writerInput} /> */}
-        </div>
-        <SendLetterButton type="submit" onClick={handleSendButtonClick}>
-          보내기
-        </SendLetterButton>
-      </StLetterSendingBox>
-    </>
-  );
-}
 
 export default LetterSendingBox;
