@@ -24,7 +24,6 @@ const MainWrap = styled.div`
 function AuthLayout() {
   console.log('AuthLayout 렌더링');
 
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const [isRendered, setIsRendered] = useState(false);
 
@@ -45,9 +44,9 @@ function AuthLayout() {
     <MainWrap>
       <ResetStyles />
       <LayoutWrap>
-        {isLoggedIn && <NavHeader />}
+        {isRendered && <NavHeader />}
         <Header />
-        {isLoggedIn ? <Outlet /> : <Navigate to="/login" />}
+        {isRendered && <Outlet />}
       </LayoutWrap>
     </MainWrap>
   );

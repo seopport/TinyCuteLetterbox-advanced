@@ -37,7 +37,6 @@ const Router = () => {
             <Route index element={<LoginPage />} />
           </Route>
           <Route element={<AuthLayout />}>
-            <Route path="login" element={<LoginPage />} />
             <Route path="home" element={<Home />} />
             <Route path="myPage" element={<MyPage />} />
             <Route path="details/:id" element={<LetterDetailPage />} />
