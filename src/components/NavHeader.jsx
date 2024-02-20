@@ -35,7 +35,7 @@ const NavHeader = () => {
   const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
   const dispatch = useDispatch();
 
-  const [toValue, setToValue] = useState('login');
+  // const [toValue, setToValue] = useState('login');
 
   const handleLoginStateButton = () => {
     if (isLoggedIn) {

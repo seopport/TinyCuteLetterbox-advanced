@@ -5,8 +5,95 @@ import colors from 'shared/color';
 import {StSignButton} from './SignUp';
 import {AuthActionButton} from './AuthActionButton';
 import {useDispatch, useSelector} from 'react-redux';
-import {addUser, changeLoginState} from 'store/redux/modules/authSlice';
+import {changeLoginState} from 'store/redux/modules/authSlice';
 import {useNavigate} from 'react-router-dom';
+import loginApi from '../../apis/loginApi';
+
+const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
+  const dispacth = useDispatch();
+  const navigate = useNavigate();
+
+  console.log(loginApi);
+
+  const [isValid, setIsValid] = useState(false);
+  const [userId, setUserId] = useState('');
+  const [userPw, setUserPw] = useState('');
+
+  const users = useSelector(state => state.authSlice.users);
+  const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
+
+  useEffect(() => {
+    checkIdValue(userId);
+    checkPwValue(userPw);
+    if (isValidId && isValidPw) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [isValidId, isValidPw, userId, userPw]);
+
+  const handleSignButtonClick = () => {
+    setIsSignUpAcitve(true);
+  };
+
+  const handleUserIdChange = e => {
+    e.target.value = e.target.value.replace(/[^A-Za-z0-9]/gi, '');
+    setUserId(e.target.value);
+  };
+
+  const handleUserPwChange = e => {
+    setUserPw(e.target.value);
+  };
+
+  const handleLoginButtonclick = () => {
+    if (!isValid) {
+      return;
+    }
+
+    const UserExist = users.filter(item => item.id === userId && item.password === userPw);
+    console.log(UserExist);
+    if (UserExist.length === 0) {
+      alert('아이디 비번 확인');
+    } else {
+      alert('로그인 성공');
+      dispacth(changeLoginState());
+    }
+  };
+
+  return (
+    <LoginContainer>
+      <p style={{fontWeight: 'bold', fontSize: '20px', marginBottom: '40px'}}>로그인</p>
+
+      <form type="submit" style={{width: '100%'}}>
+        <StInputContainer>
+          <StLoginInput
+            type="text"
+            value={userId}
+            onChange={handleUserIdChange}
+            maxLength={10}
+            placeholder="아이디 (영문 4~10글자)"
+          />
+          {!isValidId && userId.length > 0 && <StMessage>4글자 이상 입력하세요.</StMessage>}
+        </StInputContainer>
+        <StInputContainer>
+          <StLoginInput
+            type="password"
+            value={userPw}
+            onChange={handleUserPwChange}
+            placeholder="비밀번호 (4~15글자)"
+            maxLength={15}
+          />
+          {!isValidPw && userPw.length > 0 && <StMessage> 4글자 이상 입력하세요.</StMessage>}
+        </StInputContainer>
+      </form>
+      <AuthActionButton onClick={handleLoginButtonclick} $isValid={isValid} type="submit">
+        {' '}
+        로그인{' '}
+      </AuthActionButton>
+      <DefaultButton onClick={handleSignButtonClick}> 회원가입 </DefaultButton>
+    </LoginContainer>
+  );
+};
 
 export const LoginContainer = styled.div`
   margin-top: 50px;
@@ -52,89 +139,5 @@ export const StInputContainer = styled.div`
   position: relative;
   margin-bottom: 30px;
 `;
-
-const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
-  const dispacth = useDispatch();
-  const navigate = useNavigate();
-
-  const [isValid, setIsValid] = useState(false);
-  const [userId, setUserId] = useState('');
-  const [userPw, setUserPw] = useState('');
-
-  const users = useSelector(state => state.authSlice.users);
-  const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
-
-  useEffect(() => {
-    checkIdValue(userId);
-    checkPwValue(userPw);
-    if (isValidId && isValidPw) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
-  }, [isValidId, isValidPw, userId, userPw]);
-
-  const handleSignButtonClick = () => {
-    setIsSignUpAcitve(true);
-  };
-
-  const handleUserIdChange = e => {
-    e.target.value = e.target.value.replace(/[^A-Za-z0-9]/gi, '');
-    setUserId(e.target.value);
-  };
-
-  const handleUserPwChange = e => {
-    setUserPw(e.target.value);
-  };
-
-  const handleLoginButtonclick = () => {
-    if (!isValid) {
-      return;
-    }
-
-    const UserExist = users.filter(item => item.userId === userId && item.userPw === userPw);
-    console.log(UserExist);
-    if (UserExist.length === 0) {
-      alert('아이디 비번 확인');
-    } else {
-      alert('로그인 성공');
-      dispacth(changeLoginState());
-    }
-  };
-
-  return (
-    <LoginContainer>
-      <p style={{fontWeight: 'bold', fontSize: '20px', marginBottom: '40px'}}>로그인</p>
-
-      <form type="submit" style={{width: '100%'}}>
-        <StInputContainer>
-          <StLoginInput
-            type="text"
-            value={userId}
-            onChange={handleUserIdChange}
-            maxLength={10}
-            placeholder="아이디 (영문 4~10글자)"
-          />
-          {!isValidId && userId.length > 0 && <StMessage>4글자 이상 입력하세요.</StMessage>}
-        </StInputContainer>
-        <StInputContainer>
-          <StLoginInput
-            type="password"
-            value={userPw}
-            onChange={handleUserPwChange}
-            placeholder="비밀번호 (4~15글자)"
-            maxLength={15}
-          />
-          {!isValidPw && userPw.length > 0 && <StMessage> 4글자 이상 입력하세요.</StMessage>}
-        </StInputContainer>
-      </form>
-      <AuthActionButton onClick={handleLoginButtonclick} $isValid={isValid} type="submit">
-        {' '}
-        로그인{' '}
-      </AuthActionButton>
-      <DefaultButton onClick={handleSignButtonClick}> 회원가입 </DefaultButton>
-    </LoginContainer>
-  );
-};
 
 export default Login;

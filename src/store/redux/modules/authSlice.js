@@ -4,9 +4,9 @@ import {useState} from 'react';
 const initialState = {
   users: [
     {
-      userId: '1234',
-      userPw: '1234',
-      userNickname: null,
+      id: '1234',
+      password: '1234',
+      nickname: null,
       accessToken: null,
     },
   ],

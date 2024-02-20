@@ -6,6 +6,7 @@ import colors from 'shared/color';
 import {AuthActionButton} from './AuthActionButton';
 import {useDispatch, useSelector} from 'react-redux';
 import {addUser} from 'store/redux/modules/authSlice';
+import loginApi from '../../apis/loginApi';
 
 // 시간늠으면 고려 : 닉네임, 아이디 숫자만 입력 안되게
 
@@ -45,17 +46,22 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
     setUserNickname(e.target.value);
   };
 
-  const handleSignUpButtonClick = () => {
+  const handleSignUpButtonClick = async () => {
     if (!isValid) {
       return;
     }
 
     const newUser = {
-      userId,
-      userPw,
-      userNickname,
-      accessToken: null,
+      id: userId,
+      password: userPw,
+      nickname: userNickname,
     };
+
+    console.log(newUser);
+
+    const response = await loginApi.post('/register', newUser);
+
+    console.log(response.data);
 
     dispatch(addUser(newUser));
     alert('회원가입이 완료되었습니다.');
