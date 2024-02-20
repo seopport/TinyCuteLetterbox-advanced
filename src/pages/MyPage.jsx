@@ -18,6 +18,7 @@ const MyPage = () => {
   const [isModifying, setIsModifying] = useState(false);
   const inputValue = useRef();
   const [modifiedNickname, setModifiedNickname] = useState('');
+  const [imageSrc, setImageSrc] = useState();
 
   const handleModifyButtonClick = () => {
     console.log('닉네임 :', userInfo.nickname, '수정한닉 : ', modifiedNickname);
@@ -50,12 +51,40 @@ const MyPage = () => {
     setModifiedNickname(e.target.value);
   };
 
+  const handleInputChange = e => {
+    console.log(e.target.files[0]);
+    encodeFileToBase64(e.target.files[0]);
+  };
+
+  const handleEditButtonClick = () => {
+    fileInput.current.click();
+  };
+
+  const fileInput = useRef();
+
+  const encodeFileToBase64 = fileBlob => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise(resolve => {
+      reader.onload = () => {
+        setImageSrc(reader.result);
+        resolve();
+      };
+    });
+  };
+
   return (
     <LoginContainer style={{padding: '30px 20px 15px 30px'}}>
       <StTitle>프로필 관리</StTitle>
       {console.log(userInfo)}
       <StProfileContainer>
-        <StProfileImage src={userInfo.avatar} />
+        {/* 이미지 */}
+        <div style={{position: 'relative'}}>
+          <StProfileImage src={!imageSrc ? userInfo.avatar : imageSrc} />
+          <input type="file" style={{display: 'none'}} onChange={handleInputChange} ref={fileInput}></input>
+          <StEditButton onClick={handleEditButtonClick}>edit</StEditButton>
+        </div>
+        {/* 아이디 닉네임 */}
         <div style={{margin: 'auto 0'}}>
           <StInfoWrap style={{marginBottom: '20px'}}>
             <StSpan>아이디</StSpan>
@@ -73,6 +102,7 @@ const MyPage = () => {
           </StInfoWrap>
         </div>
       </StProfileContainer>
+      {/* 버튼 */}
       <div style={{alignSelf: 'flex-end', margin: '3px 3px 0 0'}}>
         {!isModifying ? (
           <ModifyButton onClick={handleModifyButtonClick}>수정</ModifyButton>
@@ -95,7 +125,7 @@ export const StTitle = styled.span`
 `;
 
 export const StProfileContainer = styled.div`
-  width: 85%;
+  width: 84%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
@@ -110,7 +140,7 @@ export const StProfileImage = styled.img`
 `;
 
 export const StInfoWrap = styled.div`
-  width: 240px;
+  width: 250px;
   height: 25px;
   display: flex;
   justify-content: space-between;
@@ -139,7 +169,16 @@ export const StInfoInput = styled.input`
 `;
 
 export const StSpan = styled.span`
+  font-weight: bold;
   font-size: 14px;
+`;
+
+export const StEditButton = styled.button`
+  position: absolute;
+  width: 40px;
+  height: 20px;
+  top: 0;
+  right: 0;
 `;
 
 export default MyPage;
