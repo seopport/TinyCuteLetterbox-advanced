@@ -58,14 +58,17 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
     };
 
     console.log(newUser);
-
-    const response = await loginApi.post('/register', newUser);
-
-    console.log(response.data);
-
-    dispatch(addUser(newUser));
-    alert('회원가입이 완료되었습니다.');
-    setIsSignUpAcitve(false);
+    try {
+      const response = await loginApi.post('/register', newUser);
+      console.log(response.data);
+      dispatch(addUser(newUser));
+      alert('💌 회원가입이 완료되었습니다.');
+      setIsSignUpAcitve(false);
+    } catch (error) {
+      //이미 존재하는 회원 alert
+      alert(error.response.data.message);
+      console.log(error, error.response);
+    }
   };
 
   return (

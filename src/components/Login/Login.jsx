@@ -13,8 +13,6 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
   const dispacth = useDispatch();
   const navigate = useNavigate();
 
-  console.log(loginApi);
-
   const [isValid, setIsValid] = useState(false);
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
@@ -45,18 +43,30 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
     setUserPw(e.target.value);
   };
 
-  const handleLoginButtonclick = () => {
+  const handleLoginButtonclick = async () => {
     if (!isValid) {
       return;
     }
 
-    const UserExist = users.filter(item => item.id === userId && item.password === userPw);
-    console.log(UserExist);
-    if (UserExist.length === 0) {
-      alert('아이디 비번 확인');
-    } else {
-      alert('로그인 성공');
+    // const UserExist = users.filter(item => item.id === userId && item.password === userPw);
+    // console.log(UserExist);
+    // if (UserExist.length === 0) {
+    //   alert('아이디 비번 확인');
+    // } else {
+    // } else {
+    //   alert('로그인 성공');
+    //   dispacth(changeLoginState());
+    // }
+
+    try {
+      console.log(userId, userPw);
+      const userInfo = {id: userId, password: userPw};
+      const response = await loginApi.post('/login', userInfo);
+      alert('💌 로그인되었습니다. 홈으로 이동합니다.');
       dispacth(changeLoginState());
+    } catch (error) {
+      console.log('error response :', error.response);
+      alert(error.response.data.message);
     }
   };
 
