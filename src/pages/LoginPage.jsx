@@ -1,6 +1,6 @@
 import Login from 'components/Login/Login';
 import SignUp from 'components/Login/SignUp';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 
@@ -11,11 +11,13 @@ const LoginPage = () => {
   const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
 
   const navigate = useNavigate();
+
+  useEffect(() => {}, []);
+
   if (isLoggedIn) {
     navigate('/home');
     return;
   }
-
   const checkIdValue = idValue => {
     if (idValue.length >= 4) {
       setIsValidId(true);

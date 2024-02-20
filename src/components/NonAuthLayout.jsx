@@ -27,8 +27,6 @@ function NonAuthLayout() {
 
   const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
 
-  console.log('isRendered', isRendered);
-  console.log('nonAuthLayout 렌더링');
   console.log('로그인합격', isLoggedIn);
 
   // 시간남으면 고려: 토큰 존재 여부로 조건걸기

@@ -1,3 +1,40 @@
 {
-  "letters": []
+  "letters": [
+    {
+      "id": "3de82496-9187-f300-abc3-b15979a69099",
+      "writedTo": "chiikawa",
+      "nickname": "mmmm",
+      "content": "dfg",
+      "createdAt": "2024-02-20 21:29",
+      "avatar": "/static/media/default_profile_bear.3c3fc90fc7d1dc053dde.png",
+      "userId": "mmmm"
+    },
+    {
+      "id": "98e3e3a1-af12-1d11-1c45-a17444b224ec",
+      "writedTo": "chiikawa",
+      "nickname": "mmmm",
+      "content": "mmmm",
+      "createdAt": "2024-02-20 21:29",
+      "avatar": "/static/media/default_profile_bear.3c3fc90fc7d1dc053dde.png",
+      "userId": "mmmm"
+    },
+    {
+      "id": "2052dacc-75ce-9915-accb-fd0b551affa8",
+      "writedTo": "chiikawa",
+      "nickname": "mmmm",
+      "content": "dsf",
+      "createdAt": "2024-02-20 21:32",
+      "avatar": "/static/media/default_profile_bear.3c3fc90fc7d1dc053dde.png",
+      "userId": "mmmm"
+    },
+    {
+      "id": "f50d7b33-5b75-fd73-1eda-70d571efc662",
+      "writedTo": "momonga",
+      "nickname": "mmmm",
+      "content": "ㅇㄴㄹ",
+      "createdAt": "2024-02-20 21:33",
+      "avatar": "/static/media/default_profile_bear.3c3fc90fc7d1dc053dde.png",
+      "userId": "mmmm"
+    }
+  ]
 }

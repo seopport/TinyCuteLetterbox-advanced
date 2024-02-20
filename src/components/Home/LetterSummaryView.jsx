@@ -13,11 +13,15 @@ function LetterSummaryView() {
     return state.letters.savedLetters;
   });
 
+  console.log(savedLetters);
+
+  console.log(savedLetters);
+
   const selectedCharacter = useSelector(state => {
     return state.character.selectedCharacter;
   });
 
-  const filteredLetters = savedLetters.filter(item => item.writedTo === selectedCharacter);
+  const filteredLetters = savedLetters?.filter(item => item.writedTo === selectedCharacter);
 
   return (
     <>

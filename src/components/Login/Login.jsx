@@ -17,9 +17,6 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
 
-  const users = useSelector(state => state.authSlice.users);
-  const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
-
   useEffect(() => {
     checkIdValue(userId);
     checkPwValue(userPw);

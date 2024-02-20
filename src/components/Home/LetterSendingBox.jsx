@@ -9,6 +9,8 @@ import {changeToKoreanName} from 'shared/changeToKoreanName';
 import {useDispatch, useSelector} from 'react-redux';
 import {sendLetter} from 'store/redux/modules/letters';
 import {changeCharacter} from 'store/redux/modules/character';
+import axios from 'axios';
+import letterApi from 'apis/letterApi';
 
 //#region
 export const StLetterSendingBox = styled.div`
@@ -103,7 +105,7 @@ function LetterSendingBox() {
   const writerInput = useRef();
   console.log(selectedCharacter);
   //옵션으로 선택한 캐릭터
-  const handleSendButtonClick = () => {
+  const handleSendButtonClick = async () => {
     const setDate = date => {
       return date < 10 ? '0' + date : date.toString();
     };
@@ -134,13 +136,15 @@ function LetterSendingBox() {
     //   return;
     // }
     const newLetter = {
-      createdAt: createdAt[0],
-      nickname: userInfo.nickname,
-      avatar: profileImge,
-      content: letterContent,
-      writedTo: sendTo,
       id: uuid(),
+      writedTo: sendTo,
+      nickname: userInfo.nickname,
+      content: letterContent,
+      createdAt: createdAt[0],
+      avatar: profileImge,
+      userId: userInfo.id,
     };
+
     dispatch(sendLetter(newLetter));
 
     const koreanName = changeToKoreanName(sendTo);
@@ -149,6 +153,7 @@ function LetterSendingBox() {
     //폼 초기화
     letterInput.current.value = '';
     // writerInput.current.value = '';
+    await letterApi.post('letters', newLetter);
   };
 
   const handleSelector = e => {

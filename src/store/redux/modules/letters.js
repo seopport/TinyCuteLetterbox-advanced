@@ -1,15 +1,21 @@
 import {createSlice} from '@reduxjs/toolkit';
 import fakeData from 'fakeData';
 import db from 'db.json';
+import letterApi from 'apis/letterApi';
+import {useState} from 'react';
 
 const initialState = {
-  savedLetters: fakeData.data,
+  savedLetters: [],
 };
 
 const letterSlice = createSlice({
   name: 'letters',
   initialState,
   reducers: {
+    setLetter: (state, action) => {
+      return {...state, savedLetters: action.payload};
+    },
+
     sendLetter: (state, action) => {
       return {
         ...state,
@@ -44,5 +50,5 @@ const letterSlice = createSlice({
   },
 });
 
-export const {sendLetter, deleteLetter, modifyLetter} = letterSlice.actions;
+export const {setLetter, sendLetter, deleteLetter, modifyLetter} = letterSlice.actions;
 export default letterSlice.reducer;
