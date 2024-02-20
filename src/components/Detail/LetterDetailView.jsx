@@ -16,16 +16,15 @@ import {ModifyCancelButton} from './ModifyCancelButton';
 import {ModifyButton} from './ModifyButton';
 
 function LetterDetailView() {
-  const savedLetters = useSelector(state => {
-    return state.letters.savedLetters;
-  });
-
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
-  const contentArea = useRef();
+  const savedLetters = useSelector(state => state.letters.savedLetters);
 
   const param = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const contentArea = useRef();
+  const [modifiedContent, setmodifiedContent] = useState('');
+  const [isModifying, setIsModifying] = useState(false);
 
   const handleDeleteButtonClick = id => {
     if (window.confirm('편지를 삭제하시겠습니까?')) {
@@ -36,13 +35,9 @@ function LetterDetailView() {
     return;
   };
 
-  const [modifiedContent, setmodifiedContent] = useState('');
-
   const handleContentChange = e => {
     setmodifiedContent(e.target.value);
   };
-
-  const [isModifying, setIsModifying] = useState(false);
 
   const handleModifyButtonClick = () => {
     setIsModifying(true);
