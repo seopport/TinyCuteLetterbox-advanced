@@ -103,7 +103,7 @@ function LetterSendingBox() {
           ref={letterInput}
         />
         <div style={{alignSelf: 'flex-end'}}>
-          <span style={{fontSize: '14px'}}>작성자 : {userInfo.nickname}</span>
+          <span style={{fontSize: '14px'}}>From. {userInfo.nickname}</span>
           {/* <WriterInput maxLength={10} ref={writerInput} /> */}
         </div>
         <SendLetterButton onClick={handleSendButtonClick}>보내기</SendLetterButton>

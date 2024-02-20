@@ -1,15 +1,54 @@
 import {ModifyButton} from 'components/Detail/ModifyButton';
+import {ModifyCancelButton} from 'components/Detail/ModifyCancelButton';
+import {ModifyCompleteButton} from 'components/Detail/ModifyCompleteButton';
 import {LoginContainer} from 'components/Login/LoginContainer';
-import React, {useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, {useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {modifyNickname} from 'store/redux/modules/authSlice';
 import styled from 'styled-components';
+import loginApi from 'apis/loginApi';
 
 const MyPage = () => {
   const userInfo = useSelector(state => state.authSlice.users);
   //토큰이 백엔드에 있어야 요청을 보낼지 안보낼지 결정
   //토큰 검정 실패시 로그아웃으로 바꿔버려
 
+  const dispatch = useDispatch();
+
   const [isModifying, setIsModifying] = useState(false);
+  const inputValue = useRef();
+  const [modifiedNickname, setModifiedNickname] = useState('');
+
+  const handleModifyButtonClick = () => {
+    console.log('닉네임 :', userInfo.nickname, '수정한닉 : ', modifiedNickname);
+    setIsModifying(true);
+    setModifiedNickname(userInfo.nickname);
+  };
+  const handleModifyCompleteButtonClick = async () => {
+    if (userInfo.nickname === modifiedNickname) {
+      alert('수정사항없다');
+      return;
+    }
+
+    // 닉네임 수정하는 디스패치
+    dispatch(modifyNickname({userId: userInfo.id, modifiedNickname}));
+
+    // 닉네임 수정 patch
+    const updateUserInfo = {nickname: modifiedNickname};
+    const res = await loginApi.patch('/profile', updateUserInfo);
+    alert(res.data.message);
+
+    setIsModifying(false);
+  };
+  const handleModifyCancelButtonClick = () => {
+    inputValue.current.value = userInfo.nickname;
+    setIsModifying(false);
+  };
+
+  const handleNicknameInputChange = e => {
+    console.log(modifiedNickname);
+    setModifiedNickname(e.target.value);
+  };
 
   return (
     <LoginContainer style={{padding: '30px 20px 15px 30px'}}>
@@ -24,17 +63,26 @@ const MyPage = () => {
           </StInfoWrap>
           <StInfoWrap>
             <StSpan>닉네임</StSpan>
-            <StInfoInput value={userInfo.nickname} style={{backgroundColor: 'white'}} readOnly>
-              {}
-            </StInfoInput>
+            <StInfoInput
+              onChange={handleNicknameInputChange}
+              ref={inputValue}
+              defaultValue={userInfo.nickname}
+              style={{backgroundColor: 'white'}}
+              readOnly={!isModifying}
+            />
           </StInfoWrap>
         </div>
       </StProfileContainer>
-      {/* id: 
-      password: {userInfo.password}
-      nickname: 
-      accessToken: {userInfo.accessToken} */}
-      <ModifyButton> 수정 </ModifyButton>
+      <div style={{alignSelf: 'flex-end', margin: '3px 3px 0 0'}}>
+        {!isModifying ? (
+          <ModifyButton onClick={handleModifyButtonClick}>수정</ModifyButton>
+        ) : (
+          <>
+            <ModifyCompleteButton onClick={handleModifyCompleteButtonClick}>완료</ModifyCompleteButton>
+            <ModifyCancelButton onClick={handleModifyCancelButtonClick}>취소</ModifyCancelButton>
+          </>
+        )}
+      </div>
     </LoginContainer>
   );
 };
