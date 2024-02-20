@@ -9,9 +9,7 @@ import {useSelector} from 'react-redux';
 function LetterSummaryView() {
   const navigate = useNavigate();
 
-  const savedLetters = useSelector(state => {
-    return state.letters.savedLetters;
-  });
+  const savedLetters = useSelector(state => state.letters.savedLetters);
 
   console.log(savedLetters);
 

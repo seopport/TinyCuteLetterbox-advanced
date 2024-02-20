@@ -75,7 +75,7 @@ function LetterSendingBox() {
     //폼 초기화
     letterInput.current.value = '';
     // writerInput.current.value = '';
-    // await letterApi.post('letters', newLetter);
+    await letterApi.post('letters', newLetter);
   };
 
   const handleSelector = e => {

@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {modifyNickname, modifyUserAvatar, modifyUserInfo} from 'store/redux/modules/authSlice';
 import styled from 'styled-components';
 import loginApi from 'apis/loginApi';
+import letterApi from 'apis/letterApi';
 
 const MyPage = () => {
   const userInfo = useSelector(state => state.authSlice.users);
@@ -35,13 +36,22 @@ const MyPage = () => {
       console.log(userInfo.avatar, imageSrc);
       return;
     }
-    // 닉네임 수정하는 디스패치
+    // 수정하는 디스패치
     dispatch(modifyUserInfo({userId: userInfo.id, modifiedNickname, modifiedAvatar: imageSrc}));
 
-    // dispatch(modifyUserAvatar({userId: userInfo.id, imageSrc}));
+    const {data} = await letterApi.get(`/letters?userId=${userInfo.id}`);
+    const newLetters = data.map(item => {
+      if (data.userId === userInfo.id) {
+        return {...item, nickname: modifiedNickname, avatar: imageSrc};
+      } else return item;
+    });
 
-    // 닉네임 수정 서버 patch
-    const updateUserInfo = {nickname: modifiedNickname, avatar: imageSrc};
+    // 편지 수정하는거 안됨..
+    // letterApi.patch(`/letters?userId=${newLetters.userId}`, newLetters);
+
+    // 수정 서버 patch
+    const updateUserInfo = {avatar: `${imageSrc}`, nickname: modifiedNickname};
+    console.log('지금보내는 이미지주소', imageSrc);
     const res = await loginApi.patch('/profile', updateUserInfo);
     alert(res.data.message);
     console.log(res.data);
