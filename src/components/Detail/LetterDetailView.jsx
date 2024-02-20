@@ -29,7 +29,7 @@ function LetterDetailView() {
     if (window.confirm('편지를 삭제하시겠습니까?')) {
       dispatch(deleteLetter(id));
       alert('💌 편지를 삭제했습니다. 홈으로 이동합니다.');
-      navigate('/');
+      navigate('/home');
     }
     return;
   };
@@ -87,7 +87,7 @@ function LetterDetailView() {
       <Header />
       <BackButton
         onClick={() => {
-          navigate('/');
+          navigate('/home');
         }}
       >
         돌아가기

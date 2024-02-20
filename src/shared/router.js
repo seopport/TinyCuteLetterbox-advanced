@@ -6,9 +6,10 @@ import store from 'store/redux/config/configStore';
 import {Outlet} from 'react-router-dom';
 import LoginPage from 'pages/LoginPage';
 import SignUp from 'components/Login/SignUp';
-import Layout from 'components/Layout';
+import AuthLayout from 'components/AuthLayout';
 import {useState} from 'react';
 import MyPage from 'pages/MyPage';
+import NonAuthLayout from 'components/NonAuthLayout';
 
 const Router = () => {
   //#region
@@ -26,16 +27,21 @@ const Router = () => {
   // }, []);
   //#endregion
 
+  //로그인하지 않아도 볼 수 있는 페이지 - AuthLayout
+  // 로그인 해야만 볼 수 잇는 페이지 - NonAuthLayout
   return (
     <BrowserRouter>
       <Provider store={store}>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="login" element={<NonAuthLayout />}>
+            <Route index element={<LoginPage />} />
+          </Route>
+          <Route element={<AuthLayout />}>
             <Route path="login" element={<LoginPage />} />
             <Route path="home" element={<Home />} />
             <Route path="myPage" element={<MyPage />} />
+            <Route path="details/:id" element={<LetterDetailPage />} />
           </Route>
-          <Route path="details/:id" element={<LetterDetailPage />} />
         </Routes>
       </Provider>
     </BrowserRouter>

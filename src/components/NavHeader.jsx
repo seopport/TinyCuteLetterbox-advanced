@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import colors from 'shared/color';
 import {changeLoginState} from 'store/redux/modules/authSlice';
 import styled from 'styled-components';
@@ -50,11 +50,13 @@ const StLoginToggleButton = styled.div`
 const NavHeader = () => {
   const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLoginStateButton = () => {
     if (isLoggedIn) {
       if (window.confirm('로그아웃할거니?')) {
         dispatch(changeLoginState());
+        navigate('/login');
       } else {
         return;
       }

@@ -21,31 +21,35 @@ const MainWrap = styled.div`
   background-color: #eef9fd;
 `;
 
-function Layout() {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigage = useNavigate();
+function NonAuthLayout() {
+  const navigate = useNavigate();
+  const [isRendered, setIsRendered] = useState(false);
 
   const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
+
+  console.log('isRendered', isRendered);
+  console.log('nonAuthLayout 렌더링');
   console.log('로그인합격', isLoggedIn);
 
+  // 시간남으면 고려: 토큰 존재 여부로 조건걸기
   useEffect(() => {
-    if (!isLoggedIn) {
-      navigage('/login');
-    } else {
-      navigage('/home');
+    if (isLoggedIn) {
+      navigate('/home');
+      return;
     }
-  }, [isLoggedIn]);
+
+    setIsRendered(true);
+  }, [isLoggedIn, navigate]);
 
   return (
     <MainWrap>
       <ResetStyles />
       <LayoutWrap>
-        {isLoggedIn && <NavHeader />}
         <Header />
-        <Outlet />
+        {isRendered ? <Outlet /> : null}
       </LayoutWrap>
     </MainWrap>
   );
 }
 
-export default Layout;
+export default NonAuthLayout;

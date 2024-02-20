@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import styled from 'styled-components';
 import color from 'shared/color';
 import 'shared/index.css';
@@ -90,6 +90,7 @@ export const ChiikawaOnBox = styled.img`
 `;
 
 function LetterSendingBox() {
+  useEffect(() => {}, []);
   const selectedCharacter = useSelector(state => {
     return state.character.selectedCharacter;
   });
@@ -100,7 +101,7 @@ function LetterSendingBox() {
 
   const letterInput = useRef();
   const writerInput = useRef();
-
+  console.log(selectedCharacter);
   //옵션으로 선택한 캐릭터
   const handleSendButtonClick = () => {
     const setDate = date => {
@@ -147,10 +148,9 @@ function LetterSendingBox() {
 
     //폼 초기화
     letterInput.current.value = '';
-    writerInput.current.value = '';
+    // writerInput.current.value = '';
   };
 
-  //드롭다운 select한 캐릭터로 set
   const handleSelector = e => {
     dispatch(changeCharacter(e.currentTarget.value));
   };
@@ -162,7 +162,7 @@ function LetterSendingBox() {
         <ChiikawaOnBox src={meltingChiikawa}></ChiikawaOnBox>
         <div style={{alignSelf: 'flex-start', position: 'relative'}}>
           <span style={{position: 'absolute', bottom: '3px'}}>Dear.</span>{' '}
-          <SelectBox onChange={handleSelector}>
+          <SelectBox value={selectedCharacter} onChange={handleSelector}>
             <option value={'chiikawa'}>치이카와</option>
             <option value={'hachiware'}>하치와레</option>
             <option value={'usagi'}>우사기</option>
@@ -177,7 +177,7 @@ function LetterSendingBox() {
         />
         <div style={{alignSelf: 'flex-end'}}>
           <span style={{fontSize: '14px'}}>작성자 : {userInfo.nickname}</span>
-          <WriterInput maxLength={10} ref={writerInput} />
+          {/* <WriterInput maxLength={10} ref={writerInput} /> */}
         </div>
         <SendLetterButton type="submit" onClick={handleSendButtonClick}>
           보내기
