@@ -93,6 +93,9 @@ function LetterSendingBox() {
   const selectedCharacter = useSelector(state => {
     return state.character.selectedCharacter;
   });
+
+  const userInfo = useSelector(state => state.authSlice.users);
+  console.log(userInfo);
   const dispatch = useDispatch();
 
   const letterInput = useRef();
@@ -116,7 +119,7 @@ function LetterSendingBox() {
     //#endregion
     const letterContent = letterInput.current.value;
     const sendTo = selectedCharacter; //보낼 캐릭터
-    const writer = writerInput.current.value; //작성자
+    // const writer = writerInput.current.value; //작성자
 
     if (letterContent.trim() === '') {
       alert('편지 내용을 입력해주세요.');
@@ -124,14 +127,14 @@ function LetterSendingBox() {
       return;
     }
 
-    if (writer.trim() === '') {
-      alert('작성자를 입력해주세요.');
-      writerInput.current.focus();
-      return;
-    }
+    // if (writer.trim() === '') {
+    //   alert('작성자를 입력해주세요.');
+    //   writerInput.current.focus();
+    //   return;
+    // }
     const newLetter = {
       createdAt: createdAt[0],
-      nickname: writer,
+      nickname: userInfo.nickname,
       avatar: profileImge,
       content: letterContent,
       writedTo: sendTo,
@@ -173,7 +176,7 @@ function LetterSendingBox() {
           ref={letterInput}
         />
         <div style={{alignSelf: 'flex-end'}}>
-          <span style={{fontSize: '14px'}}>작성자</span>
+          <span style={{fontSize: '14px'}}>작성자 : {userInfo.nickname}</span>
           <WriterInput maxLength={10} ref={writerInput} />
         </div>
         <SendLetterButton type="submit" onClick={handleSendButtonClick}>

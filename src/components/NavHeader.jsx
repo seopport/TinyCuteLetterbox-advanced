@@ -31,11 +31,25 @@ const StNavLink = styled(NavLink)`
   }
 `;
 
+const StLoginToggleButton = styled.div`
+  background-color: transparent;
+  border: none;
+  color: white;
+  text-decoration: none;
+  font-family: 'UhBeeSe_hyun', serif;
+  opacity: 50%;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 100%;
+    /* transform: rotate(3deg); */
+  }
+`;
+
 const NavHeader = () => {
   const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
   const dispatch = useDispatch();
-
-  // const [toValue, setToValue] = useState('login');
 
   const handleLoginStateButton = () => {
     if (isLoggedIn) {
@@ -50,11 +64,11 @@ const NavHeader = () => {
   return (
     <StNavHeaderContainer>
       <StNavLink to={'home'}>Home</StNavLink>
-      <div style={{marginLeft: 'auto'}}>
+      <div style={{marginLeft: 'auto', display: 'flex'}}>
         <StNavLink to={'myPage'} style={{marginRight: '20px'}}>
           MyPage
         </StNavLink>
-        <StNavLink onClick={handleLoginStateButton}>Logout</StNavLink>
+        <StLoginToggleButton onClick={handleLoginStateButton}>Logout</StLoginToggleButton>
       </div>
     </StNavHeaderContainer>
   );

@@ -5,8 +5,8 @@ import {SelectCharacter} from 'components/Home/LetterBoxSelecter';
 import colors from 'shared/color';
 import {AuthActionButton} from './AuthActionButton';
 import {useDispatch, useSelector} from 'react-redux';
-import {addUser} from 'store/redux/modules/authSlice';
 import loginApi from '../../apis/loginApi';
+import {updateUserInfo} from 'store/redux/modules/authSlice';
 
 // 시간늠으면 고려 : 닉네임, 아이디 숫자만 입력 안되게
 
@@ -55,17 +55,19 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
       id: userId,
       password: userPw,
       nickname: userNickname,
+      accessToken: null,
     };
 
     console.log(newUser);
     try {
       const response = await loginApi.post('/register', newUser);
-      console.log(response.data);
-      dispatch(addUser(newUser));
-      alert('💌 회원가입이 완료되었습니다.');
+      // console.log(response.data);
+      // dispatch(updateUserInfo(newUser));
+      alert('💌 회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
+
       setIsSignUpAcitve(false);
     } catch (error) {
-      //이미 존재하는 회원 alert
+      //서버에서 받아온 에러메세지 alert
       alert(error.response.data.message);
       console.log(error, error.response);
     }

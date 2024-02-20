@@ -5,7 +5,7 @@ import colors from 'shared/color';
 import {StSignButton} from './SignUp';
 import {AuthActionButton} from './AuthActionButton';
 import {useDispatch, useSelector} from 'react-redux';
-import {changeLoginState} from 'store/redux/modules/authSlice';
+import {changeLoginState, updateUserInfo, updateUserToken} from 'store/redux/modules/authSlice';
 import {useNavigate} from 'react-router-dom';
 import loginApi from '../../apis/loginApi';
 
@@ -48,25 +48,26 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
       return;
     }
 
-    // const UserExist = users.filter(item => item.id === userId && item.password === userPw);
-    // console.log(UserExist);
-    // if (UserExist.length === 0) {
-    //   alert('아이디 비번 확인');
-    // } else {
-    // } else {
-    //   alert('로그인 성공');
-    //   dispacth(changeLoginState());
-    // }
-
     try {
-      console.log(userId, userPw);
       const userInfo = {id: userId, password: userPw};
       const response = await loginApi.post('/login', userInfo);
+      const {accessToken, nickname} = response.data;
       alert('💌 로그인되었습니다. 홈으로 이동합니다.');
+
+      const newUser = {
+        id: userId,
+        password: userPw,
+        nickname,
+        accessToken,
+      };
+
+      dispacth(updateUserInfo(newUser));
       dispacth(changeLoginState());
     } catch (error) {
       console.log('error response :', error.response);
-      alert(error.response.data.message);
+      if (error) {
+        alert(error.response.data.message);
+      }
     }
   };
 
