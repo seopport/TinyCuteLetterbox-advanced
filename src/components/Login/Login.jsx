@@ -58,7 +58,7 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
         password: userPw,
         nickname,
         accessToken,
-        avatar,
+        avatar: avatar ? avatar : profileImg,
       };
 
       localStorage.setItem('accessToken', `${accessToken}`);

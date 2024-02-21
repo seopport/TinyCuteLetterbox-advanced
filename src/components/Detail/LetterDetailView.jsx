@@ -14,6 +14,7 @@ import Header from 'components/Header';
 import {ModifyCompleteButton} from './ModifyCompleteButton';
 import {ModifyCancelButton} from './ModifyCancelButton';
 import {ModifyButton} from './ModifyButton';
+import letterApi from 'apis/letterApi';
 
 function LetterDetailView() {
   const savedLetters = useSelector(state => state.letters.savedLetters);
@@ -26,8 +27,16 @@ function LetterDetailView() {
   const [modifiedContent, setmodifiedContent] = useState('');
   const [isModifying, setIsModifying] = useState(false);
 
+  // 뭘 가져와야할까?
+  // 유저정보의 유저 아이디와 편지에 있는 유저 아이디
+  // 비교해서 일치할 때만 수정 삭제 버튼 나타나게
+
+  const userIdInUserInfo = useSelector(state => state.authSlice.users);
+  console.log(userIdInUserInfo);
+
   const handleDeleteButtonClick = id => {
     if (window.confirm('편지를 삭제하시겠습니까?')) {
+      letterApi.delete(`/letters/${id}`);
       dispatch(deleteLetter(id));
       alert('💌 편지를 삭제했습니다. 홈으로 이동합니다.');
       navigate('/home');
@@ -117,20 +126,28 @@ function LetterDetailView() {
                   readOnly={!isModifying}
                 ></LetterContentTextArea>
               </LetterContent>
-
-              {isModifying ? (
-                <ButtonsWrap>
-                  <ModifyCompleteButton onClick={() => handleModifyCompleteButtonClick(item.id)}>
-                    완료
-                  </ModifyCompleteButton>
-                  <ModifyCancelButton onClick={() => handleModifyCancelButtonClick(item.id)}>취소</ModifyCancelButton>
-                  <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
-                </ButtonsWrap>
+              {item.userId === userIdInUserInfo.id ? (
+                <>
+                  {console.log('일치')}
+                  {isModifying ? (
+                    <ButtonsWrap>
+                      <ModifyCompleteButton onClick={() => handleModifyCompleteButtonClick(item.id)}>
+                        완료
+                      </ModifyCompleteButton>
+                      <ModifyCancelButton onClick={() => handleModifyCancelButtonClick(item.id)}>
+                        취소
+                      </ModifyCancelButton>
+                      <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
+                    </ButtonsWrap>
+                  ) : (
+                    <ButtonsWrap>
+                      <ModifyButton onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
+                      <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
+                    </ButtonsWrap>
+                  )}
+                </>
               ) : (
-                <ButtonsWrap>
-                  <ModifyButton onClick={() => handleModifyButtonClick(item.id)}>수정</ModifyButton>
-                  <DeleteButton onClick={() => handleDeleteButtonClick(item.id)}>삭제</DeleteButton>
-                </ButtonsWrap>
+                console.log('안일치하니까 안보여줄거임')
               )}
             </StLetterDetailBox>
           );
