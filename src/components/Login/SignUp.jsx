@@ -59,7 +59,6 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
       accessToken: null,
     };
 
-    console.log(newUser);
     try {
       await loginApi.post('/register', newUser);
       alert('💌 회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');

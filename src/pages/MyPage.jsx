@@ -8,12 +8,12 @@ import {modifyUserInfo} from 'store/redux/modules/authSlice';
 import styled from 'styled-components';
 import loginApi from 'apis/loginApi';
 import letterApi from 'apis/letterApi';
+import {useNavigate} from 'react-router-dom';
 
 const MyPage = () => {
   const userInfo = useSelector(state => state.authSlice.users);
-  //토큰이 백엔드에 있어야 요청을 보낼지 안보낼지 결정
-  //토큰 검정 실패시 로그아웃으로 바꿔버려
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isModifying, setIsModifying] = useState(false);
   const [modifiedNickname, setModifiedNickname] = useState('');
@@ -23,6 +23,11 @@ const MyPage = () => {
   const fileInput = useRef();
 
   const handleModifyButtonClick = () => {
+    if (userInfo.accessToken === null) {
+      alert('로그인 정보가 없습니다.');
+      navigate('/login');
+      return;
+    }
     setIsModifying(true);
     setModifiedNickname(userInfo.nickname);
   };
@@ -34,33 +39,37 @@ const MyPage = () => {
     // 닉네임과 프로필 이미지 모두 같으면 수정 안됨
     if (userInfo.nickname === modifiedNickname && userInfo.avatar === imageSrc) {
       alert('수정사항이 없습니다.');
-      console.log(userInfo.avatar, imageSrc);
       return;
     }
 
     const updateUserInfo = {avatar: imageSrc, nickname: modifiedNickname};
 
-    // 리덕스 수정
-    dispatch(modifyUserInfo({userId: userInfo.id, modifiedNickname, modifiedAvatar: imageSrc}));
+    try {
+      // 리덕스 수정
+      dispatch(modifyUserInfo({userId: userInfo.id, modifiedNickname, modifiedAvatar: imageSrc}));
 
-    // json server 편지 db 수정
-    // 일단 편지들 중에 userId가 같은 것만 받아오기
-    const {data: targetLetters} = await letterApi.get(`/letters?userId=${userInfo.id}`);
+      // json server 편지에 프로필 수정
+      // 편지들 중에 userId가 같은 것만 받아오기
+      const {data: targetLetters} = await letterApi.get(`/letters?userId=${userInfo.id}`);
 
-    // targetLetters 배열의 아이디들만 가져와서 배열돌면서 patch
-    for (const letters of targetLetters) {
-      letterApi.patch(`/letters/${letters.id}`, updateUserInfo);
+      // targetLetters 배열의 아이디들 배열돌면서 patch
+      for (const letters of targetLetters) {
+        letterApi.patch(`/letters/${letters.id}`, updateUserInfo);
+      }
+
+      // 서버 프로필 수정
+      const res = await loginApi.patch(`/profile`, {nickname: modifiedNickname});
+      console.log(res);
+      alert(res.data.message);
+
+      //로컬스토리지 수정
+      const storageUserInfo = JSON.parse(localStorage.getItem('storageUserInfo'));
+      const newUserInfo = {...storageUserInfo, nickname: modifiedNickname, avatar: imageSrc};
+      localStorage.setItem('storageUserInfo', JSON.stringify(newUserInfo));
+    } catch (error) {
+      console.log('error', error);
+      alert('알 수 없는 오류가 발생했습니다. 잠시 후 시도해주세요.');
     }
-
-    // 서버 프로필 수정
-    const res = await loginApi.patch(`/profile`, {nickname: modifiedNickname});
-    console.log(res);
-    alert(res.data.message);
-
-    //로컬스토리지 수정
-    const storageUserInfo = JSON.parse(localStorage.getItem('storageUserInfo'));
-    const newUserInfo = {...storageUserInfo, nickname: modifiedNickname, avatar: imageSrc};
-    localStorage.setItem('storageUserInfo', JSON.stringify(newUserInfo));
 
     setIsModifying(false);
   };

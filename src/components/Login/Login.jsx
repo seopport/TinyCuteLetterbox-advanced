@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {SelectCharacter} from 'components/Home/LetterBoxSelecter';
-import colors from 'shared/color';
-import {StSignButton} from './SignUp';
 import {AuthActionButton} from './AuthActionButton';
-import {useDispatch, useSelector} from 'react-redux';
-import {changeLoginState, updateUserInfo, updateUserToken} from 'store/redux/modules/authSlice';
+import {useDispatch} from 'react-redux';
+import {updateUserInfo} from 'store/redux/modules/authSlice';
 import {useNavigate} from 'react-router-dom';
 import loginApi from '../../apis/loginApi';
 import {LoginContainer} from './LoginContainer';
