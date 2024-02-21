@@ -35,8 +35,7 @@ const MyPage = () => {
   console.log(userInfo);
 
   const handleModifyCompleteButtonClick = async () => {
-    //닉네임이 바뀌거나, 프로필 이미지가 바뀌면 수정완료
-    // 닉네임과 프로필 이미지 모두 같으면 수정 안됨
+    // 닉네임과 프로필 이미지 모두 원본데이터와 같으면 수정 안됨
     if (userInfo.nickname === modifiedNickname && userInfo.avatar === imageSrc) {
       alert('수정사항이 없습니다.');
       return;
