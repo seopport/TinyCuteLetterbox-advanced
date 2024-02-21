@@ -143,6 +143,15 @@
       "createdAt": "2024-02-21 21:49:58",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/a84e81d5-954b-4f8f-a79b-d48fd02d6848.jpg",
       "userId": "mmmm"
+    },
+    {
+      "id": "57f65414-d4a9-28dd-7538-5f936a51b3a1",
+      "writedTo": "chiikawa",
+      "nickname": "나는오리",
+      "content": "나는 오리~ 꿈을 꾸는 오리~",
+      "createdAt": "2024-02-21 23:11:37",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-21/f9550e6c-73f0-48b4-9265-d219913c15ad.jpg",
+      "userId": "ㅂㅂㅂㅂ"
     }
   ]
 }
