@@ -47,26 +47,24 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
       return;
     }
 
+    const userInfo = {id: userId, password: userPw};
+    const response = await loginApi.post('/login', userInfo);
+    const {accessToken, nickname, avatar} = response.data;
+    alert('💌 로그인되었습니다. 홈으로 이동합니다.');
+
+    const newUser = {
+      id: userId,
+      password: userPw,
+      nickname,
+      accessToken,
+      avatar: avatar ? avatar : profileImg,
+    };
+
     try {
-      const userInfo = {id: userId, password: userPw};
-      const response = await loginApi.post('/login', userInfo);
-      const {accessToken, nickname, avatar} = response.data;
-      alert('💌 로그인되었습니다. 홈으로 이동합니다.');
-
-      const newUser = {
-        id: userId,
-        password: userPw,
-        nickname,
-        accessToken,
-        avatar: avatar ? avatar : profileImg,
-      };
-
       localStorage.setItem('accessToken', `${accessToken}`);
       localStorage.setItem('storageUserInfo', JSON.stringify(newUser));
 
       dispacth(updateUserInfo(newUser));
-      // dispacth(changeLoginState());
-      // dispacth(updateUserToken(accessToken));
       navigate('/home');
     } catch (error) {
       console.log('error response :', error.response);
@@ -103,8 +101,7 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
         </StInputContainer>
       </form>
       <AuthActionButton onClick={handleLoginButtonclick} $isValid={isValid} type="submit">
-        {' '}
-        로그인{' '}
+        로그인
       </AuthActionButton>
       <DefaultButton onClick={handleSignButtonClick}> 회원가입 </DefaultButton>
     </LoginContainer>

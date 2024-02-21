@@ -12,7 +12,6 @@ export const ModifyButton = styled.button`
   border-radius: 7px;
   line-height: normal;
   margin-right: 6px;
-  /* display: ${props => (props.$isModifying ? 'none' : 'inline')}; */ //삼항연산자로 처리
   transition: all 0.3s;
 
   &:hover {

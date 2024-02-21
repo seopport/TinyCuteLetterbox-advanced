@@ -1,15 +1,11 @@
 import Login from 'components/Login/Login';
 import SignUp from 'components/Login/SignUp';
-import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
+import React, {useState} from 'react';
 
 const LoginPage = () => {
   const [isSignUpAcitve, setIsSignUpAcitve] = useState(false);
   const [isValidId, setIsValidId] = useState(false);
   const [isValidPw, setIsValidPw] = useState(false);
-
-  useEffect(() => {}, []);
 
   const checkIdValue = idValue => {
     if (idValue.length >= 4) {

@@ -4,43 +4,10 @@ import 'shared/index.css';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeCharacter} from 'store/redux/modules/character';
 
-const SelectorBox = styled.div`
-  width: 57%;
-  height: 47px;
-  background-color: white;
-  border: 1px solid ${colors.bordeGreyishBlue};
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-radius: 7px;
-  justify-content: space-between;
-  margin-bottom: 20px;
-`;
-
-export const SelectCharacter = styled.button`
-  font-family: 'UhBeeSe_hyun';
-  padding: 10px;
-  width: 88px;
-  height: 35px;
-  background-color: ${props => {
-    return props.$character === props.$selectedCharacter ? colors.aquaBlue : 'white';
-  }};
-  border: 1px solid ${colors.bordeGreyishBlue};
-  border-radius: 7px;
-  line-height: 100%;
-  color: ${props => (props.$character === props.$selectedCharacter ? 'white' : colors.bordeGreyishBlue)};
-  transition: all 0.1s;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 function LetterBoxSelecter() {
-  const selectedCharacter = useSelector(state => {
-    return state.character.selectedCharacter;
-  });
   const dispatch = useDispatch();
+
+  const selectedCharacter = useSelector(state => state.character.selectedCharacter);
 
   const handleCharacterBox = character => {
     dispatch(changeCharacter(character));
@@ -80,5 +47,36 @@ function LetterBoxSelecter() {
     </SelectorBox>
   );
 }
+const SelectorBox = styled.div`
+  width: 57%;
+  height: 47px;
+  background-color: white;
+  border: 1px solid ${colors.bordeGreyishBlue};
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 7px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`;
+
+export const SelectCharacter = styled.button`
+  font-family: 'UhBeeSe_hyun';
+  padding: 10px;
+  width: 88px;
+  height: 35px;
+  background-color: ${props => {
+    return props.$character === props.$selectedCharacter ? colors.aquaBlue : 'white';
+  }};
+  border: 1px solid ${colors.bordeGreyishBlue};
+  border-radius: 7px;
+  line-height: 100%;
+  color: ${props => (props.$character === props.$selectedCharacter ? 'white' : colors.bordeGreyishBlue)};
+  transition: all 0.1s;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 export default LetterBoxSelecter;

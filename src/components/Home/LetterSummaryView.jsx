@@ -14,7 +14,7 @@ function LetterSummaryView() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const loadData = async () => {
+    const loadLetters = async () => {
       try {
         const {data} = await letterApi.get('/letters');
         dispatch(setLetter(data));
@@ -23,7 +23,7 @@ function LetterSummaryView() {
         console.log(error);
       }
     };
-    loadData();
+    loadLetters();
   }, [dispatch]);
 
   const savedLetters = useSelector(state => state.letters.savedLetters);

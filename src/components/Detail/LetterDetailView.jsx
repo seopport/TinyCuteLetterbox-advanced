@@ -10,29 +10,22 @@ import {changeToKoreanName} from 'shared/changeToKoreanName';
 import {StLetterSendingBox} from 'components/Home/LetterSendingBox';
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteLetter, modifyLetter} from 'store/redux/modules/letters';
-import Header from 'components/Header';
 import {ModifyCompleteButton} from './ModifyCompleteButton';
 import {ModifyCancelButton} from './ModifyCancelButton';
 import {ModifyButton} from './ModifyButton';
 import letterApi from 'apis/letterApi';
 
 function LetterDetailView() {
-  const savedLetters = useSelector(state => state.letters.savedLetters);
-
   const param = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const contentArea = useRef();
+
   const [modifiedContent, setmodifiedContent] = useState('');
   const [isModifying, setIsModifying] = useState(false);
 
-  // 뭘 가져와야할까?
-  // 유저정보의 유저 아이디와 편지에 있는 유저 아이디
-  // 비교해서 일치할 때만 수정 삭제 버튼 나타나게
-
   const userIdInUserInfo = useSelector(state => state.authSlice.users);
-  console.log(userIdInUserInfo);
+  const savedLetters = useSelector(state => state.letters.savedLetters);
 
   const handleDeleteButtonClick = id => {
     if (window.confirm('편지를 삭제하시겠습니까?')) {
@@ -44,6 +37,10 @@ function LetterDetailView() {
     return;
   };
 
+  const findLetter = id => {
+    return savedLetters.find(item => item.id === id);
+  };
+
   const handleContentChange = e => {
     setmodifiedContent(e.target.value);
   };
@@ -53,12 +50,7 @@ function LetterDetailView() {
     setmodifiedContent(contentArea.current.textContent);
   };
 
-  const findLetter = id => {
-    return savedLetters.find(item => {
-      return item.id === id;
-    });
-  };
-
+  // 수정 완료 버튼
   const handleModifyCompleteButtonClick = async id => {
     const originalLetter = findLetter(id);
 
@@ -68,19 +60,24 @@ function LetterDetailView() {
       return;
     } else alert('💌 수정이 완료되었습니다.');
 
-    dispatch(modifyLetter({id, modifiedContent}));
-
-    await letterApi.patch(`/letters/${id}`, {content: modifiedContent});
+    try {
+      await letterApi.patch(`/letters/${id}`, {content: modifiedContent});
+      dispatch(modifyLetter({id, modifiedContent}));
+    } catch (error) {
+      console.log(error);
+    }
 
     setIsModifying(false);
   };
 
+  // 수정 취소 버튼
   const handleModifyCancelButtonClick = id => {
     const originalLetter = findLetter(id);
     // 변경 사항 있을시에만 컨펌메세지 출력
     if (originalLetter.content !== modifiedContent) {
       if (window.confirm('수정을 취소하시겠습니까?')) {
         setIsModifying(false);
+
         const originalLetter = savedLetters.find(item => {
           return item.id === id;
         });
@@ -131,6 +128,7 @@ function LetterDetailView() {
                   readOnly={!isModifying}
                 ></LetterContentTextArea>
               </LetterContent>
+              {/* 자신이 작성한 글만 수정, 삭제 가능하도록 */}
               {item.userId === userIdInUserInfo.id ? (
                 <>
                   {isModifying ? (

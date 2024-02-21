@@ -4,6 +4,18 @@ import headerImg from 'assets/image/header_background.jpeg';
 import headerTitle from 'assets/image/header_title.png';
 import 'shared/index.css';
 
+function Header() {
+  return (
+    <div>
+      <HeaderImage>
+        <TopOfImage />
+        <Title src={headerTitle} alt="Title-image"></Title>
+        <LetterBoxSpan>LetterBox</LetterBoxSpan>
+      </HeaderImage>
+    </div>
+  );
+}
+
 const HeaderImage = styled.div`
   width: 710px;
   height: 260px;
@@ -40,17 +52,5 @@ const LetterBoxSpan = styled.span`
   color: white;
   letter-spacing: 1.5px;
 `;
-
-function Header() {
-  return (
-    <div>
-      <HeaderImage>
-        <TopOfImage />
-        <Title src={headerTitle} alt="Title-image"></Title>
-        <LetterBoxSpan>LetterBox</LetterBoxSpan>
-      </HeaderImage>
-    </div>
-  );
-}
 
 export default Header;

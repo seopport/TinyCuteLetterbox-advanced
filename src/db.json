@@ -3,8 +3,8 @@
     {
       "id": "1090f0c2-2a78-3b19-51f8-158e966db1c8",
       "writedTo": "chiikawa",
-      "nickname": "드디어됐다~h",
-      "content": "수정되나",
+      "nickname": "저는오리입니다",
+      "content": "수정되나dy?",
       "createdAt": "2024-02-21 13:45",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/a84e81d5-954b-4f8f-a79b-d48fd02d6848.jpg",
       "userId": "mmmm"
@@ -12,7 +12,7 @@
     {
       "id": "84ec47de-b906-6675-ae12-09611c75b192",
       "writedTo": "chiikawa",
-      "nickname": "드디어됐다~h",
+      "nickname": "저는오리입니다",
       "content": "ㅗㅎ",
       "createdAt": "2024-02-21 13:45",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/a84e81d5-954b-4f8f-a79b-d48fd02d6848.jpg",
@@ -21,7 +21,7 @@
     {
       "id": "01be97ad-0164-a1d1-6ce6-01817f891993",
       "writedTo": "chiikawa",
-      "nickname": "드디어됐다~h",
+      "nickname": "저는오리입니다",
       "content": "d",
       "createdAt": "2024-02-21 14:00",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/a84e81d5-954b-4f8f-a79b-d48fd02d6848.jpg",
@@ -30,7 +30,7 @@
     {
       "id": "a39bc630-10e3-a7b0-f8ae-0041643c7c4b",
       "writedTo": "chiikawa",
-      "nickname": "드디어됐다~h",
+      "nickname": "저는오리입니다",
       "content": "g",
       "createdAt": "2024-02-21 14:00",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/a84e81d5-954b-4f8f-a79b-d48fd02d6848.jpg",
@@ -39,7 +39,7 @@
     {
       "id": "b3e2",
       "writedTo": "chiikawa",
-      "nickname": "드디어됐다~h",
+      "nickname": "저는오리입니다",
       "content": "ㅇ",
       "createdAt": "2024-02-21 14:02",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/a84e81d5-954b-4f8f-a79b-d48fd02d6848.jpg",
@@ -57,11 +57,20 @@
     {
       "id": "f283a960-e0fd-70f8-caeb-c3a1f8a96a7e",
       "writedTo": "usagi",
-      "nickname": "저는ㄴㅇㄹ",
+      "nickname": "ffh..?",
       "content": "안녕하쇼",
       "createdAt": "2024-02-21 16:01",
       "avatar": "/static/media/momongaProfile.4467ace69ba0bce6af48.jpg",
       "userId": "nnnn"
+    },
+    {
+      "id": "296c8533-5d4f-af3f-0f25-4de50fdc6153",
+      "writedTo": "chiikawa",
+      "nickname": "kace3ggge",
+      "content": "h",
+      "createdAt": "2024-02-21 16:47",
+      "avatar": "/static/media/momongaProfile.4467ace69ba0bce6af48.jpg",
+      "userId": "kace"
     }
   ]
 }

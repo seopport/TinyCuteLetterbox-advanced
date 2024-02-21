@@ -4,7 +4,7 @@ import {ModifyCompleteButton} from 'components/Detail/ModifyCompleteButton';
 import {LoginContainer} from 'components/Login/LoginContainer';
 import React, {useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {modifyNickname, modifyUserAvatar, modifyUserInfo} from 'store/redux/modules/authSlice';
+import {modifyUserInfo} from 'store/redux/modules/authSlice';
 import styled from 'styled-components';
 import loginApi from 'apis/loginApi';
 import letterApi from 'apis/letterApi';
@@ -27,6 +27,8 @@ const MyPage = () => {
     setModifiedNickname(userInfo.nickname);
   };
 
+  console.log(userInfo);
+
   const handleModifyCompleteButtonClick = async () => {
     //닉네임이 바뀌거나, 프로필 이미지가 바뀌면 수정완료
     // 닉네임과 프로필 이미지 모두 같으면 수정 안됨
@@ -36,12 +38,12 @@ const MyPage = () => {
       return;
     }
 
-    const updateUserInfo = {avatar: imageSrc, nickname: modifiedNickname.replace(/\s/g, '')};
+    const updateUserInfo = {avatar: imageSrc, nickname: modifiedNickname};
 
-    // 수정하는 디스패치
+    // 리덕스 수정
     dispatch(modifyUserInfo({userId: userInfo.id, modifiedNickname, modifiedAvatar: imageSrc}));
 
-    // 편지의 닉네임 수정
+    // json server 편지 db 수정
     // 일단 편지들 중에 userId가 같은 것만 받아오기
     const {data: targetLetters} = await letterApi.get(`/letters?userId=${userInfo.id}`);
 
@@ -50,8 +52,9 @@ const MyPage = () => {
       letterApi.patch(`/letters/${letters.id}`, updateUserInfo);
     }
 
-    // 서버 수정 patch
-    const res = await loginApi.patch(`/profile`, updateUserInfo);
+    // 서버 프로필 수정
+    const res = await loginApi.patch(`/profile`, {nickname: modifiedNickname});
+    console.log(res);
     alert(res.data.message);
 
     //로컬스토리지 수정

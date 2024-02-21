@@ -2,14 +2,12 @@ import React, {useEffect, useState} from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 import ResetStyles from './ResetStyles';
-import {Navigate, Outlet, useNavigate} from 'react-router-dom';
+import {Outlet, useNavigate} from 'react-router-dom';
 import NavHeader from './NavHeader';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {updateUserInfo, updateUserToken} from 'store/redux/modules/authSlice';
 
 function AuthLayout() {
-  console.log('AuthLayout 렌더링');
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isRendered, setIsRendered] = useState(false);
@@ -25,6 +23,7 @@ function AuthLayout() {
 
   useEffect(() => {
     if (!accessToken) {
+      alert('잘못된 접근입니다.');
       navigate('/login');
       return;
     }

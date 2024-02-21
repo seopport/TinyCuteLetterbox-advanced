@@ -61,11 +61,8 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
 
     console.log(newUser);
     try {
-      const response = await loginApi.post('/register', newUser);
-      // console.log(response.data);
-      // dispatch(updateUserInfo(newUser));
+      await loginApi.post('/register', newUser);
       alert('💌 회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
-
       setIsSignUpAcitve(false);
     } catch (error) {
       //서버에서 받아온 에러메세지 alert

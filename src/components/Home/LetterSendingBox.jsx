@@ -10,7 +10,6 @@ import {sendLetter} from 'store/redux/modules/letters';
 import {changeCharacter} from 'store/redux/modules/character';
 import letterApi from 'apis/letterApi';
 
-//#region
 function LetterSendingBox() {
   const dispatch = useDispatch();
   const letterInput = useRef();
@@ -18,7 +17,7 @@ function LetterSendingBox() {
   const selectedCharacter = useSelector(state => state.character.selectedCharacter);
   const userInfo = useSelector(state => state.authSlice.users);
 
-  //옵션으로 선택한 캐릭터
+  // 보내기 버튼 클릭
   const handleSendButtonClick = async () => {
     const setDate = date => {
       return date < 10 ? '0' + date : date.toString();
@@ -32,8 +31,8 @@ function LetterSendingBox() {
     const minute = setDate(new Date().getMinutes());
 
     const createdAt = [[year, month, day].join('-') + ' ' + [hour, minute].join(':')];
-
     //#endregion
+
     const letterContent = letterInput.current.value;
     const sendTo = selectedCharacter; //보낼 캐릭터
 
@@ -94,7 +93,6 @@ function LetterSendingBox() {
         />
         <div style={{alignSelf: 'flex-end'}}>
           <span style={{fontSize: '14px'}}>From. {userInfo.nickname}</span>
-          {/* <WriterInput maxLength={10} ref={writerInput} /> */}
         </div>
         <SendLetterButton onClick={handleSendButtonClick}>보내기</SendLetterButton>
       </StLetterSendingBox>
@@ -144,14 +142,14 @@ const WriteLetterBox = styled.textarea`
   }
 `;
 
-const WriterInput = styled.input`
-  border: none;
-  border-bottom: 1px solid black;
-  outline: none;
-  width: 80px;
-  padding: 2px;
-  margin-left: 3px;
-`;
+// const WriterInput = styled.input`
+//   border: none;
+//   border-bottom: 1px solid black;
+//   outline: none;
+//   width: 80px;
+//   padding: 2px;
+//   margin-left: 3px;
+// `;
 
 const SendLetterButton = styled.button`
   margin-top: 10px;
