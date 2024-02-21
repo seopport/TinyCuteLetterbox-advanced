@@ -3,13 +3,14 @@ import Header from 'components/Header';
 import styled from 'styled-components';
 import ResetStyles from './ResetStyles';
 import {Outlet, useNavigate} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 function NonAuthLayout() {
   const navigate = useNavigate();
-
-  const accessToken = localStorage.getItem('accessToken');
-
   const [isRendered, setIsRendered] = useState(false);
+
+  //아직 로그인 안한 상태기 때문에 스토어 accessToken은 null임
+  const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
     if (accessToken) {
@@ -18,7 +19,7 @@ function NonAuthLayout() {
     }
 
     setIsRendered(true);
-  }, [isRendered, navigate, accessToken]);
+  }, [isRendered, navigate]);
 
   return (
     <MainWrap>

@@ -58,7 +58,10 @@ const MyPage = () => {
       }
 
       // 서버 프로필 수정
-      const res = await loginApi.patch(`/profile`, {nickname: modifiedNickname});
+      const res = await loginApi.patch('/profile', updateUserInfo, {
+        headers: {Authorization: `Bearer ${userInfo.accessToken}`},
+      });
+
       console.log(res);
       alert(res.data.message);
 

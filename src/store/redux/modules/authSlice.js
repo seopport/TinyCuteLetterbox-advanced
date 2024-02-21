@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {useState} from 'react';
 
 const initialState = {
   users: {
@@ -10,9 +9,8 @@ const initialState = {
     avatar: null,
   },
 
-  isLoggedIn: false,
-  accessToken: null,
-  //여기서 들어온 액세스 토큰은 로그인할 때 들어옴
+  // isLoggedIn: false,
+  // accessToken: null,
 };
 
 const authSlice = createSlice({
@@ -23,17 +21,11 @@ const authSlice = createSlice({
       return {...state, users: action.payload};
     },
 
-    updateUserToken: (state, action) => {
-      return {...state, accessToken: action.payload};
-    },
-
     changeLoginState: (state, action) => {
       return {...state, isLoggedIn: !state.isLoggedIn};
     },
 
     modifyUserInfo: (state, action) => {
-      // 유저 여러명일 떄 필요 근데 클라이언트에서 유저가 여러명일 수 가 있나?
-      // const targetUserId = action.payload.userId;
       const modifiedNickname = action.payload.modifiedNickname;
       const modifiedAvatar = action.payload.modifiedAvatar;
 
@@ -60,5 +52,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {modifyUserInfo, modifyUserAvatar, updateUserInfo, updateUserToken, changeLoginState} = authSlice.actions;
+export const {modifyUserInfo, modifyUserAvatar, updateUserInfo, changeLoginState} = authSlice.actions;
 export default authSlice.reducer;

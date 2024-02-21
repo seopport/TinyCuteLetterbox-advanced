@@ -24,8 +24,14 @@ function LetterDetailView() {
   const [modifiedContent, setmodifiedContent] = useState('');
   const [isModifying, setIsModifying] = useState(false);
 
-  const userIdInUserInfo = useSelector(state => state.authSlice.users);
+  const userInfo = useSelector(state => state.authSlice.users);
   const savedLetters = useSelector(state => state.letters.savedLetters);
+
+  if (userInfo.accessToken === null) {
+    alert('로그인 정보가 없습니다.');
+    navigate('/login');
+    return;
+  }
 
   const handleDeleteButtonClick = id => {
     if (window.confirm('편지를 삭제하시겠습니까?')) {
@@ -129,7 +135,7 @@ function LetterDetailView() {
                 ></LetterContentTextArea>
               </LetterContent>
               {/* 자신이 작성한 글만 수정, 삭제 가능하도록 */}
-              {item.userId === userIdInUserInfo.id ? (
+              {item.userId === userInfo.id ? (
                 <>
                   {isModifying ? (
                     <ButtonsWrap>

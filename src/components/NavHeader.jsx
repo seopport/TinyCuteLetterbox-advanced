@@ -1,11 +1,12 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink, useNavigate} from 'react-router-dom';
-import {updateUserToken} from 'store/redux/modules/authSlice';
+import {updateUserInfo} from 'store/redux/modules/authSlice';
 import styled from 'styled-components';
 
 const NavHeader = () => {
-  const accessToken = useSelector(state => state.authSlice.accessToken);
+  const accessToken = useSelector(state => state.authSlice.users?.accessToken);
+  const users = useSelector(state => state.authSlice.users);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,7 +15,16 @@ const NavHeader = () => {
     if (accessToken) {
       if (window.confirm('로그아웃하시겠습니까?')) {
         localStorage.clear();
-        dispatch(updateUserToken(null));
+        dispatch(
+          updateUserInfo({
+            id: null,
+            password: null,
+            nickname: null,
+            accessToken: null,
+            avatar: null,
+          }),
+        );
+        console.log(users);
         navigate('/login');
       } else {
         return;
