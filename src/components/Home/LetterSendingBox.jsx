@@ -29,8 +29,10 @@ function LetterSendingBox() {
     const day = setDate(new Date().getDate());
     const hour = setDate(new Date().getHours());
     const minute = setDate(new Date().getMinutes());
+    const second = setDate(new Date().getSeconds());
+    console.log(second);
 
-    const createdAt = [[year, month, day].join('-') + ' ' + [hour, minute].join(':')];
+    const createdAt = [[year, month, day].join('-') + ' ' + [hour, minute, second].join(':')];
     //#endregion
 
     const letterContent = letterInput.current.value;

@@ -71,6 +71,51 @@
       "createdAt": "2024-02-21 19:51",
       "avatar": "/static/media/momongaProfile.4467ace69ba0bce6af48.jpg",
       "userId": "iouu"
+    },
+    {
+      "id": "60cca686-1d5f-2bfd-d8ed-5cfbd81c2b5e",
+      "writedTo": "usagi",
+      "nickname": "vbvbvb",
+      "content": "안녕하세요!!",
+      "createdAt": "2024-02-21 20:58",
+      "avatar": "/static/media/momongaProfile.4467ace69ba0bce6af48.jpg",
+      "userId": "vbvb"
+    },
+    {
+      "id": "3c65e3f9-3c45-d857-3ca1-cfe0df252c18",
+      "writedTo": "usagi",
+      "nickname": "vbvbvb",
+      "content": "ㅇㄹㄴ",
+      "createdAt": "2024-02-21 20:58",
+      "avatar": "/static/media/momongaProfile.4467ace69ba0bce6af48.jpg",
+      "userId": "vbvb"
+    },
+    {
+      "id": "a6885596-215d-0967-aa5d-730b454a5866",
+      "writedTo": "usagi",
+      "nickname": "vbvbvb",
+      "content": "ㄹㄹㄹ",
+      "createdAt": "2024-02-21 20:58",
+      "avatar": "/static/media/momongaProfile.4467ace69ba0bce6af48.jpg",
+      "userId": "vbvb"
+    },
+    {
+      "id": "984d323d-464b-6f8e-8e76-98cebc7337cd",
+      "writedTo": "chiikawa",
+      "nickname": "iluvu",
+      "content": "df",
+      "createdAt": "2024-02-21 21:03:10",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/a84e81d5-954b-4f8f-a79b-d48fd02d6848.jpg",
+      "userId": "mmmm"
+    },
+    {
+      "id": "955b4a11-8998-eb1f-e5d7-1f1d30e5db61",
+      "writedTo": "chiikawa",
+      "nickname": "iluvu",
+      "content": "dsf",
+      "createdAt": "2024-02-21 21:03:17",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/a84e81d5-954b-4f8f-a79b-d48fd02d6848.jpg",
+      "userId": "mmmm"
     }
   ]
 }
