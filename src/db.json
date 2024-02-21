@@ -3,7 +3,7 @@
     {
       "id": "b3e2",
       "writedTo": "chiikawa",
-      "nickname": "ffh..?d",
+      "nickname": "나는오리",
       "content": "ㅇ",
       "createdAt": "2024-02-21 14:02",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/a84e81d5-954b-4f8f-a79b-d48fd02d6848.jpg",
@@ -71,6 +71,15 @@
       "createdAt": "2024-02-21 18:21",
       "avatar": "blob:http://localhost:3001/3657f0a8-79ff-4a28-a904-b68c847b1d46",
       "userId": "zxzx"
+    },
+    {
+      "id": "58fcaf38-b123-2395-c9de-95ff25722925",
+      "writedTo": "chiikawa",
+      "nickname": "나는오리",
+      "content": "나는오리~ 꿈을꾸는오리~",
+      "createdAt": "2024-02-21 19:46",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/a84e81d5-954b-4f8f-a79b-d48fd02d6848.jpg",
+      "userId": "mmmm"
     }
   ]
 }

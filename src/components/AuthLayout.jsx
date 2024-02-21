@@ -21,7 +21,7 @@ function AuthLayout() {
 
   useEffect(() => {
     if (!accessToken) {
-      alert('잘못된 접근입니다.');
+      alert('⚠️ 잘못된 접근입니다.');
       navigate('/login');
       return;
     }

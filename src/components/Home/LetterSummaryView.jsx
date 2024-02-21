@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import profileImg from 'assets/image/momongaProfile.jpg';
 import colors from 'shared/color';
 import 'shared/index.css';
 import {useNavigate} from 'react-router-dom';

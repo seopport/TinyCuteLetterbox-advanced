@@ -3,7 +3,6 @@ import Header from 'components/Header';
 import styled from 'styled-components';
 import ResetStyles from './ResetStyles';
 import {Outlet, useNavigate} from 'react-router-dom';
-import {useSelector} from 'react-redux';
 
 function NonAuthLayout() {
   const navigate = useNavigate();
@@ -14,7 +13,7 @@ function NonAuthLayout() {
 
   useEffect(() => {
     if (accessToken) {
-      alert('잘못된 접근입니다. 로그아웃 후 시도해주세요.');
+      alert('⚠️ 잘못된 접근입니다. 로그아웃 후 시도해주세요.');
       navigate('/home');
     }
 

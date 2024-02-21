@@ -1,7 +1,6 @@
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import Home from 'pages/Home';
 import LetterDetailPage from 'pages/LetterDetailPage';
-import {useSelector} from 'react-redux';
 import LoginPage from 'pages/LoginPage';
 import AuthLayout from 'components/AuthLayout';
 import MyPage from 'pages/MyPage';
@@ -12,7 +11,6 @@ const Router = () => {
   // 로그인 해야만 볼 수 잇는 페이지 - NonAuthLayout
 
   const accessToken = localStorage.getItem('accessToken');
-  console.log(accessToken);
 
   return (
     <BrowserRouter>

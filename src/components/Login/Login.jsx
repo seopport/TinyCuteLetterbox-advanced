@@ -9,7 +9,7 @@ import loginApi from '../../apis/loginApi';
 import {LoginContainer} from './LoginContainer';
 import profileImg from 'assets/image/momongaProfile.jpg';
 
-const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
+const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
   const dispacth = useDispatch();
   const navigate = useNavigate();
 
@@ -46,19 +46,20 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
     }
 
     const userInfo = {id: userId, password: userPw};
-    const response = await loginApi.post('/login', userInfo);
-    const {accessToken, nickname, avatar} = response.data;
-    alert('💌 로그인되었습니다. 홈으로 이동합니다.');
-
-    const newUser = {
-      id: userId,
-      password: userPw,
-      nickname,
-      accessToken,
-      avatar: avatar ? avatar : profileImg,
-    };
 
     try {
+      const response = await loginApi.post('/login', userInfo);
+      const {accessToken, nickname, avatar} = response.data;
+      alert('💌 로그인되었습니다. 홈으로 이동합니다.');
+
+      const newUser = {
+        id: userId,
+        password: userPw,
+        nickname,
+        accessToken,
+        avatar: avatar ? avatar : profileImg,
+      };
+
       localStorage.setItem('accessToken', `${accessToken}`);
       localStorage.setItem('storageUserInfo', JSON.stringify(newUser));
 

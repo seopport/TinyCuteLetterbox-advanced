@@ -8,9 +8,6 @@ const initialState = {
     accessToken: null,
     avatar: null,
   },
-
-  // isLoggedIn: false,
-  // accessToken: null,
 };
 
 const authSlice = createSlice({
@@ -40,7 +37,6 @@ const authSlice = createSlice({
 
     modifyUserAvatar: (state, action) => {
       const modifiedAvatar = action.payload.modifiedAvatar;
-      console.log('모디파이드 사진', modifiedAvatar);
 
       const updateUser = {
         ...state.users,
