@@ -82,7 +82,7 @@ const ProfileImg = styled.img`
   object-fit: cover;
   margin-right: 10px;
   border-radius: 50%;
-  border: 1px solid black;
+  border: 1px solid ${colors.bordeGreyishBlue};
 `;
 
 const Line = styled.span`
