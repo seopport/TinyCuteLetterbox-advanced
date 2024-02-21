@@ -10,22 +10,40 @@
       "userId": "mmmm"
     },
     {
-      "id": "5b83e811-891e-4f3f-743e-cebae8e8c66a",
+      "id": "b587639f-e0b5-cde9-7ab2-ae610b5ad88c",
       "writedTo": "chiikawa",
-      "nickname": "fddfㄹㄹ",
-      "content": "ㄴㅇㄹ",
-      "createdAt": "2024-02-21 03:17",
-      "avatar": "blob:http://localhost:3000/f3c7f5bc-d3d5-4a5d-9ee8-7a80f915209b",
+      "nickname": "sfdddah",
+      "content": "g",
+      "createdAt": "2024-02-21 03:58",
+      "avatar": "blob:http://localhost:3000/ac5d01d8-f2f2-4da9-8b6c-6698b9833340",
       "userId": "mmmm"
     },
     {
-      "id": "5b83e811-891e-4f3f-743e-cebae8e8c66a",
+      "id": "84736c86-43a6-a9ef-478a-e20a94e960a6",
       "writedTo": "chiikawa",
-      "nickname": "fddfㄹㄹ",
-      "content": "ㄴㅇㄹ",
-      "createdAt": "2024-02-21 03:17",
-      "avatar": "blob:http://localhost:3000/f3c7f5bc-d3d5-4a5d-9ee8-7a80f915209b",
-      "userId": "mmmm1"
+      "nickname": null,
+      "content": "fd",
+      "createdAt": "2024-02-21 04:04",
+      "avatar": null,
+      "userId": null
+    },
+    {
+      "id": "55fe860c-f864-4e11-847b-c05d0a9281c6",
+      "writedTo": "usagi",
+      "nickname": "왜안돼제발",
+      "content": "dsf",
+      "createdAt": "2024-02-21 04:04",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/a84e81d5-954b-4f8f-a79b-d48fd02d6848.jpg",
+      "userId": "mmmm"
+    },
+    {
+      "id": "a29efc9f-5d80-08a0-b75a-eb6332a65809",
+      "writedTo": "chiikawa",
+      "nickname": "왜안돼제발",
+      "content": "fhg",
+      "createdAt": "2024-02-21 12:29",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/a84e81d5-954b-4f8f-a79b-d48fd02d6848.jpg",
+      "userId": "mmmm"
     }
   ]
 }

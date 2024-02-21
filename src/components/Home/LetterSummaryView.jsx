@@ -11,10 +11,6 @@ function LetterSummaryView() {
 
   const savedLetters = useSelector(state => state.letters.savedLetters);
 
-  console.log(savedLetters);
-
-  console.log(savedLetters);
-
   const selectedCharacter = useSelector(state => {
     return state.character.selectedCharacter;
   });

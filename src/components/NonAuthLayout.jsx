@@ -25,19 +25,15 @@ function NonAuthLayout() {
   const navigate = useNavigate();
   const [isRendered, setIsRendered] = useState(false);
 
-  const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
+  const accessToken = localStorage.getItem('accessToken');
 
-  console.log('로그인합격', isLoggedIn);
-
-  // 시간남으면 고려: 토큰 존재 여부로 조건걸기
   useEffect(() => {
-    if (isLoggedIn) {
+    if (accessToken) {
       navigate('/home');
-      return;
     }
 
     setIsRendered(true);
-  }, [isLoggedIn, navigate]);
+  }, [isRendered, navigate, accessToken]);
 
   return (
     <MainWrap>

@@ -11,6 +11,8 @@ const initialState = {
   },
 
   isLoggedIn: false,
+  accessToken: null,
+  //여기서 들어온 액세스 토큰은 로그인할 때 들어옴
 };
 
 const authSlice = createSlice({
@@ -18,7 +20,13 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     updateUserInfo: (state, action) => {
+      console.log('업데이트 유저인포 리듀서 실행!!!!!!!!!!!!!');
       return {...state, users: action.payload};
+    },
+
+    updateUserToken: (state, action) => {
+      console.log('업데이트 토큰 리듀서 실행');
+      return {...state, accessToken: action.payload};
     },
 
     changeLoginState: (state, action) => {

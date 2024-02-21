@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink, useNavigate} from 'react-router-dom';
 import colors from 'shared/color';
-import {changeLoginState} from 'store/redux/modules/authSlice';
+import {changeLoginState, updateUserToken} from 'store/redux/modules/authSlice';
 import styled from 'styled-components';
 
 const StNavHeaderContainer = styled.nav`
@@ -48,14 +48,16 @@ const StLoginToggleButton = styled.div`
 `;
 
 const NavHeader = () => {
-  const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
+  const accessToken = useSelector(state => state.authSlice.accessToken);
+  console.log(accessToken, 'at navheadeer');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLoginStateButton = () => {
-    if (isLoggedIn) {
-      if (window.confirm('로그아웃할거니?')) {
-        dispatch(changeLoginState());
+    if (accessToken) {
+      if (window.confirm('로그아웃하시겠습니까?')) {
+        localStorage.clear();
+        dispatch(updateUserToken(null));
         navigate('/login');
       } else {
         return;

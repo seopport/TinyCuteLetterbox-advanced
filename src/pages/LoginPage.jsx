@@ -8,16 +8,9 @@ const LoginPage = () => {
   const [isSignUpAcitve, setIsSignUpAcitve] = useState(false);
   const [isValidId, setIsValidId] = useState(false);
   const [isValidPw, setIsValidPw] = useState(false);
-  const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
-
-  const navigate = useNavigate();
 
   useEffect(() => {}, []);
 
-  if (isLoggedIn) {
-    navigate('/home');
-    return;
-  }
   const checkIdValue = idValue => {
     if (idValue.length >= 4) {
       setIsValidId(true);

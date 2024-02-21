@@ -12,8 +12,6 @@ import {LoginContainer} from './LoginContainer';
 import profileImg from 'assets/image/momongaProfile.jpg';
 
 const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
-  const {setItem, getItem, removeItem, clear, length, key} = localStorage;
-
   const dispacth = useDispatch();
   const navigate = useNavigate();
 
@@ -64,9 +62,12 @@ const Login = ({setIsLoggedIn, setIsSignUpAcitve, isValidId, isValidPw, checkIdV
       };
 
       localStorage.setItem('accessToken', `${accessToken}`);
+      localStorage.setItem('storageUserInfo', JSON.stringify(newUser));
 
       dispacth(updateUserInfo(newUser));
-      dispacth(changeLoginState());
+      // dispacth(changeLoginState());
+      // dispacth(updateUserToken(accessToken));
+      navigate('/home');
     } catch (error) {
       console.log('error response :', error.response);
       if (error) {

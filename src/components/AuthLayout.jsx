@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import ResetStyles from './ResetStyles';
 import {Navigate, Outlet, useNavigate} from 'react-router-dom';
 import NavHeader from './NavHeader';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateUserInfo, updateUserToken} from 'store/redux/modules/authSlice';
 
 const LayoutWrap = styled.div`
   width: 710px;
@@ -25,20 +26,27 @@ function AuthLayout() {
   console.log('AuthLayout 렌더링');
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isRendered, setIsRendered] = useState(false);
 
-  const isLoggedIn = useSelector(state => state.authSlice.isLoggedIn);
-  console.log('로그인합격', isLoggedIn);
+  // 렌더링 될 때 마다 토큰 업데이트 - 새로고침 했을 때 토큰 유지
+  const accessToken = localStorage.getItem('accessToken');
+  dispatch(updateUserToken(accessToken));
+
+  // 렌더링 될 때 마다 유저 정보 업데이트 - 새로고침 했을 때 유저 정보 유지
+  const storageUserInfo = localStorage.getItem('storageUserInfo');
+  const parsedUserInfo = JSON.parse(storageUserInfo);
+  dispatch(updateUserInfo(parsedUserInfo));
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!accessToken) {
       navigate('/login');
       return;
     }
     //useEffect가 실행된 후 컴포넌트 렌더링(보안을 위해)
     // 1. 브라우저 렌더링 -> useEffect 실행 -> isRendered = true -> 컴포넌트 렌더링됨
     setIsRendered(true);
-  }, [isLoggedIn, navigate]);
+  }, [accessToken, navigate]);
 
   return (
     <MainWrap>
