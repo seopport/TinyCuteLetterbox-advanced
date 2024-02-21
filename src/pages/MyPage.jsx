@@ -32,8 +32,6 @@ const MyPage = () => {
     setModifiedNickname(userInfo.nickname);
   };
 
-  console.log(userInfo);
-
   const handleModifyCompleteButtonClick = async () => {
     // 닉네임과 프로필 이미지 모두 원본데이터와 같으면 수정 안됨
     if (userInfo.nickname === modifiedNickname && userInfo.avatar === imageSrc) {
@@ -61,7 +59,6 @@ const MyPage = () => {
         headers: {Authorization: `Bearer ${userInfo.accessToken}`},
       });
 
-      console.log(res);
       alert(res.data.message);
 
       //로컬스토리지 수정

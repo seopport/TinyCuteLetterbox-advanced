@@ -35,7 +35,6 @@ function LetterSummaryView() {
     <>
       {filteredLetters.length === 0 && <EmptyLetterBoxMessage />}
       {filteredLetters?.map(item => {
-        console.log(item);
         return (
           <LetterSummaryBox key={item.id}>
             <ProfileImg src={item.avatar} />

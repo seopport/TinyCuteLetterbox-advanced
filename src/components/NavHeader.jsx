@@ -24,7 +24,6 @@ const NavHeader = () => {
             avatar: null,
           }),
         );
-        console.log(users);
         navigate('/login');
       } else {
         return;
