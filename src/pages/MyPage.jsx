@@ -190,6 +190,7 @@ export const StInfo = styled.div`
   font-size: 14px;
   line-height: normal;
   padding-left: 5px;
+  color: #6d6d6d;
 `;
 
 export const StInfoInput = styled.input`
