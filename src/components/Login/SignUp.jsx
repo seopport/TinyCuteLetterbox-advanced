@@ -28,7 +28,7 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
   };
 
   const handleUserIdChange = e => {
-    e.target.value = e.target.value.replace(/[^A-Za-z0-9]/gi, '');
+    // e.target.value = e.target.value.replace(/[^A-Za-z0-9]/gi, '');
     setUserId(e.target.value);
   };
 
@@ -73,7 +73,7 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
               type="text"
               value={userId}
               onChange={handleUserIdChange}
-              placeholder="아이디 (영문 4~10글자)"
+              placeholder="아이디 (4~10글자)"
               maxLength={10}
             />
             {!isValidId && userId.length > 0 && <StMessage>4글자 이상 입력하세요.</StMessage>}

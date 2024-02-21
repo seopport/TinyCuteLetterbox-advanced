@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import colors from 'shared/color';
 import 'shared/index.css';
 import {useDispatch, useSelector} from 'react-redux';
-import {changeCharacter} from 'store/redux/modules/character';
+import {changeCharacter} from 'store/redux/modules/characterSlice';
 
 function LetterBoxSelecter() {
   const dispatch = useDispatch();

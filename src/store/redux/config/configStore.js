@@ -1,5 +1,5 @@
-import character from '../modules/character';
-import letters from '../modules/letters';
+import character from '../modules/characterSlice';
+import letters from '../modules/letterSlice';
 import authSlice from '../modules/authSlice';
 
 import {configureStore} from '@reduxjs/toolkit';

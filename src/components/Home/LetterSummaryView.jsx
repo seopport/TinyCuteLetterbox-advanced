@@ -6,7 +6,7 @@ import EmptyLetterBoxMessage from './EmptyLetterBoxMessage';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
 import letterApi from 'apis/letterApi';
-import {setLetter} from 'store/redux/modules/letters';
+import {setLetter} from 'store/redux/modules/letterSlice';
 
 function LetterSummaryView() {
   const navigate = useNavigate();
@@ -30,6 +30,12 @@ function LetterSummaryView() {
   const selectedCharacter = useSelector(state => state.character.selectedCharacter);
 
   const filteredLetters = savedLetters?.filter(item => item.writedTo === selectedCharacter);
+
+  //최근에 작성할 수록 큰숫자
+  // const result = filteredLetters[0].createdAt > filteredLetters[1].createdAt;
+  // console.log(result);
+  // const newLetters = filteredLetters.sort((a, b) => a.createdAt > b.createdAt);
+  // console.log(newLetters);
 
   return (
     <>

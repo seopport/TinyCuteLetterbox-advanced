@@ -6,8 +6,8 @@ import meltingChiikawa from 'assets/image/melting_chiikawa.png';
 import uuid from 'react-uuid';
 import {changeToKoreanName} from 'shared/changeToKoreanName';
 import {useDispatch, useSelector} from 'react-redux';
-import {sendLetter} from 'store/redux/modules/letters';
-import {changeCharacter} from 'store/redux/modules/character';
+import {sendLetter} from 'store/redux/modules/letterSlice';
+import {changeCharacter} from 'store/redux/modules/characterSlice';
 import letterApi from 'apis/letterApi';
 
 function LetterSendingBox() {
@@ -30,7 +30,6 @@ function LetterSendingBox() {
     const hour = setDate(new Date().getHours());
     const minute = setDate(new Date().getMinutes());
     const second = setDate(new Date().getSeconds());
-    console.log(second);
 
     const createdAt = [[year, month, day].join('-') + ' ' + [hour, minute, second].join(':')];
     //#endregion

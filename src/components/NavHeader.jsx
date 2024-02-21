@@ -4,45 +4,35 @@ import {NavLink, useNavigate} from 'react-router-dom';
 import {updateUserInfo} from 'store/redux/modules/authSlice';
 import styled from 'styled-components';
 
-const NavHeader = () => {
+const NavHeader = ({setIsModalOpen}) => {
   const accessToken = useSelector(state => state.authSlice.users?.accessToken);
-  const users = useSelector(state => state.authSlice.users);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleLoginStateButton = () => {
     if (accessToken) {
-      if (window.confirm('로그아웃하시겠습니까?')) {
-        localStorage.clear();
-        dispatch(
-          updateUserInfo({
-            id: null,
-            password: null,
-            nickname: null,
-            accessToken: null,
-            avatar: null,
-          }),
-        );
-        navigate('/login');
-      } else {
-        return;
-      }
+      setIsModalOpen(true);
+    } else {
+      alert('로그인 정보가 유효하지 않습니다.');
+      navigate('/login');
     }
   };
 
   return (
-    <StNavHeaderContainer>
-      <StNavLink to={'home'}>Home</StNavLink>
-      <div style={{marginLeft: 'auto', display: 'flex'}}>
-        <StNavLink to={'myPage'} style={{marginRight: '20px'}}>
-          MyPage
-        </StNavLink>
-        <StLoginToggleButton onClick={handleLoginStateButton}>Logout</StLoginToggleButton>
-      </div>
-    </StNavHeaderContainer>
+    <>
+      <StNavHeaderContainer>
+        <StNavLink to={'home'}>Home</StNavLink>
+        <div style={{marginLeft: 'auto', display: 'flex'}}>
+          <StNavLink to={'myPage'} style={{marginRight: '20px'}}>
+            MyPage
+          </StNavLink>
+          <StLoginToggleButton onClick={handleLoginStateButton}>Logout</StLoginToggleButton>
+        </div>
+      </StNavHeaderContainer>
+    </>
   );
 };
+
+//---------------------------
 
 const StNavHeaderContainer = styled.nav`
   width: 100%;

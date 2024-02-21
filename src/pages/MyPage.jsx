@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import loginApi from 'apis/loginApi';
 import letterApi from 'apis/letterApi';
 import {useNavigate} from 'react-router-dom';
+import {BackButton} from 'components/Detail/BackButton';
 
 const MyPage = () => {
   const userInfo = useSelector(state => state.authSlice.users);
@@ -105,46 +106,49 @@ const MyPage = () => {
   };
 
   return (
-    <LoginContainer style={{padding: '30px 20px 15px 30px'}}>
-      <StTitle>프로필 관리</StTitle>
-      <StProfileContainer>
-        {/* 이미지 */}
-        <div style={{position: 'relative'}}>
-          <StProfileImage src={!imageSrc64 ? imageSrc : imageSrc64} />
-          <input type="file" style={{display: 'none'}} onChange={handleInputChange} ref={fileInput}></input>
-          {isModifying && <StEditButton onClick={handleEditButtonClick}>edit</StEditButton>}
+    <>
+      <BackButton onClick={() => navigate(-1)}>돌아가기</BackButton>
+      <LoginContainer style={{padding: '30px 20px 15px 30px', marginTop: '15px'}}>
+        <StTitle>프로필 관리</StTitle>
+        <StProfileContainer>
+          {/* 이미지 */}
+          <div style={{position: 'relative'}}>
+            <StProfileImage src={!imageSrc64 ? imageSrc : imageSrc64} />
+            <input type="file" style={{display: 'none'}} onChange={handleInputChange} ref={fileInput}></input>
+            {isModifying && <StEditButton onClick={handleEditButtonClick}>edit</StEditButton>}
+          </div>
+          {/* 아이디 닉네임 */}
+          <div style={{margin: 'auto 0'}}>
+            <StInfoWrap style={{marginBottom: '20px'}}>
+              <StSpan>아이디</StSpan>
+              <StInfo>{userInfo.id}</StInfo>
+            </StInfoWrap>
+            <StInfoWrap>
+              <StSpan>닉네임</StSpan>
+              <StInfoInput
+                onChange={handleNicknameInputChange}
+                ref={nicknameInputValue}
+                defaultValue={userInfo.nickname}
+                style={{backgroundColor: 'white'}}
+                readOnly={!isModifying}
+                maxLength={10}
+              />
+            </StInfoWrap>
+          </div>
+        </StProfileContainer>
+        {/* 버튼 */}
+        <div style={{alignSelf: 'flex-end', margin: '3px 3px 0 0'}}>
+          {!isModifying ? (
+            <ModifyButton onClick={handleModifyButtonClick}>수정</ModifyButton>
+          ) : (
+            <>
+              <ModifyCompleteButton onClick={handleModifyCompleteButtonClick}>완료</ModifyCompleteButton>
+              <ModifyCancelButton onClick={handleModifyCancelButtonClick}>취소</ModifyCancelButton>
+            </>
+          )}
         </div>
-        {/* 아이디 닉네임 */}
-        <div style={{margin: 'auto 0'}}>
-          <StInfoWrap style={{marginBottom: '20px'}}>
-            <StSpan>아이디</StSpan>
-            <StInfo>{userInfo.id}</StInfo>
-          </StInfoWrap>
-          <StInfoWrap>
-            <StSpan>닉네임</StSpan>
-            <StInfoInput
-              onChange={handleNicknameInputChange}
-              ref={nicknameInputValue}
-              defaultValue={userInfo.nickname}
-              style={{backgroundColor: 'white'}}
-              readOnly={!isModifying}
-              maxLength={10}
-            />
-          </StInfoWrap>
-        </div>
-      </StProfileContainer>
-      {/* 버튼 */}
-      <div style={{alignSelf: 'flex-end', margin: '3px 3px 0 0'}}>
-        {!isModifying ? (
-          <ModifyButton onClick={handleModifyButtonClick}>수정</ModifyButton>
-        ) : (
-          <>
-            <ModifyCompleteButton onClick={handleModifyCompleteButtonClick}>완료</ModifyCompleteButton>
-            <ModifyCancelButton onClick={handleModifyCancelButtonClick}>취소</ModifyCancelButton>
-          </>
-        )}
-      </div>
-    </LoginContainer>
+      </LoginContainer>
+    </>
   );
 };
 

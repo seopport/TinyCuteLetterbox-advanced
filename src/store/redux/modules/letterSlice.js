@@ -15,7 +15,7 @@ const letterSlice = createSlice({
     sendLetter: (state, action) => {
       return {
         ...state,
-        savedLetters: [...state.savedLetters, action.payload],
+        savedLetters: [action.payload, ...state.savedLetters],
       };
     },
 

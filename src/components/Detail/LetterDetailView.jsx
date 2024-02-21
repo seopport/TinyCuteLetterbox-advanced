@@ -9,11 +9,13 @@ import {Date} from 'components/Home/LetterSummaryView';
 import {changeToKoreanName} from 'shared/changeToKoreanName';
 import {StLetterSendingBox} from 'components/Home/LetterSendingBox';
 import {useDispatch, useSelector} from 'react-redux';
-import {deleteLetter, modifyLetter} from 'store/redux/modules/letters';
+import {deleteLetter, modifyLetter} from 'store/redux/modules/letterSlice';
 import {ModifyCompleteButton} from './ModifyCompleteButton';
 import {ModifyCancelButton} from './ModifyCancelButton';
 import {ModifyButton} from './ModifyButton';
 import letterApi from 'apis/letterApi';
+import {BackButton} from './BackButton';
+import {DeleteButton} from './DeleteButton';
 
 function LetterDetailView() {
   const param = useParams();
@@ -101,7 +103,7 @@ function LetterDetailView() {
           navigate('/home');
         }}
       >
-        돌아가기
+        Home
       </BackButton>
 
       {savedLetters
@@ -212,46 +214,9 @@ const FlowerChiikawa = styled.img`
   left: 20px;
 `;
 
-const BackButton = styled.button`
-  margin: 10px;
-  align-self: flex-end;
-  font-family: 'NPSfont-regular';
-  padding: 10px;
-  width: 88px;
-  height: 35px;
-  background-color: white;
-  border: 1px solid ${colors.bordeGreyishBlue};
-  color: #4d86a6;
-  border-radius: 9px;
-  line-height: 100%;
-  transition: all 0.3s;
-
-  &:hover {
-    cursor: pointer;
-    background-color: #eefeff;
-  }
-`;
-
 const ButtonsWrap = styled.div`
   align-self: flex-end;
   margin: 3px 3px 0 0;
-`;
-
-const DeleteButton = styled.button`
-  align-self: flex-end;
-  font-family: 'NPSfont-regular';
-  width: 52px;
-  height: 26px;
-  background-color: #ffe8e8;
-  border: 1px solid #dfadad;
-  color: #b96b6b;
-  border-radius: 7px;
-  transition: all 0.3s;
-
-  &:hover {
-    cursor: pointer;
-    background-color: #ffdada;
-  }
 `;
 
 const DateTime = styled(Date)`

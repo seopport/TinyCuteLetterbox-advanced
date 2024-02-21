@@ -6,11 +6,15 @@ import {Outlet, useNavigate} from 'react-router-dom';
 import NavHeader from './NavHeader';
 import {useDispatch, useSelector} from 'react-redux';
 import {updateUserInfo} from 'store/redux/modules/authSlice';
+import {ModifyButton} from './Detail/ModifyButton';
+import {ModifyCancelButton} from './Detail/ModifyCancelButton';
+import {DeleteButton} from './Detail/DeleteButton';
 
 function AuthLayout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isRendered, setIsRendered] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 렌더링 될 때 마다 유저 정보 업데이트 - 새로고침 했을 때 유저 정보 유지
   const storageUserInfo = localStorage.getItem('storageUserInfo');
@@ -30,17 +34,76 @@ function AuthLayout() {
     setIsRendered(true);
   }, [navigate]);
 
+  const handleLogoutConfirmButtonClick = () => {
+    localStorage.clear();
+    dispatch(
+      updateUserInfo({
+        id: null,
+        password: null,
+        nickname: null,
+        accessToken: null,
+        avatar: null,
+      }),
+    );
+    navigate('/login');
+  };
+
   return (
-    <MainWrap>
+    <>
       <ResetStyles />
-      <LayoutWrap>
-        {isRendered && <NavHeader />}
-        <Header />
-        {isRendered && <Outlet />}
-      </LayoutWrap>
-    </MainWrap>
+      <MainWrap>
+        <StModalWrap $isModalOpen={isModalOpen}>
+          <ModalContainer>
+            <StModalText>로그아웃하시겠습니까?</StModalText>
+            <div style={{}}>
+              <ModifyButton onClick={handleLogoutConfirmButtonClick}>확인</ModifyButton>
+              <DeleteButton onClick={() => setIsModalOpen(false)}>취소</DeleteButton>
+            </div>
+          </ModalContainer>
+        </StModalWrap>
+        <LayoutWrap>
+          {isRendered && <NavHeader setIsModalOpen={setIsModalOpen} />}
+          <Header />
+          {isRendered && <Outlet />}
+        </LayoutWrap>
+      </MainWrap>
+    </>
   );
 }
+
+const StModalWrap = styled.div`
+  z-index: ${props => (props.$isModalOpen ? '10' : '-1')};
+  width: 100%;
+  min-height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: all 0.3s;
+  opacity: ${props => (props.$isModalOpen ? '1' : '0')};
+`;
+
+const StModalText = styled.span`
+  font-family: sans-serif;
+  font-size: 18px;
+  margin: auto;
+  text-align: center;
+`;
+
+const ModalContainer = styled.div`
+  position: absolute;
+  width: 350px;
+  height: 180px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  align-items: center;
+  border: 1px solid black;
+  /* justify-content: center; */
+  padding: 20px;
+`;
 
 const LayoutWrap = styled.div`
   width: 710px;
@@ -55,6 +118,8 @@ const MainWrap = styled.div`
   display: flex;
   justify-content: center;
   background-color: #eef9fd;
+
+  position: relative;
 `;
 
 export default AuthLayout;
