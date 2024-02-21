@@ -20,12 +20,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     updateUserInfo: (state, action) => {
-      console.log('업데이트 유저인포 리듀서 실행!!!!!!!!!!!!!');
       return {...state, users: action.payload};
     },
 
     updateUserToken: (state, action) => {
-      console.log('업데이트 토큰 리듀서 실행');
       return {...state, accessToken: action.payload};
     },
 

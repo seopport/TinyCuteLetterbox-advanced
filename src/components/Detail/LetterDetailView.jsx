@@ -59,7 +59,7 @@ function LetterDetailView() {
     });
   };
 
-  const handleModifyCompleteButtonClick = id => {
+  const handleModifyCompleteButtonClick = async id => {
     const originalLetter = findLetter(id);
 
     if (originalLetter.content === modifiedContent) {
@@ -69,6 +69,9 @@ function LetterDetailView() {
     } else alert('💌 수정이 완료되었습니다.');
 
     dispatch(modifyLetter({id, modifiedContent}));
+
+    await letterApi.patch(`/letters/${id}`, {content: modifiedContent});
+
     setIsModifying(false);
   };
 
@@ -90,7 +93,6 @@ function LetterDetailView() {
 
   return (
     <>
-      <Header />
       <BackButton
         onClick={() => {
           navigate('/home');
@@ -100,7 +102,7 @@ function LetterDetailView() {
       </BackButton>
 
       {savedLetters
-        .filter(item => item.id === param.id)
+        ?.filter(item => item.id === param.id)
         .map(item => {
           const koreanName = changeToKoreanName(item.writedTo);
 
@@ -110,7 +112,10 @@ function LetterDetailView() {
               <MomongaOnBox src={sleepyMomonga}></MomongaOnBox>
               <DateTime>{item.createdAt}</DateTime>
               <ProfileBox>
-                <ProfileImg src={profileImg} />
+                <ProfileImg
+                  src={item.avatar ? item.avatar : profileImg}
+                  style={{borderRadius: '50%', border: '1px solid black'}}
+                />
                 <span style={{lineHeight: 'normal', marginTop: '5px'}}>{item.nickname}</span>
               </ProfileBox>
               <LetterContent>
@@ -128,7 +133,6 @@ function LetterDetailView() {
               </LetterContent>
               {item.userId === userIdInUserInfo.id ? (
                 <>
-                  {console.log('일치')}
                   {isModifying ? (
                     <ButtonsWrap>
                       <ModifyCompleteButton onClick={() => handleModifyCompleteButtonClick(item.id)}>
@@ -147,7 +151,7 @@ function LetterDetailView() {
                   )}
                 </>
               ) : (
-                console.log('안일치하니까 안보여줄거임')
+                <></>
               )}
             </StLetterDetailBox>
           );
@@ -168,7 +172,10 @@ const StLetterDetailBox = styled(StLetterSendingBox)`
 
 const ProfileImg = styled.img`
   width: 45px;
+  height: 45px;
   margin-right: 10px;
+  border-radius: 50%;
+  object-fit: cover;
 `;
 
 const ProfileBox = styled.div`

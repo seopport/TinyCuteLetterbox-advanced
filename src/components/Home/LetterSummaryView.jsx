@@ -4,16 +4,30 @@ import colors from 'shared/color';
 import 'shared/index.css';
 import {useNavigate} from 'react-router-dom';
 import EmptyLetterBoxMessage from './EmptyLetterBoxMessage';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {useEffect} from 'react';
+import letterApi from 'apis/letterApi';
+import {setLetter} from 'store/redux/modules/letters';
 
 function LetterSummaryView() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const {data} = await letterApi.get('/letters');
+        dispatch(setLetter(data));
+      } catch (error) {
+        alert('일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+        console.log(error);
+      }
+    };
+    loadData();
+  }, [dispatch]);
 
   const savedLetters = useSelector(state => state.letters.savedLetters);
-
-  const selectedCharacter = useSelector(state => {
-    return state.character.selectedCharacter;
-  });
+  const selectedCharacter = useSelector(state => state.character.selectedCharacter);
 
   const filteredLetters = savedLetters?.filter(item => item.writedTo === selectedCharacter);
 
@@ -21,6 +35,7 @@ function LetterSummaryView() {
     <>
       {filteredLetters.length === 0 && <EmptyLetterBoxMessage />}
       {filteredLetters?.map(item => {
+        console.log(item);
         return (
           <LetterSummaryBox key={item.id}>
             <ProfileImg src={item.avatar} />

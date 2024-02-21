@@ -49,7 +49,7 @@ const StLoginToggleButton = styled.div`
 
 const NavHeader = () => {
   const accessToken = useSelector(state => state.authSlice.accessToken);
-  console.log(accessToken, 'at navheadeer');
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

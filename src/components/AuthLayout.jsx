@@ -7,21 +7,6 @@ import NavHeader from './NavHeader';
 import {useDispatch, useSelector} from 'react-redux';
 import {updateUserInfo, updateUserToken} from 'store/redux/modules/authSlice';
 
-const LayoutWrap = styled.div`
-  width: 710px;
-  min-height: 961px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ddf2f9;
-  padding-bottom: 50px;
-`;
-const MainWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  background-color: #eef9fd;
-`;
-
 function AuthLayout() {
   console.log('AuthLayout 렌더링');
 
@@ -59,5 +44,20 @@ function AuthLayout() {
     </MainWrap>
   );
 }
+
+const LayoutWrap = styled.div`
+  width: 710px;
+  min-height: 961px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ddf2f9;
+  padding-bottom: 50px;
+`;
+const MainWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  background-color: #eef9fd;
+`;
 
 export default AuthLayout;

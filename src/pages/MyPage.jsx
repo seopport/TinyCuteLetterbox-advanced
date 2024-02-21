@@ -23,7 +23,6 @@ const MyPage = () => {
   const fileInput = useRef();
 
   const handleModifyButtonClick = () => {
-    console.log('닉네임 :', userInfo.nickname, '수정한닉 : ', modifiedNickname);
     setIsModifying(true);
     setModifiedNickname(userInfo.nickname);
   };
@@ -32,34 +31,36 @@ const MyPage = () => {
     //닉네임이 바뀌거나, 프로필 이미지가 바뀌면 수정완료
     // 닉네임과 프로필 이미지 모두 같으면 수정 안됨
     if (userInfo.nickname === modifiedNickname && userInfo.avatar === imageSrc) {
-      alert('수정사항없다');
+      alert('수정사항이 없습니다.');
       console.log(userInfo.avatar, imageSrc);
       return;
     }
+
+    const updateUserInfo = {avatar: imageSrc, nickname: modifiedNickname.replace(/\s/g, '')};
+
     // 수정하는 디스패치
     dispatch(modifyUserInfo({userId: userInfo.id, modifiedNickname, modifiedAvatar: imageSrc}));
 
-    const {data} = await letterApi.get(`/letters?userId=${userInfo.id}`);
-    const newLetters = data.map(item => {
-      if (data.userId === userInfo.id) {
-        return {...item, nickname: modifiedNickname, avatar: imageSrc};
-      } else return item;
-    });
+    // 편지의 닉네임 수정
+    // 일단 편지들 중에 userId가 같은 것만 받아오기
+    const {data: targetLetters} = await letterApi.get(`/letters?userId=${userInfo.id}`);
 
-    // 편지 수정하는거 안됨..
-    // letterApi.patch(`/letters?userId=${newLetters.userId}`, newLetters);
+    // targetLetters 배열의 아이디들만 가져와서 배열돌면서 patch
+    for (const letters of targetLetters) {
+      letterApi.patch(`/letters/${letters.id}`, updateUserInfo);
+    }
 
-    // 수정 서버 patch
-    const updateUserInfo = {avatar: `${imageSrc}`, nickname: modifiedNickname};
-    console.log('지금보내는 이미지주소', imageSrc);
-    const res = await loginApi.patch('/profile', updateUserInfo);
+    // 서버 수정 patch
+    const res = await loginApi.patch(`/profile`, updateUserInfo);
     alert(res.data.message);
-    console.log(res.data);
+
+    //로컬스토리지 수정
+    const storageUserInfo = JSON.parse(localStorage.getItem('storageUserInfo'));
+    const newUserInfo = {...storageUserInfo, nickname: modifiedNickname, avatar: imageSrc};
+    localStorage.setItem('storageUserInfo', JSON.stringify(newUserInfo));
 
     setIsModifying(false);
   };
-
-  console.log('업데이트한 userInfo', userInfo);
 
   const handleModifyCancelButtonClick = () => {
     nicknameInputValue.current.value = userInfo.nickname;
@@ -67,7 +68,6 @@ const MyPage = () => {
   };
 
   const handleNicknameInputChange = e => {
-    console.log(modifiedNickname);
     setModifiedNickname(e.target.value);
   };
 
@@ -76,7 +76,6 @@ const MyPage = () => {
 
     const imageUrl = URL.createObjectURL(e.target.files[0]);
     setImageSrc(imageUrl);
-    console.log(imageUrl, '여기는 크리에이트 오브젝ㅌ 어쩌고 한거');
   };
 
   const handleEditButtonClick = () => {
@@ -97,7 +96,6 @@ const MyPage = () => {
   return (
     <LoginContainer style={{padding: '30px 20px 15px 30px'}}>
       <StTitle>프로필 관리</StTitle>
-      {console.log(userInfo)}
       <StProfileContainer>
         {/* 이미지 */}
         <div style={{position: 'relative'}}>
@@ -119,6 +117,7 @@ const MyPage = () => {
               defaultValue={userInfo.nickname}
               style={{backgroundColor: 'white'}}
               readOnly={!isModifying}
+              maxLength={10}
             />
           </StInfoWrap>
         </div>

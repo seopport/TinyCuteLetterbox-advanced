@@ -3,29 +3,21 @@ import styled from 'styled-components';
 import color from 'shared/color';
 import 'shared/index.css';
 import meltingChiikawa from 'assets/image/melting_chiikawa.png';
-import profileImg from 'assets/image/default_profile_bear.png';
 import uuid from 'react-uuid';
 import {changeToKoreanName} from 'shared/changeToKoreanName';
 import {useDispatch, useSelector} from 'react-redux';
 import {sendLetter} from 'store/redux/modules/letters';
 import {changeCharacter} from 'store/redux/modules/character';
-import axios from 'axios';
 import letterApi from 'apis/letterApi';
 
 //#region
 function LetterSendingBox() {
-  useEffect(() => {}, []);
-  const selectedCharacter = useSelector(state => {
-    return state.character.selectedCharacter;
-  });
-
-  const userInfo = useSelector(state => state.authSlice.users);
-  console.log(userInfo);
   const dispatch = useDispatch();
-
   const letterInput = useRef();
-  const writerInput = useRef();
-  console.log(selectedCharacter);
+
+  const selectedCharacter = useSelector(state => state.character.selectedCharacter);
+  const userInfo = useSelector(state => state.authSlice.users);
+
   //옵션으로 선택한 캐릭터
   const handleSendButtonClick = async () => {
     const setDate = date => {
@@ -44,7 +36,6 @@ function LetterSendingBox() {
     //#endregion
     const letterContent = letterInput.current.value;
     const sendTo = selectedCharacter; //보낼 캐릭터
-    // const writer = writerInput.current.value; //작성자
 
     if (letterContent.trim() === '') {
       alert('편지 내용을 입력해주세요.');
@@ -52,11 +43,6 @@ function LetterSendingBox() {
       return;
     }
 
-    // if (writer.trim() === '') {
-    //   alert('작성자를 입력해주세요.');
-    //   writerInput.current.focus();
-    //   return;
-    // }
     const newLetter = {
       id: uuid(),
       writedTo: sendTo,
@@ -67,15 +53,19 @@ function LetterSendingBox() {
       userId: userInfo.id,
     };
 
-    dispatch(sendLetter(newLetter));
-
     const koreanName = changeToKoreanName(sendTo);
     alert(`💌 ${koreanName}에게 편지를 보냈어요.`);
 
+    try {
+      await letterApi.post('/letters', newLetter);
+      dispatch(sendLetter(newLetter));
+    } catch (error) {
+      alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      console.log(error);
+    }
+
     //폼 초기화
     letterInput.current.value = '';
-    // writerInput.current.value = '';
-    await letterApi.post('letters', newLetter);
   };
 
   const handleSelector = e => {
