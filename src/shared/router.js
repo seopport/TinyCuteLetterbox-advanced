@@ -7,9 +7,6 @@ import MyPage from 'pages/MyPage';
 import NonAuthLayout from 'components/NonAuthLayout';
 
 const Router = () => {
-  // 로그인하지 않아도 볼 수 있는 페이지 - AuthLayout
-  // 로그인 해야만 볼 수 잇는 페이지 - NonAuthLayout
-
   const accessToken = localStorage.getItem('accessToken');
 
   return (

@@ -7,7 +7,6 @@ import NavHeader from './NavHeader';
 import {useDispatch, useSelector} from 'react-redux';
 import {updateUserInfo} from 'store/redux/modules/authSlice';
 import {ModifyButton} from './Detail/ModifyButton';
-import {ModifyCancelButton} from './Detail/ModifyCancelButton';
 import {DeleteButton} from './Detail/DeleteButton';
 
 function AuthLayout() {
@@ -45,6 +44,7 @@ function AuthLayout() {
         avatar: null,
       }),
     );
+    setIsModalOpen(false);
     navigate('/login');
   };
 
@@ -55,7 +55,7 @@ function AuthLayout() {
         <StModalWrap $isModalOpen={isModalOpen}>
           <ModalContainer>
             <StModalText>로그아웃하시겠습니까?</StModalText>
-            <div style={{}}>
+            <div>
               <ModifyButton onClick={handleLogoutConfirmButtonClick}>확인</ModifyButton>
               <DeleteButton onClick={() => setIsModalOpen(false)}>취소</DeleteButton>
             </div>
@@ -89,20 +89,19 @@ const StModalText = styled.span`
 `;
 
 const ModalContainer = styled.div`
-  position: absolute;
   width: 350px;
   height: 180px;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
+  padding: 20px;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  border-radius: 10px;
   border: 1px solid black;
-  /* justify-content: center; */
-  padding: 20px;
 `;
 
 const LayoutWrap = styled.div`
@@ -118,7 +117,6 @@ const MainWrap = styled.div`
   display: flex;
   justify-content: center;
   background-color: #eef9fd;
-
   position: relative;
 `;
 
