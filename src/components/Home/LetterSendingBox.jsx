@@ -1,25 +1,25 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import color from 'shared/color';
 import 'shared/index.css';
 import meltingChiikawa from 'assets/image/melting_chiikawa.png';
 import uuid from 'react-uuid';
-import {changeToKoreanName} from 'shared/changeToKoreanName';
-import {useDispatch, useSelector} from 'react-redux';
-import {sendLetter} from 'store/redux/modules/letterSlice';
-import {changeCharacter} from 'store/redux/modules/characterSlice';
+import { changeToKoreanName } from 'shared/changeToKoreanName';
+import { useDispatch, useSelector } from 'react-redux';
+import { sendLetter } from 'store/redux/modules/letterSlice';
+import { changeCharacter } from 'store/redux/modules/characterSlice';
 import letterApi from 'apis/letterApi';
 
 function LetterSendingBox() {
   const dispatch = useDispatch();
   const letterInput = useRef();
 
-  const selectedCharacter = useSelector(state => state.character.selectedCharacter);
-  const userInfo = useSelector(state => state.authSlice.users);
+  const selectedCharacter = useSelector((state) => state.character.selectedCharacter);
+  const userInfo = useSelector((state) => state.authSlice.users);
 
   // 보내기 버튼 클릭
   const handleSendButtonClick = async () => {
-    const setDate = date => {
+    const setDate = (date) => {
       return date < 10 ? '0' + date : date.toString();
     };
 
@@ -68,7 +68,7 @@ function LetterSendingBox() {
     letterInput.current.value = '';
   };
 
-  const handleSelector = e => {
+  const handleSelector = (e) => {
     dispatch(changeCharacter(e.currentTarget.value));
   };
 
@@ -77,8 +77,8 @@ function LetterSendingBox() {
       <SendLetterText>편지 보내기</SendLetterText>
       <StLetterSendingBox>
         <ChiikawaOnBox src={meltingChiikawa}></ChiikawaOnBox>
-        <div style={{alignSelf: 'flex-start', position: 'relative'}}>
-          <span style={{position: 'absolute', bottom: '3px'}}>Dear.</span>{' '}
+        <div style={{ alignSelf: 'flex-start', position: 'relative' }}>
+          <span style={{ position: 'absolute', bottom: '3px' }}>Dear.</span>{' '}
           <SelectBox value={selectedCharacter} onChange={handleSelector}>
             <option value={'chiikawa'}>치이카와</option>
             <option value={'hachiware'}>하치와레</option>
@@ -88,12 +88,12 @@ function LetterSendingBox() {
         </div>
         <WriteLetterBox
           maxLength={200}
-          placeholder="최대 200자까지 입력할 수 있습니다."
+          placeholder='최대 200자까지 입력할 수 있습니다.'
           spellCheck={false}
           ref={letterInput}
         />
-        <div style={{alignSelf: 'flex-end'}}>
-          <span style={{fontSize: '14px'}}>From. {userInfo.nickname}</span>
+        <div style={{ alignSelf: 'flex-end' }}>
+          <span style={{ fontSize: '14px' }}>From. {userInfo.nickname}</span>
         </div>
         <SendLetterButton onClick={handleSendButtonClick}>보내기</SendLetterButton>
       </StLetterSendingBox>
