@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { BackButton } from 'components/Detail/BackButton';
 
 const MyPage = () => {
-  const userInfo = useSelector((state) => state.authSlice.users);
+  const userInfo = useSelector((state) => state.authSlice?.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
