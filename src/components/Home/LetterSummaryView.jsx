@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import colors from 'shared/color';
 import 'shared/index.css';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import EmptyLetterBoxMessage from './EmptyLetterBoxMessage';
-import {useDispatch, useSelector} from 'react-redux';
-import {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import letterApi from 'apis/letterApi';
-import {setLetter} from 'store/redux/modules/letterSlice';
+import { setLetter } from 'store/redux/modules/letterSlice';
 
 function LetterSummaryView() {
   const navigate = useNavigate();
@@ -15,8 +15,7 @@ function LetterSummaryView() {
   useEffect(() => {
     const loadLetters = async () => {
       try {
-        // 편지 작성 날짜 내림차순
-        const {data} = await letterApi.get('/letters?_sort=-createdAt');
+        const { data } = await letterApi.get('/letters?_sortcreatedAt');
         dispatch(setLetter(data));
       } catch (error) {
         alert('일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
@@ -26,28 +25,22 @@ function LetterSummaryView() {
     loadLetters();
   }, [dispatch]);
 
-  const savedLetters = useSelector(state => state.letters.savedLetters);
-  const selectedCharacter = useSelector(state => state.character.selectedCharacter);
+  const savedLetters = useSelector((state) => state.letters.savedLetters);
+  const selectedCharacter = useSelector((state) => state.character.selectedCharacter);
 
-  const filteredLetters = savedLetters?.filter(item => item.writedTo === selectedCharacter);
-
-  //최근에 작성할 수록 큰숫자
-  // const result = filteredLetters[0].createdAt > filteredLetters[1].createdAt;
-  // console.log(result);
-  // const newLetters = filteredLetters.sort((a, b) => a.createdAt > b.createdAt);
-  // console.log(newLetters);
+  const filteredLetters = savedLetters?.filter((item) => item.writedTo === selectedCharacter);
 
   return (
     <>
       {filteredLetters.length === 0 && <EmptyLetterBoxMessage />}
-      {filteredLetters?.map(item => {
+      {filteredLetters?.map((item) => {
         return (
           <LetterSummaryBox key={item.id}>
             <ProfileImg src={item.avatar} />
             <Line></Line>
             <div>
-              <div style={{display: 'flex'}}>
-                <span style={{fontSize: '15px'}}>{item.nickname}</span>
+              <div style={{ display: 'flex' }}>
+                <span style={{ fontSize: '15px' }}>{item.nickname}</span>
                 <Date>{item.createdAt.slice(0, 10)}</Date>
               </div>
               <Summary>{item.content}</Summary>
