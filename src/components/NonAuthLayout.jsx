@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 import ResetStyles from './ResetStyles';
-import {Outlet, useNavigate} from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 function NonAuthLayout() {
   const navigate = useNavigate();

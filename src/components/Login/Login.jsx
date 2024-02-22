@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {SelectCharacter} from 'components/Home/LetterBoxSelecter';
-import {AuthActionButton} from './AuthActionButton';
-import {useDispatch} from 'react-redux';
-import {updateUserInfo} from 'store/redux/modules/authSlice';
-import {useNavigate} from 'react-router-dom';
+import { SelectCharacter } from 'components/Home/LetterBoxSelecter';
+import { AuthActionButton } from './AuthActionButton';
+import { useDispatch } from 'react-redux';
+import { updateUserInfo } from 'store/redux/modules/authSlice';
+import { useNavigate } from 'react-router-dom';
 import loginApi from '../../apis/loginApi';
-import {LoginContainer} from './LoginContainer';
+import { LoginContainer } from './LoginContainer';
 import profileImg from 'assets/image/momongaProfile.jpg';
 
-const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
+const Login = ({ setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue }) => {
   const dispacth = useDispatch();
   const navigate = useNavigate();
 
@@ -31,12 +31,12 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
     setIsSignUpAcitve(true);
   };
 
-  const handleUserIdChange = e => {
+  const handleUserIdChange = (e) => {
     // e.target.value = e.target.value.replace(/[^A-Za-z0-9]/gi, '');
     setUserId(e.target.value);
   };
 
-  const handleUserPwChange = e => {
+  const handleUserPwChange = (e) => {
     setUserPw(e.target.value);
   };
 
@@ -45,11 +45,11 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
       return;
     }
 
-    const userInfo = {id: userId, password: userPw};
+    const userInfo = { id: userId, password: userPw };
 
     try {
       const response = await loginApi.post('/login', userInfo);
-      const {accessToken, nickname, avatar} = response.data;
+      const { accessToken, nickname, avatar } = response.data;
       alert('💌 로그인되었습니다. 홈으로 이동합니다.');
 
       const newUser = {
@@ -75,31 +75,31 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
 
   return (
     <LoginContainer>
-      <p style={{fontWeight: 'bold', fontSize: '20px', marginBottom: '40px'}}>로그인</p>
+      <p style={{ fontWeight: 'bold', fontSize: '20px', marginBottom: '40px' }}>로그인</p>
 
-      <form type="submit" style={{width: '100%'}}>
+      <form type='submit' style={{ width: '100%' }}>
         <StInputContainer>
           <StLoginInput
-            type="text"
+            type='text'
             value={userId}
             onChange={handleUserIdChange}
             maxLength={10}
-            placeholder="아이디(4~10글자)"
+            placeholder='아이디(4~10글자)'
           />
           {!isValidId && userId.length > 0 && <StMessage>4글자 이상 입력하세요.</StMessage>}
         </StInputContainer>
         <StInputContainer>
           <StLoginInput
-            type="password"
+            type='password'
             value={userPw}
             onChange={handleUserPwChange}
-            placeholder="비밀번호 (4~15글자)"
+            placeholder='비밀번호 (4~15글자)'
             maxLength={15}
           />
           {!isValidPw && userPw.length > 0 && <StMessage> 4글자 이상 입력하세요.</StMessage>}
         </StInputContainer>
       </form>
-      <AuthActionButton onClick={handleLoginButtonclick} $isValid={isValid} type="submit">
+      <AuthActionButton onClick={handleLoginButtonclick} $isValid={isValid} type='submit'>
         로그인
       </AuthActionButton>
       <DefaultButton onClick={handleSignButtonClick}> 회원가입 </DefaultButton>

@@ -9,7 +9,7 @@ function Header() {
     <div>
       <HeaderImage>
         <TopOfImage />
-        <Title src={headerTitle} alt="Title-image"></Title>
+        <Title src={headerTitle} alt='Title-image'></Title>
         <LetterBoxSpan>LetterBox</LetterBoxSpan>
       </HeaderImage>
     </div>

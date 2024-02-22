@@ -1,11 +1,11 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {NavLink, useNavigate} from 'react-router-dom';
-import {updateUserInfo} from 'store/redux/modules/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { updateUserInfo } from 'store/redux/modules/authSlice';
 import styled from 'styled-components';
 
-const NavHeader = ({setIsModalOpen}) => {
-  const accessToken = useSelector(state => state.authSlice.users?.accessToken);
+const NavHeader = ({ setIsModalOpen }) => {
+  const accessToken = useSelector((state) => state.authSlice.users?.accessToken);
 
   const navigate = useNavigate();
   const handleLoginStateButton = () => {
@@ -21,8 +21,8 @@ const NavHeader = ({setIsModalOpen}) => {
     <>
       <StNavHeaderContainer>
         <StNavLink to={'home'}>Home</StNavLink>
-        <div style={{marginLeft: 'auto', display: 'flex'}}>
-          <StNavLink to={'myPage'} style={{marginRight: '20px'}}>
+        <div style={{ marginLeft: 'auto', display: 'flex' }}>
+          <StNavLink to={'myPage'} style={{ marginRight: '20px' }}>
             MyPage
           </StNavLink>
           <StLoginToggleButton onClick={handleLoginStateButton}>Logout</StLoginToggleButton>

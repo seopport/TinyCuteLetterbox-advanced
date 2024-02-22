@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 import ResetStyles from './ResetStyles';
-import {Outlet, useNavigate} from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import NavHeader from './NavHeader';
-import {useDispatch, useSelector} from 'react-redux';
-import {updateUserInfo} from 'store/redux/modules/authSlice';
-import {ModifyButton} from './Detail/ModifyButton';
-import {DeleteButton} from './Detail/DeleteButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserInfo } from 'store/redux/modules/authSlice';
+import { ModifyButton } from './Detail/ModifyButton';
+import { DeleteButton } from './Detail/DeleteButton';
 
 function AuthLayout() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function AuthLayout() {
   const parsedUserInfo = JSON.parse(storageUserInfo);
   dispatch(updateUserInfo(parsedUserInfo));
 
-  const accessToken = useSelector(state => state.authSlice.users?.accessToken);
+  const accessToken = useSelector((state) => state.authSlice.users?.accessToken);
 
   useEffect(() => {
     if (!accessToken) {
@@ -42,7 +42,7 @@ function AuthLayout() {
         nickname: null,
         accessToken: null,
         avatar: null,
-      }),
+      })
     );
     setIsModalOpen(false);
     navigate('/login');
@@ -72,13 +72,13 @@ function AuthLayout() {
 }
 
 const StModalWrap = styled.div`
-  z-index: ${props => (props.$isModalOpen ? '10' : '-1')};
+  z-index: ${(props) => (props.$isModalOpen ? '10' : '-1')};
   width: 100%;
   min-height: 100vh;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.4);
   transition: all 0.3s;
-  opacity: ${props => (props.$isModalOpen ? '1' : '0')};
+  opacity: ${(props) => (props.$isModalOpen ? '1' : '0')};
 `;
 
 const StModalText = styled.span`

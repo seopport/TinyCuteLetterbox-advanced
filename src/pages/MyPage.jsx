@@ -1,18 +1,18 @@
-import {ModifyButton} from 'components/Detail/ModifyButton';
-import {ModifyCancelButton} from 'components/Detail/ModifyCancelButton';
-import {ModifyCompleteButton} from 'components/Detail/ModifyCompleteButton';
-import {LoginContainer} from 'components/Login/LoginContainer';
-import React, {useRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {modifyUserInfo} from 'store/redux/modules/authSlice';
+import { ModifyButton } from 'components/Detail/ModifyButton';
+import { ModifyCancelButton } from 'components/Detail/ModifyCancelButton';
+import { ModifyCompleteButton } from 'components/Detail/ModifyCompleteButton';
+import { LoginContainer } from 'components/Login/LoginContainer';
+import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { modifyUserInfo } from 'store/redux/modules/authSlice';
 import styled from 'styled-components';
 import loginApi from 'apis/loginApi';
 import letterApi from 'apis/letterApi';
-import {useNavigate} from 'react-router-dom';
-import {BackButton} from 'components/Detail/BackButton';
+import { useNavigate } from 'react-router-dom';
+import { BackButton } from 'components/Detail/BackButton';
 
 const MyPage = () => {
-  const userInfo = useSelector(state => state.authSlice.users);
+  const userInfo = useSelector((state) => state.authSlice.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,15 +40,15 @@ const MyPage = () => {
       return;
     }
 
-    const updateUserInfo = {avatar: imageSrc, nickname: modifiedNickname};
+    const updateUserInfo = { avatar: imageSrc, nickname: modifiedNickname };
 
     try {
       // 리덕스 수정
-      dispatch(modifyUserInfo({userId: userInfo.id, modifiedNickname, modifiedAvatar: imageSrc}));
+      dispatch(modifyUserInfo({ userId: userInfo.id, modifiedNickname, modifiedAvatar: imageSrc }));
 
       // json server 편지에 프로필 수정
       // 편지들 중에 userId가 같은 것만 받아오기
-      const {data: targetLetters} = await letterApi.get(`/letters?userId=${userInfo.id}`);
+      const { data: targetLetters } = await letterApi.get(`/letters?userId=${userInfo.id}`);
 
       // targetLetters 배열의 아이디들 배열돌면서 patch
       for (const letters of targetLetters) {
@@ -57,14 +57,14 @@ const MyPage = () => {
 
       // 서버 프로필 수정
       const res = await loginApi.patch('/profile', updateUserInfo, {
-        headers: {Authorization: `Bearer ${userInfo.accessToken}`},
+        headers: { Authorization: `Bearer ${userInfo.accessToken}` },
       });
 
       alert(res.data.message);
 
       //로컬스토리지 수정
       const storageUserInfo = JSON.parse(localStorage.getItem('storageUserInfo'));
-      const newUserInfo = {...storageUserInfo, nickname: modifiedNickname, avatar: imageSrc};
+      const newUserInfo = { ...storageUserInfo, nickname: modifiedNickname, avatar: imageSrc };
       localStorage.setItem('storageUserInfo', JSON.stringify(newUserInfo));
     } catch (error) {
       console.log('error', error);
@@ -79,11 +79,11 @@ const MyPage = () => {
     setIsModifying(false);
   };
 
-  const handleNicknameInputChange = e => {
+  const handleNicknameInputChange = (e) => {
     setModifiedNickname(e.target.value);
   };
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     encodeFileToBase64(e.target.files[0]);
 
     const imageUrl = URL.createObjectURL(e.target.files[0]);
@@ -94,10 +94,10 @@ const MyPage = () => {
     fileInput.current.click();
   };
 
-  const encodeFileToBase64 = fileBlob => {
+  const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       reader.onload = () => {
         setImageSrc64(reader.result);
         resolve();
@@ -108,18 +108,18 @@ const MyPage = () => {
   return (
     <>
       <BackButton onClick={() => navigate(-1)}>돌아가기</BackButton>
-      <LoginContainer style={{padding: '30px 20px 15px 30px', marginTop: '15px'}}>
+      <LoginContainer style={{ padding: '30px 20px 15px 30px', marginTop: '15px' }}>
         <StTitle>프로필 관리</StTitle>
         <StProfileContainer>
           {/* 이미지 */}
-          <div style={{position: 'relative'}}>
+          <div style={{ position: 'relative' }}>
             <StProfileImage src={!imageSrc64 ? imageSrc : imageSrc64} />
-            <input type="file" style={{display: 'none'}} onChange={handleInputChange} ref={fileInput}></input>
+            <input type='file' style={{ display: 'none' }} onChange={handleInputChange} ref={fileInput}></input>
             {isModifying && <StEditButton onClick={handleEditButtonClick}>edit</StEditButton>}
           </div>
           {/* 아이디 닉네임 */}
-          <div style={{margin: 'auto 0'}}>
-            <StInfoWrap style={{marginBottom: '20px'}}>
+          <div style={{ margin: 'auto 0' }}>
+            <StInfoWrap style={{ marginBottom: '20px' }}>
               <StSpan>아이디</StSpan>
               <StInfo>{userInfo.id}</StInfo>
             </StInfoWrap>
@@ -129,7 +129,7 @@ const MyPage = () => {
                 onChange={handleNicknameInputChange}
                 ref={nicknameInputValue}
                 defaultValue={userInfo.nickname}
-                style={{backgroundColor: 'white'}}
+                style={{ backgroundColor: 'white' }}
                 readOnly={!isModifying}
                 maxLength={10}
               />
@@ -137,7 +137,7 @@ const MyPage = () => {
           </div>
         </StProfileContainer>
         {/* 버튼 */}
-        <div style={{alignSelf: 'flex-end', margin: '3px 3px 0 0'}}>
+        <div style={{ alignSelf: 'flex-end', margin: '3px 3px 0 0' }}>
           {!isModifying ? (
             <ModifyButton onClick={handleModifyButtonClick}>수정</ModifyButton>
           ) : (

@@ -1,21 +1,21 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import colors from 'shared/color';
 import profileImg from 'assets/image/default_profile_bear.png';
 import sleepyMomonga from 'assets/image/sleepy_momonga.png';
 import flowerChiikawa from 'assets/image/chiikawa_w_flower.png';
-import {useNavigate, useParams} from 'react-router-dom';
-import {Date} from 'components/Home/LetterSummaryView';
-import {changeToKoreanName} from 'shared/changeToKoreanName';
-import {StLetterSendingBox} from 'components/Home/LetterSendingBox';
-import {useDispatch, useSelector} from 'react-redux';
-import {deleteLetter, modifyLetter} from 'store/redux/modules/letterSlice';
-import {ModifyCompleteButton} from './ModifyCompleteButton';
-import {ModifyCancelButton} from './ModifyCancelButton';
-import {ModifyButton} from './ModifyButton';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Date } from 'components/Home/LetterSummaryView';
+import { changeToKoreanName } from 'shared/changeToKoreanName';
+import { StLetterSendingBox } from 'components/Home/LetterSendingBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteLetter, modifyLetter } from 'store/redux/modules/letterSlice';
+import { ModifyCompleteButton } from './ModifyCompleteButton';
+import { ModifyCancelButton } from './ModifyCancelButton';
+import { ModifyButton } from './ModifyButton';
 import letterApi from 'apis/letterApi';
-import {BackButton} from './BackButton';
-import {DeleteButton} from './DeleteButton';
+import { BackButton } from './BackButton';
+import { DeleteButton } from './DeleteButton';
 
 function LetterDetailView() {
   const param = useParams();
@@ -26,8 +26,8 @@ function LetterDetailView() {
   const [modifiedContent, setmodifiedContent] = useState('');
   const [isModifying, setIsModifying] = useState(false);
 
-  const userInfo = useSelector(state => state.authSlice.users);
-  const savedLetters = useSelector(state => state.letters.savedLetters);
+  const userInfo = useSelector((state) => state.authSlice.users);
+  const savedLetters = useSelector((state) => state.letters.savedLetters);
 
   if (userInfo.accessToken === null) {
     alert('로그인 정보가 없습니다.');
@@ -35,7 +35,7 @@ function LetterDetailView() {
     return;
   }
 
-  const handleDeleteButtonClick = id => {
+  const handleDeleteButtonClick = (id) => {
     if (window.confirm('편지를 삭제하시겠습니까?')) {
       letterApi.delete(`/letters/${id}`);
       dispatch(deleteLetter(id));
@@ -45,11 +45,11 @@ function LetterDetailView() {
     return;
   };
 
-  const findLetter = id => {
-    return savedLetters.find(item => item.id === id);
+  const findLetter = (id) => {
+    return savedLetters.find((item) => item.id === id);
   };
 
-  const handleContentChange = e => {
+  const handleContentChange = (e) => {
     setmodifiedContent(e.target.value);
   };
 
@@ -59,7 +59,7 @@ function LetterDetailView() {
   };
 
   // 수정 완료 버튼
-  const handleModifyCompleteButtonClick = async id => {
+  const handleModifyCompleteButtonClick = async (id) => {
     const originalLetter = findLetter(id);
 
     if (originalLetter.content === modifiedContent) {
@@ -69,8 +69,8 @@ function LetterDetailView() {
     } else alert('💌 수정이 완료되었습니다.');
 
     try {
-      await letterApi.patch(`/letters/${id}`, {content: modifiedContent});
-      dispatch(modifyLetter({id, modifiedContent}));
+      await letterApi.patch(`/letters/${id}`, { content: modifiedContent });
+      dispatch(modifyLetter({ id, modifiedContent }));
     } catch (error) {
       console.log(error);
     }
@@ -79,14 +79,14 @@ function LetterDetailView() {
   };
 
   // 수정 취소 버튼
-  const handleModifyCancelButtonClick = id => {
+  const handleModifyCancelButtonClick = (id) => {
     const originalLetter = findLetter(id);
     // 변경 사항 있을시에만 컨펌메세지 출력
     if (originalLetter.content !== modifiedContent) {
       if (window.confirm('수정을 취소하시겠습니까?')) {
         setIsModifying(false);
 
-        const originalLetter = savedLetters.find(item => {
+        const originalLetter = savedLetters.find((item) => {
           return item.id === id;
         });
         contentArea.current.value = originalLetter.content;
@@ -107,8 +107,8 @@ function LetterDetailView() {
       </BackButton>
 
       {savedLetters
-        ?.filter(item => item.id === param.id)
-        .map(item => {
+        ?.filter((item) => item.id === param.id)
+        .map((item) => {
           const koreanName = changeToKoreanName(item.writedTo);
 
           return (
@@ -119,12 +119,12 @@ function LetterDetailView() {
               <ProfileBox>
                 <ProfileImg
                   src={item.avatar ? item.avatar : profileImg}
-                  style={{borderRadius: '50%', border: '1px solid black'}}
+                  style={{ borderRadius: '50%', border: '1px solid black' }}
                 />
-                <span style={{lineHeight: 'normal', marginTop: '5px'}}>{item.nickname}</span>
+                <span style={{ lineHeight: 'normal', marginTop: '5px' }}>{item.nickname}</span>
               </ProfileBox>
               <LetterContent>
-                <p style={{marginBottom: '10px', fontWeight: 'bold'}}>Dear. {koreanName}</p>
+                <p style={{ marginBottom: '10px', fontWeight: 'bold' }}>Dear. {koreanName}</p>
                 {/* 편지 내용 textarea ----------------------------------- */}
                 <LetterContentTextArea
                   $isModifying={isModifying}
@@ -232,10 +232,10 @@ const LetterContentTextArea = styled.textarea`
   background-color: transparent;
   border: none;
   resize: none;
-  outline: ${props => (props.$isModifying ? '1px solid black' : 'none')};
+  outline: ${(props) => (props.$isModifying ? '1px solid black' : 'none')};
   line-height: 18px;
   border-radius: 5px;
-  padding: ${props => (props.$isModifying ? '3px' : '0px')};
+  padding: ${(props) => (props.$isModifying ? '3px' : '0px')};
 `;
 //#endregion
 

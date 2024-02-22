@@ -1,20 +1,20 @@
 import Login from 'components/Login/Login';
 import SignUp from 'components/Login/SignUp';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 const LoginPage = () => {
   const [isSignUpAcitve, setIsSignUpAcitve] = useState(false);
   const [isValidId, setIsValidId] = useState(false);
   const [isValidPw, setIsValidPw] = useState(false);
 
-  const checkIdValue = idValue => {
+  const checkIdValue = (idValue) => {
     if (idValue.length >= 4) {
       setIsValidId(true);
     } else setIsValidId(false);
     return isValidId;
   };
 
-  const checkPwValue = pwValue => {
+  const checkPwValue = (pwValue) => {
     if (pwValue.length >= 4) {
       setIsValidPw(true);
     } else setIsValidPw(false);

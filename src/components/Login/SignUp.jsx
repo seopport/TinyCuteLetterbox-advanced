@@ -1,13 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {StLoginInput, DefaultButton, StMessage, StInputContainer} from './Login';
-import {AuthActionButton} from './AuthActionButton';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import {
+  StLoginInput,
+  DefaultButton,
+  StMessage,
+  StInputContainer,
+} from './Login';
+import { AuthActionButton } from './AuthActionButton';
+import { useDispatch, useSelector } from 'react-redux';
 import loginApi from '../../apis/loginApi';
-import {LoginContainer} from './LoginContainer';
+import { LoginContainer } from './LoginContainer';
 
 // 시간늠으면 고려 : 닉네임, 아이디 숫자만 입력 안되게
 
-const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwValue}) => {
+const Login = ({
+  setIsSignUpAcitve,
+  isValidId,
+  isValidPw,
+  checkIdValue,
+  checkPwValue,
+}) => {
   const [isValid, setIsValid] = useState(false);
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
@@ -27,15 +38,15 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
     setIsSignUpAcitve(false);
   };
 
-  const handleUserIdChange = e => {
+  const handleUserIdChange = (e) => {
     // e.target.value = e.target.value.replace(/[^A-Za-z0-9]/gi, '');
     setUserId(e.target.value);
   };
 
-  const handleUserPwChange = e => {
+  const handleUserPwChange = (e) => {
     setUserPw(e.target.value);
   };
-  const handleUserNicknameChange = e => {
+  const handleUserNicknameChange = (e) => {
     setUserNickname(e.target.value);
   };
 
@@ -65,39 +76,51 @@ const Login = ({setIsSignUpAcitve, isValidId, isValidPw, checkIdValue, checkPwVa
   return (
     <>
       <LoginContainer>
-        <p style={{fontWeight: 'bold', fontSize: '20px', marginBottom: '40px'}}>회원가입</p>
+        <p
+          style={{ fontWeight: 'bold', fontSize: '20px', marginBottom: '40px' }}
+        >
+          회원가입
+        </p>
 
-        <form style={{width: '100%'}}>
+        <form style={{ width: '100%' }}>
           <StInputContainer>
             <StLoginInput
-              type="text"
+              type='text'
               value={userId}
               onChange={handleUserIdChange}
-              placeholder="아이디 (4~10글자)"
+              placeholder='아이디 (4~10글자)'
               maxLength={10}
             />
-            {!isValidId && userId.length > 0 && <StMessage>4글자 이상 입력하세요.</StMessage>}
+            {!isValidId && userId.length > 0 && (
+              <StMessage>4글자 이상 입력하세요.</StMessage>
+            )}
           </StInputContainer>
           <StInputContainer>
             <StLoginInput
-              type="password"
+              type='password'
               value={userPw}
               onChange={handleUserPwChange}
-              placeholder="비밀번호 (4~15글자)"
+              placeholder='비밀번호 (4~15글자)'
               maxLength={15}
             />
-            {!isValidPw && userPw.length > 0 && <StMessage> 4글자 이상 입력하세요.</StMessage>}
+            {!isValidPw && userPw.length > 0 && (
+              <StMessage> 4글자 이상 입력하세요.</StMessage>
+            )}
           </StInputContainer>
           <StInputContainer>
             <StLoginInput
               value={userNickname}
               onChange={handleUserNicknameChange}
-              placeholder="닉네임 (1~10글자)"
+              placeholder='닉네임 (1~10글자)'
               maxLength={10}
             />
           </StInputContainer>
         </form>
-        <AuthActionButton onClick={handleSignUpButtonClick} $isValid={isValid} type="submit">
+        <AuthActionButton
+          onClick={handleSignUpButtonClick}
+          $isValid={isValid}
+          type='submit'
+        >
           {' '}
           회원가입{' '}
         </AuthActionButton>
